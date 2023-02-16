@@ -11,3 +11,6 @@
 /Server/ShantiTirttula.Server/.vs/ProjectEvaluation
 /Server/ShantiTirttula.Server/ShantiTirttula.Server.Dispatcher/bin/Debug/net6.0
 /Server/ShantiTirttula.Server/ShantiTirttula.Server.Dispatcher/obj
+/Server/ShantiTirttula.Server/packages
+/Server/ShantiTirttula.Server/ShantiTirttula.Simulator/bin/Debug
+/Server/ShantiTirttula.Server/ShantiTirttula.Simulator/obj/Debug
