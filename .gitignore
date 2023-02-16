@@ -8,3 +8,7 @@
 /Server/ShantiTirttula.Server/ShantiTirttula.Server.Api/bin/Debug/net6.0
 /Server/ShantiTirttula.Server/ShantiTirttula.Server.Api/obj
 /Server/ShantiTirttula.Server/ShantiTirttula.Server.Api/Properties/launchSettings.json
+/Server/ShantiTirttula.Server/.vs/ProjectEvaluation
+/Server/ShantiTirttula.Server/ShantiTirttula.Server.Dispatcher/bin/Debug/net6.0
+/Server/ShantiTirttula.Server/ShantiTirttula.Server.Dispatcher/obj
+/Server/ShantiTirttula.Server/ShantiTirttula.Server.Dispatcher/Controllers/TestController.cs
