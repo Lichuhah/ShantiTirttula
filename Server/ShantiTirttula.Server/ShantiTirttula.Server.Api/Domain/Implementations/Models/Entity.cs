@@ -2,8 +2,12 @@
 
 namespace ShantiTirttula.Server.Api.Domain.Implementations.Models
 {
+    /// <summary>
+    ///     <para>Базовый класс NHibernate</para>
+    ///     <see cref="EntityMapping{T}" />
+    /// </summary>
     public class Entity : IEntity
     {
-        public int Id { get; set; }
+        public virtual int Id { get; set; }
     }
 }

@@ -39,7 +39,7 @@ namespace ShantiTirttula.Server.Api
                 c.CustomSchemaIds(type => type.ToString());
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ShantiTirttula 1.0 alpha API", Version = "v1" });
                 var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-                c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
+                //c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
                 c.DocInclusionPredicate((_, apiDesc) =>
                 {
                     if (!apiDesc.TryGetMethodInfo(out MethodInfo methodInfo)) return false;
