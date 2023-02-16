@@ -1,0 +1,9 @@
+﻿################################################################################
+# Данный GITIGNORE-файл был автоматически создан Microsoft(R) Visual Studio.
+################################################################################
+
+/Server/ShantiTirttula.Server.Domain/.vs
+/Server/ShantiTirttula.Server.Domain/ShantiTirttula.Server.Api/obj
+/Server/ShantiTirttula.Server/.vs/ShantiTirttula.Server
+/Server/ShantiTirttula.Server/ShantiTirttula.Server.Api/bin/Debug/net6.0
+/Server/ShantiTirttula.Server/ShantiTirttula.Server.Api/obj
