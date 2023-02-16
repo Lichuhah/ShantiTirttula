@@ -16,5 +16,30 @@ namespace ShantiTirttula.Server.Api.Domain.Implementations.Managers
         {
             return Repository.All();
         }
+
+        public bool Delete(T entity)
+        {
+            return Repository.Delete(entity);
+        }
+
+        public bool Delete(IEnumerable<T> entities)
+        {
+            return Repository.Delete(entities);
+        }
+
+        public T Get(int id)
+        {
+            return Repository.Get(id);
+        }
+
+        public T Save(T entity)
+        {
+            return Repository.Save(entity);
+        }
+
+        public bool Save(IEnumerable<T> entities)
+        {
+            return Repository.Save(entities);
+        }
     }
 }
