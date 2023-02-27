@@ -1,4 +1,5 @@
-﻿using ShantiTirttula.Server.Api.Domain.Interfaces.Models;
+﻿using NHibernate;
+using ShantiTirttula.Server.Api.Domain.Interfaces.Models;
 
 namespace ShantiTirttula.Server.Api.Domain.Interfaces.Managers
 {

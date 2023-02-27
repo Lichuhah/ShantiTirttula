@@ -9,11 +9,17 @@ using MQTTnet.Extensions.ManagedClient;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ShantiTirttula.Simulator.Model;
+using System.Net.Http;
+using System.Text;
 
 namespace ShantiTirttula.Simulator
 {
     public partial class Form1 : Form
     {
+        string Login = "admin";
+        string Password = "admin";
+        string Mac = "111111111111";
+        string Key = string.Empty;
         public Form1()
         {
             InitializeComponent();
@@ -76,6 +82,27 @@ namespace ShantiTirttula.Simulator
                 Task.Delay(1000).GetAwaiter().GetResult();
             //}
 
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            this.txt_mac.Text = this.Mac;
+        }
+
+        private void btn_key_Click(object sender, EventArgs e)
+        {
+            HttpClient client = new HttpClient();
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "https://localhost:7125/api/key/get");
+            McLoginData data = new McLoginData
+            {
+                Login = this.Login,
+                Password = this.Password,
+                Mac = this.Mac
+            };
+            request.Content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
+            HttpResponseMessage response = client.SendAsync(request).Result;
+            this.Key = response.Content.ReadAsStringAsync().Result;
+            this.txt_key.Text = this.Key;
         }
     }
 }

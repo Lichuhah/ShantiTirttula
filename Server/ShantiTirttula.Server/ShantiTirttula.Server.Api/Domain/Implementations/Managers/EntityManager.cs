@@ -1,4 +1,5 @@
-﻿using ShantiTirttula.Server.Api.Domain.Interfaces.Managers;
+﻿using ShantiTirttula.Server.Api.Domain.Implementations.Repositories;
+using ShantiTirttula.Server.Api.Domain.Interfaces.Managers;
 using ShantiTirttula.Server.Api.Domain.Interfaces.Models;
 using ShantiTirttula.Server.Api.Domain.Interfaces.Repositories;
 
@@ -8,9 +9,9 @@ namespace ShantiTirttula.Server.Api.Domain.Implementations.Managers
     {
         protected readonly IEntityRepository<T> Repository;
 
-        public EntityManager(IEntityRepository<T> repository)
+        public EntityManager(NHibernate.ISession session)
         {
-            Repository = repository;
+            Repository = new EntityRepository<T>(session);
         }
         public IQueryable<T> All()
         {

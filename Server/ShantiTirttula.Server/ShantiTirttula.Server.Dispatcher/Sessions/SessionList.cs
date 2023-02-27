@@ -8,9 +8,11 @@ namespace ShantiTirttula.Server.Dispatcher.Sessions
     {
         public List<Session> Sessions;
         private static SessionList instance;
+        private string ApiUrl;
 
         private SessionList()
         {
+            ApiUrl = Environment.GetEnvironmentVariable("API_URL");
             if (Sessions == null)
                 Sessions = new List<Session>();
         }
@@ -41,7 +43,7 @@ namespace ShantiTirttula.Server.Dispatcher.Sessions
         public Session CreateSession(McData data)
         {
             HttpClient client = new HttpClient();
-            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "https://shantitest.somee.com/Dispatcher/token");
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, ApiUrl+"/Dispatcher/token");
             request.Content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
             HttpResponseMessage response = client.Send(request);
             string token = response.Content.ReadAsStringAsync().Result;

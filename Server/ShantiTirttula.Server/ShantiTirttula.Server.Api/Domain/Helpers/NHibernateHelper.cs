@@ -7,6 +7,8 @@ using NHibernate.Driver;
 using NHibernate.Mapping.ByCode;
 using ShantiTirttula.Server.Api.Domain.Enums;
 using ShantiTirttula.Server.Api.Domain.Implementations.Mappings;
+using ShantiTirttula.Server.Api.Domain.Implementations.Models;
+using ShantiTirttula.Server.Api.Domain.Interfaces.Models;
 using ISession = NHibernate.ISession;
 
 namespace ShantiTirttula.Server.Api.Domain.Helpers
@@ -30,7 +32,7 @@ namespace ShantiTirttula.Server.Api.Domain.Helpers
         private ISessionFactory GetNHibernateSessionFactory()
         {
             ModelMapper mapper = new();
-            mapper.AddMappings(typeof(EntityMapping).Assembly.ExportedTypes);
+            mapper.AddMappings(typeof(EntityMapping<Entity>).Assembly.ExportedTypes);
             HbmMapping domainMapping = mapper.CompileMappingForAllExplicitlyAddedEntities();
 
             Configuration configuration = new();
