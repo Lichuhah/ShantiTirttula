@@ -17,7 +17,7 @@
       "applicationUrl": "https://localhost:7266;http://localhost:5199",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "API_URL": "https://localhost:7125"
+        "API_URL": "https://localhost:7125/"
       }
     },
     "IIS Express": {

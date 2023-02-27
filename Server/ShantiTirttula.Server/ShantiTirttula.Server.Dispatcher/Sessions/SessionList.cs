@@ -7,9 +7,19 @@ namespace ShantiTirttula.Server.Dispatcher.Sessions
     public class SessionList
     {
         public List<Session> Sessions;
-        public SessionList()
+        private static SessionList instance;
+
+        private SessionList()
         {
-            if (Sessions == null) Sessions = new List<Session>();
+            if (Sessions == null)
+                Sessions = new List<Session>();
+        }
+
+        public static SessionList GetList()
+        {
+            if (instance == null)
+                instance = new SessionList();
+            return instance;
         }
         public Session GetSession(McData data)
         {

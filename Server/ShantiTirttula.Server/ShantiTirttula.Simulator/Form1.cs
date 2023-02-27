@@ -8,6 +8,7 @@ using MQTTnet.Client.Options;
 using MQTTnet.Extensions.ManagedClient;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ShantiTirttula.Simulator.Model;
 
 namespace ShantiTirttula.Simulator
 {
@@ -58,13 +59,22 @@ namespace ShantiTirttula.Simulator
             _mqttClient.StartAsync(options).GetAwaiter().GetResult();
 
             // Send a new message to the broker every second
-            while (true)
+            //while (true)
+            //{
+            Headers head = new Headers
             {
-                string json = JsonConvert.SerializeObject(new { message = "Heyo :)", sent = DateTimeOffset.UtcNow });
+                MAC = "test",
+            };
+            SendDataExample ex = new SendDataExample
+            {
+                SensorId = 1,
+                Value = 1
+            };
+                string json = JsonConvert.SerializeObject(new { Data = ex, Headers = head, sent = DateTimeOffset.UtcNow });
                 _mqttClient.PublishAsync("dev.to/topic/json", json);
 
                 Task.Delay(1000).GetAwaiter().GetResult();
-            }
+            //}
 
         }
     }
