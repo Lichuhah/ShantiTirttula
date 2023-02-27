@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ShantiTirttula.Server.Api.Controllers.Models;
 using ShantiTirttula.Server.Api.Domain.Helpers;
 using ShantiTirttula.Server.Api.Domain.Implementations.Managers;
@@ -16,6 +17,7 @@ namespace ShantiTirttula.Server.Api.Controllers
     public class KeyController : BaseController
     {
 
+        [AllowAnonymous]
         [HttpPost("get")]
         public string GetNewKey([FromBody] McLoginData data)
         {

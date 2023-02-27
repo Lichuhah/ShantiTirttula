@@ -8,7 +8,6 @@ namespace ShantiTirttula.Server.Api.Domain.Implementations.Mappings
 {
     public class EntityMapping<T> : ClassMapping<T> where T:Entity
     {
-        private string tableName; 
         public EntityMapping(string tableName)
         {
             if (!string.IsNullOrEmpty(tableName))

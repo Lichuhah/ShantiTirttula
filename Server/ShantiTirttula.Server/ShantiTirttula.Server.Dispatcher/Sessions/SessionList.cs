@@ -25,7 +25,7 @@ namespace ShantiTirttula.Server.Dispatcher.Sessions
         }
         public Session GetSession(McData data)
         {
-            Session session = Sessions.FirstOrDefault(x => x.Mc.MAC == data.MAC && x.Mc.Serial == data.Serial);
+            Session session = Sessions.FirstOrDefault(x => x.Mc.Mac == data.Mac && x.Mc.Key == data.Key);
             if (session != null)
             {
                 if (DateTime.UtcNow - session.CreateTime < TimeSpan.FromMinutes(15))
@@ -43,7 +43,7 @@ namespace ShantiTirttula.Server.Dispatcher.Sessions
         public Session CreateSession(McData data)
         {
             HttpClient client = new HttpClient();
-            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, ApiUrl+"/Dispatcher/token");
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, ApiUrl+"/api/auth/token");
             request.Content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
             HttpResponseMessage response = client.Send(request);
             string token = response.Content.ReadAsStringAsync().Result;
@@ -56,15 +56,15 @@ namespace ShantiTirttula.Server.Dispatcher.Sessions
                 Mc = data,
             };
 
-            request = new HttpRequestMessage(HttpMethod.Get, "https://shantitest.somee.com/trigger/get?serial=" + data.Serial);
-            response = client.Send(request);
-            string trs = response.Content.ReadAsStringAsync().Result;
-            try
-            {
-                List<DispatcherTrigger> triggers = JsonConvert.DeserializeObject<List<DispatcherTrigger>>(trs);
-                session.Triggers = triggers;
-            }
-            catch (Exception ex) { }
+            //request = new HttpRequestMessage(HttpMethod.Get, "https://shantitest.somee.com/trigger/get?serial=" + data.Serial);
+            //response = client.Send(request);
+            //string trs = response.Content.ReadAsStringAsync().Result;
+            //try
+            //{
+            //    List<DispatcherTrigger> triggers = JsonConvert.DeserializeObject<List<DispatcherTrigger>>(trs);
+            //    session.Triggers = triggers;
+            //}
+            //catch (Exception ex) { }
 
             Sessions.Add(session);
             return session;
@@ -73,7 +73,7 @@ namespace ShantiTirttula.Server.Dispatcher.Sessions
         public Session RefreshSession(Session oldsession)
         {
             HttpClient client = new HttpClient();
-            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "https://shantitest.somee.com/Dispatcher/token");
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, ApiUrl + "/api/auth/token");
             request.Content = new StringContent(JsonConvert.SerializeObject(oldsession.Mc), Encoding.UTF8, "application/json");
             HttpResponseMessage response = client.Send(request);
             string token = response.Content.ReadAsStringAsync().Result;
