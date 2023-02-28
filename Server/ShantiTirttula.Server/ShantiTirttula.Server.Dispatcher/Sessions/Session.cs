@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using ShantiTirttula.Server.Dispatcher.Http;
 using ShantiTirttula.Server.Dispatcher.Models;
 using System.Text;
 using System.Xml.Linq;
@@ -20,7 +21,7 @@ namespace ShantiTirttula.Server.Dispatcher.Sessions
             Triggers = new List<DispatcherTrigger>();
             Commands = new List<McCommand>();
         }
-        public void AddSensordData(List<McSensorData> data)
+        public void AddSensorsData(List<McSensorData> data)
         {
             this.SensorsData.Add(data);
             if (DateTime.UtcNow - LastSendTime > TimeSpan.FromSeconds(60))
@@ -47,18 +48,13 @@ namespace ShantiTirttula.Server.Dispatcher.Sessions
         }
 
         private bool SendAverageDataToServer(List<McSensorData> data)
-        {
-            HttpClient client = new HttpClient();
-            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "https://shantitest.somee.com/SensorData/send");
-            request.Headers.Add("Authorization", "Bearer " + this.Token);
-            request.Content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
-            this.LastSendTime = DateTime.UtcNow;
-            this.SensorsData.Clear();
+        {        
             try
             {
-                HttpResponseMessage response = client.Send(request);
-                string answer = response.Content.ReadAsStringAsync().Result;
+                string answer = HttpHelper.PostData("/api/sensor/data/post", JsonConvert.SerializeObject(data), this.Token);
                 Console.WriteLine(answer);
+                this.LastSendTime = DateTime.UtcNow;
+                this.SensorsData.Clear();
                 return true;
             }
             catch (Exception ex)

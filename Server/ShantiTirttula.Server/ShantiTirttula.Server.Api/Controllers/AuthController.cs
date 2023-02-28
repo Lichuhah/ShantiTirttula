@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using ShantiTirttula.Server.Api.Controllers.Models;
@@ -17,17 +18,22 @@ namespace ShantiTirttula.Server.Api.Controllers
     {
         [AllowAnonymous]
         [HttpPost("token")]
-        public string GetToken(DispatcherLoginData data)
+        public string GetToken([FromBody] DispatcherLoginData data)
         {
             IMcAuth auth = CheckLogin(data);
 
             DateTime now = DateTime.UtcNow;
 
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.SerialNumber, auth.Key)
+            };
+            HttpContext.User.Claims.Append(new Claim(ClaimTypes.SerialNumber, auth.Key));
             JwtSecurityToken jwt = new JwtSecurityToken(
                     issuer: JwtHelper.ISSUER,
                     audience: JwtHelper.AUDIENCE,
                     notBefore: now,
-                    claims: GetIdentity(auth).Claims,
+                    claims: claims,
                     signingCredentials: new SigningCredentials(JwtHelper.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
             var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
 
@@ -39,18 +45,6 @@ namespace ShantiTirttula.Server.Api.Controllers
             McAuthManager manager = new McAuthManager(Session);
             IMcAuth auth = manager.All().FirstOrDefault(x => x.Mac == data.Mac && x.Key == data.Key);
             return auth;
-        }
-
-        private ClaimsIdentity GetIdentity(IMcAuth auth)
-        {
-            var claims = new List<Claim>
-                {
-                    new Claim(ClaimsIdentity.DefaultNameClaimType, auth.Key)
-                };
-            ClaimsIdentity claimsIdentity =
-            new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType,
-                ClaimsIdentity.DefaultRoleClaimType);
-            return claimsIdentity;
         }
     }
 }

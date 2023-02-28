@@ -7,6 +7,6 @@ namespace ShantiTirttula.Server.Api.Domain.Implementations.Models
         public virtual string Mac { get; set; }
         public virtual string Key { get; set; }
         public virtual IUser User { get; set; }
-
+        public virtual IList<ISensor> Sensors { get; set; }
     }
 }

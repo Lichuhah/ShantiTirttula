@@ -5,5 +5,6 @@
         public string Mac { get; set; }
         public string Key { get; set; }
         public IUser User { get; set; }
+        public IList<ISensor> Sensors { get; set; }
     }
 }

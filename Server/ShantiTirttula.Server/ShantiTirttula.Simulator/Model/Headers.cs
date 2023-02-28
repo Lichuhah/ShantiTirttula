@@ -9,5 +9,6 @@ namespace ShantiTirttula.Simulator.Model
     internal class Headers
     {
         public string MAC { get; set; }
+        public string Key { get; set; }
     }
 }

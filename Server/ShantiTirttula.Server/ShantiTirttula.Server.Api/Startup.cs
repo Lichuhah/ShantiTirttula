@@ -37,7 +37,7 @@ namespace ShantiTirttula.Server.Api
 
             services.AddRouting(options => options.LowercaseUrls = true);
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-
+            services.AddAuthorization();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                     .AddJwtBearer(options =>
                     {
@@ -45,17 +45,15 @@ namespace ShantiTirttula.Server.Api
                         options.TokenValidationParameters = new TokenValidationParameters
                         {
                             // укзывает, будет ли валидироваться издатель при валидации токена
-                            ValidateIssuer = true,
+                            ValidateIssuer = false,
                             // строка, представляющая издателя
                             ValidIssuer = JwtHelper.ISSUER,
 
                             // будет ли валидироваться потребитель токена
-                            ValidateAudience = true,
+                            ValidateAudience = false,
                             // установка потребителя токена
                             ValidAudience = JwtHelper.AUDIENCE,
-                            // будет ли валидироваться время существования
-                            ValidateLifetime = true,
-
+                            ValidateLifetime = false,
                             // установка ключа безопасности
                             IssuerSigningKey = JwtHelper.GetSymmetricSecurityKey(),
                             // валидация ключа безопасности

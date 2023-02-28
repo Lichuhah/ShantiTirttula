@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using ShantiTirttula.Simulator.Model;
 using System.Net.Http;
 using System.Text;
+using System.Collections.Generic;
 
 namespace ShantiTirttula.Simulator
 {
@@ -19,7 +20,7 @@ namespace ShantiTirttula.Simulator
         string Login = "admin";
         string Password = "admin";
         string Mac = "111111111111";
-        string Key = string.Empty;
+        string Key = "1EXN43Q8U77PHU1M";
         public Form1()
         {
             InitializeComponent();
@@ -69,14 +70,17 @@ namespace ShantiTirttula.Simulator
             //{
             Headers head = new Headers
             {
-                MAC = "test",
+                MAC = this.Mac,
+                Key = this.Key
+                
             };
-            SendDataExample ex = new SendDataExample
+            List<SendDataExample> list = new List<SendDataExample>();
+            list.Add(new SendDataExample
             {
                 SensorId = 1,
                 Value = 1
-            };
-                string json = JsonConvert.SerializeObject(new { Data = ex, Headers = head, sent = DateTimeOffset.UtcNow });
+            });
+                string json = JsonConvert.SerializeObject(new { Data = list, Headers = head, sent = DateTimeOffset.UtcNow });
                 _mqttClient.PublishAsync("dev.to/topic/json", json);
 
                 Task.Delay(1000).GetAwaiter().GetResult();

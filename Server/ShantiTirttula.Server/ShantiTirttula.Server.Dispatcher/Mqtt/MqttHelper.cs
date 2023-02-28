@@ -15,8 +15,8 @@ namespace ShantiTirttula.Server.Dispatcher.Mqtt
         {
             var payload = context.ApplicationMessage?.Payload == null ? null : Encoding.UTF8.GetString(context.ApplicationMessage?.Payload);
             var message = JsonConvert.DeserializeObject<MqttMessage>(payload);
-            Session session = SessionList.GetList().GetSession(new McData { Mac = message.Headers.Mac });
-            var v = "v";
+            Session session = SessionList.GetList().GetSession(new McData { Mac = message.Headers.MAC, Key = message.Headers.Key });
+            session.AddSensorsData(message.Data);
         }
     }
 }

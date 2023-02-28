@@ -9,6 +9,5 @@ namespace ShantiTirttula.Server.Api.Domain.Implementations.Models
     public class Entity : IEntity
     {
         public virtual int Id { get; set; }
-        public virtual string Test { get; set; }
     }
 }
