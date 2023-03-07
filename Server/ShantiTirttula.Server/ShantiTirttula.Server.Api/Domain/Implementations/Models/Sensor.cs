@@ -4,8 +4,9 @@ namespace ShantiTirttula.Server.Api.Domain.Implementations.Models
 {
     public class Sensor : Entity, ISensor
     {
-        public virtual IMcAuth Auth {get;set;}
         public virtual int Number { get; set; }
         public virtual IList<ISensorData> SensorDatas { get; set; }
+        public virtual IController Controller { get; set; }
+        public virtual ISensorType Type { get; set ; }
     }
 }

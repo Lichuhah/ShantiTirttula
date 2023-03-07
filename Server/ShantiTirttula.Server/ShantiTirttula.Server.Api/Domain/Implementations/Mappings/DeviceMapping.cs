@@ -3,34 +3,38 @@ using ShantiTirttula.Server.Api.Domain.Implementations.Models;
 
 namespace ShantiTirttula.Server.Api.Domain.Implementations.Mappings
 {
-    public class SensorMapping : EntityMapping<Sensor>
+    public class DeviceMapping : EntityMapping<Device>
     {
-        public SensorMapping() : base("MC_SENSOR")
+        public DeviceMapping() : base("MC_DEVICE")
         {
-            Property(x => x.Number, map =>
+            Property(x => x.Pin, map =>
             {
-                map.Column("NUMBER");
-            }); 
+                map.Column("PIN");
+            });
+            Property(x => x.IsAnalog, map =>
+            {
+                map.Column("ANALOG");
+            });
             ManyToOne(x => x.Controller, map =>
             {
                 map.Column("CONTROLLER_ID");
                 map.Class(typeof(Controller));
                 map.Lazy(LazyRelation.Proxy);
-            });
+            }); 
             ManyToOne(x => x.Type, map =>
             {
                 map.Column("TYPE_ID");
-                map.Class(typeof(SensorType));
+                map.Class(typeof(DeviceType));
                 map.Lazy(LazyRelation.Proxy);
             });
-            Bag(x => x.SensorDatas, map =>
+            Bag(x => x.Logs, map =>
             {
                 map.Lazy(CollectionLazy.Lazy);
                 map.BatchSize(30);
                 map.Cascade(Cascade.All);
                 map.Inverse(true);
-                map.Key(key => { key.Column("SENSOR_ID"); });
-            }, action => { action.OneToMany(x => { x.Class(typeof(SensorData)); }); });
+                map.Key(key => { key.Column("DEVICE_ID"); });
+            }, action => { action.OneToMany(x => { x.Class(typeof(DeviceLog)); }); });
         }
     }
 }

@@ -10,7 +10,6 @@ using ShantiTirttula.Server.Api.Domain.Interfaces.Models;
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ShantiTirttula.Server.Api.Controllers
 {
@@ -52,7 +51,7 @@ namespace ShantiTirttula.Server.Api.Controllers
         private IMcAuth CheckLogin(DispatcherLoginData data)
         {
             McAuthManager manager = new McAuthManager(Session);
-            IMcAuth auth = manager.All().FirstOrDefault(x => x.Mac == data.Mac && x.Key == data.Key);
+            IMcAuth auth = manager.All().FirstOrDefault(x => x.Controller.Mac == data.Mac && x.Key == data.Key);
             return auth;
         }
     }

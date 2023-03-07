@@ -8,10 +8,6 @@ namespace ShantiTirttula.Server.Api.Domain.Implementations.Mappings
     {
         public McAuthMapping() : base("MC_AUTH")
         {
-            Property(x => x.Mac, map =>
-            {
-                map.Column("MAC");
-            });
             Property(x => x.Key, map =>
             {
                 map.Column("KEY");
@@ -22,6 +18,20 @@ namespace ShantiTirttula.Server.Api.Domain.Implementations.Mappings
                 map.Class(typeof(User));
                 map.Lazy(LazyRelation.Proxy);
             });
+            ManyToOne(x => x.Controller, map =>
+            {
+                map.Column("CONTROLLER_ID");
+                map.Class(typeof(Controller));
+                map.Lazy(LazyRelation.Proxy);
+            });
+            Bag(x => x.Triggers, map =>
+            {
+                map.Lazy(CollectionLazy.Lazy);
+                map.BatchSize(30);
+                map.Cascade(Cascade.All);
+                map.Inverse(true);
+                map.Key(key => { key.Column("AUTH_ID"); });
+            }, action => { action.OneToMany(x => { x.Class(typeof(Trigger)); }); });
         }    
     }
 }

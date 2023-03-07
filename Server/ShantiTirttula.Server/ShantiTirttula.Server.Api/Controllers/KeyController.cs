@@ -43,7 +43,6 @@ namespace ShantiTirttula.Server.Api.Controllers
             string newkey = GenerateNewKey(manager);
             McAuth auth = new McAuth
             {
-                Mac = data.Mac,
                 Key = newkey,
                 User = user
             };

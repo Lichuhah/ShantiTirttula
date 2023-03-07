@@ -2,10 +2,10 @@
 
 namespace ShantiTirttula.Server.Api.Domain.Implementations.Models
 {
-    public class SensorData : Entity, ISensorData
+    public class DeviceLog : Entity, IDeviceLog
     {
-        public virtual double Value { get; set; }
-        public virtual ISensor Sensor { get; set; }
         public virtual IMcAuth Auth { get; set; }
+        public virtual IDevice Device { get; set; }
+        public virtual float Value { get; set; }
     }
 }

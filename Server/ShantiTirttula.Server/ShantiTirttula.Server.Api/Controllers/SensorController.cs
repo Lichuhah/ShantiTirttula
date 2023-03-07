@@ -25,14 +25,13 @@ namespace ShantiTirttula.Server.Api.Controllers
             McAuthManager manager = new McAuthManager(Session);
             IMcAuth auth = manager.All().First(x => x.Key == serial);
             SensorManager manager2 = new SensorManager(Session);
-            var listData2 = manager2.All().Where(x => x.Auth.Id == auth.Id);
+            var listData2 = manager2.All().Where(x => x.Controller.Id == auth.Controller.Id);
             foreach (McSensorData data in listData)
             {
                 ISensor sensor = listData2.FirstOrDefault(x => x.Number == data.SensorId);
                 sensor.SensorDatas.Add(new SensorData
                 {
-                    Value = data.Value,
-                    DateTime = DateTime.UtcNow
+                    Value = data.Value
                 });
                 manager2.Save(sensor);
             }
