@@ -5,7 +5,7 @@ VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShantiTirttula.Server.Api", "ShantiTirttula.Server.Api\ShantiTirttula.Server.Api.csproj", "{4DD83AA9-9279-4AE1-881C-0B62E8712177}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShantiTirttula.Server.Dispatcher", "ShantiTirttula.Server.Dispatcher\ShantiTirttula.Server.Dispatcher.csproj", "{CBB79ADF-BFAE-4759-AE50-B623C8B28B16}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShantiTirttula.Server.Dispatcher", "ShantiTirttula.Server.Dispatcher\ShantiTirttula.Server.Dispatcher.csproj", "{CBB79ADF-BFAE-4759-AE50-B623C8B28B16}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShantiTirttula.Simulator", "ShantiTirttula.Simulator\ShantiTirttula.Simulator.csproj", "{551D5783-DEF6-4ED0-B2C1-51E334F2EB4B}"
 EndProject

@@ -26,7 +26,6 @@ namespace ShantiTirttula.Server.Api.Controllers
             IMcAuth auth = manager.All().First(x => x.Key == serial);
             SensorManager manager2 = new SensorManager(Session);
             var listData2 = manager2.All().Where(x => x.Auth.Id == auth.Id);
-            var listData3 = listData2.ToList();
             foreach (McSensorData data in listData)
             {
                 ISensor sensor = listData2.FirstOrDefault(x => x.Number == data.SensorId);
@@ -38,16 +37,7 @@ namespace ShantiTirttula.Server.Api.Controllers
                 manager2.Save(sensor);
             }
             return "aa";
-        }
-
-        [AllowAnonymous]
-        [HttpGet("test")]
-        public void aa()
-        {
-            SensorManager manager2 = new SensorManager(Session);
-            var list = manager2.All().ToList();
-            var c = "f";
-        }
+        }     
      
     }
 }

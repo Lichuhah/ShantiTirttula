@@ -27,7 +27,7 @@ namespace ShantiTirttula.Server.Api.Controllers
                 return AddNewKey(data, user);            
             } else
             {
-                return "Error";
+                return "Errr";
             }
 
         }

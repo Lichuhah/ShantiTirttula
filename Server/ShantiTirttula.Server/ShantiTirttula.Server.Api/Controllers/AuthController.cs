@@ -10,6 +10,7 @@ using ShantiTirttula.Server.Api.Domain.Interfaces.Models;
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ShantiTirttula.Server.Api.Controllers
 {
@@ -38,6 +39,14 @@ namespace ShantiTirttula.Server.Api.Controllers
             var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
 
             return encodedJwt;
+        }
+
+        [AllowAnonymous]
+        [HttpGet("test")]
+        public string Get()
+        {
+            UserManager manager = new UserManager(Session);
+            return manager.Get(1).Login;
         }
 
         private IMcAuth CheckLogin(DispatcherLoginData data)

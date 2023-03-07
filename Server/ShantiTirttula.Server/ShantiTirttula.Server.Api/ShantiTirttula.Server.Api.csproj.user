@@ -3,5 +3,7 @@
   <PropertyGroup>
     <Controller_SelectedScaffolderID>MvcControllerWithActionsScaffolder</Controller_SelectedScaffolderID>
     <Controller_SelectedScaffolderCategoryPath>root/Common/MVC/Controller</Controller_SelectedScaffolderCategoryPath>
+    <ActiveDebugProfile>Docker</ActiveDebugProfile>
+    <NameOfLastUsedPublishProfile>D:\ShantiTirttula\Server\ShantiTirttula.Server\ShantiTirttula.Server.Api\Properties\PublishProfiles\https___cr.yandex_crp7ego3li8g53jlltet.pubxml</NameOfLastUsedPublishProfile>
   </PropertyGroup>
 </Project>
