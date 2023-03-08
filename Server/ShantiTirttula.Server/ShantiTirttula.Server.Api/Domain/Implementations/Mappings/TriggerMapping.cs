@@ -36,7 +36,7 @@ namespace ShantiTirttula.Server.Api.Domain.Implementations.Mappings
             ManyToOne(x => x.Type, map =>
             {
                 map.Column("TYPE_ID");
-                map.Class(typeof(Type));
+                map.Class(typeof(TriggerType));
                 map.Lazy(LazyRelation.Proxy);
             });
         }

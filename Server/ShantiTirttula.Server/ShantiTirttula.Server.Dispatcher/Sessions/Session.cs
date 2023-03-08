@@ -24,9 +24,47 @@ namespace ShantiTirttula.Server.Dispatcher.Sessions
         public void AddSensorsData(List<McSensorData> data)
         {
             this.SensorsData.Add(data);
+            CheckTriggers(data);
             if (DateTime.UtcNow - LastSendTime > TimeSpan.FromSeconds(60))
             {
                 SendSensorData();
+            }
+        }
+
+        private void CheckTriggers(List<McSensorData> data)
+        {
+            Commands.Add(new McCommand
+            {
+                Pin = 1,
+                IsPwm = true,
+                Value = 1
+            });
+            //foreach (McSensorData sensor in data)
+            //{
+            //    List<DispatcherTrigger> triggers = Triggers.Where(x => x.SensorNumber == sensor.SensorId).ToList();
+            //    foreach (DispatcherTrigger trigger in triggers)
+            //    {
+            //        CreateCommand(sensor, trigger);
+            //    }
+            //}
+        }
+
+        private void CreateCommand(McSensorData sensor, DispatcherTrigger trigger)
+        {
+            bool isTrigger = false;
+            switch (trigger.Type)
+            {
+                case ETriggerType.More: isTrigger = sensor.Value > trigger.TriggerValue; break;
+                case ETriggerType.Less: isTrigger = sensor.Value > trigger.TriggerValue; break;
+            }
+            if (isTrigger)
+            {
+                Commands.Add(new McCommand
+                {
+                    Pin = trigger.Pin,
+                    IsPwm = trigger.IsPwm,
+                    Value = trigger.DeviceValue
+                });
             }
         }
 

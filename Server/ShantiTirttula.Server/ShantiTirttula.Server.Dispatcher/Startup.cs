@@ -9,6 +9,7 @@ using ShantiTirttula.Server.Dispatcher.Mqtt;
 using ShantiTirttula.Server.Dispatcher.Sessions;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
+using System;
 
 namespace ShantiTirttula.Server.Dispatcher
 {
@@ -32,21 +33,6 @@ namespace ShantiTirttula.Server.Dispatcher
 
         public void ConfigureServices(IServiceCollection services)
         {
-            MqttServerOptionsBuilder options = new MqttServerOptionsBuilder()
-                                     // set endpoint to localhost
-                                     .WithDefaultEndpoint()
-                                     // port used will be 707
-                                     .WithDefaultEndpointPort(707)
-                                     // handler for new connections
-                                     .WithConnectionValidator(OnNewConnection)
-                                     // handler for new messages
-                                     .WithApplicationMessageInterceptor(OnNewMessage);
-
-            // creates a new mqtt server     
-            IMqttServer mqttServer = new MqttFactory().CreateMqttServer();
-            // start the server with options  
-            mqttServer.StartAsync(options.Build()).GetAwaiter().GetResult();
-
             services.AddControllersWithViews().AddJsonOptions(options =>
             {
                 options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
@@ -55,7 +41,7 @@ namespace ShantiTirttula.Server.Dispatcher
 
             services.AddRouting(options => options.LowercaseUrls = true);
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-
+            ShantiMqttServer mqttServer = ShantiMqttServer.GetServer();
             services.AddSwaggerGen(c =>
             {
                 c.CustomSchemaIds(type => type.ToString());
@@ -73,14 +59,6 @@ namespace ShantiTirttula.Server.Dispatcher
             });
         }
 
-        public static void OnNewConnection(MqttConnectionValidatorContext context)
-        {
-            var A = 5;
-        }
 
-        public static void OnNewMessage(MqttApplicationMessageInterceptorContext context)
-        {
-            MqttHelper.NewMessage(context);
-        }
     }
 }

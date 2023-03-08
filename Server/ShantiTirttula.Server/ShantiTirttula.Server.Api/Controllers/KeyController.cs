@@ -40,11 +40,13 @@ namespace ShantiTirttula.Server.Api.Controllers
         private string AddNewKey(McLoginData data, IUser user)
         {
             McAuthManager manager = new McAuthManager(Session);
+            ControllerManager controllerManager = new ControllerManager(Session);
             string newkey = GenerateNewKey(manager);
-            McAuth auth = new McAuth
+            IMcAuth auth = new McAuth
             {
                 Key = newkey,
-                User = user
+                User = user,
+                Controller = controllerManager.All().First(x => x.Mac == data.Mac)
             };
             manager.Save(auth);
             return newkey;

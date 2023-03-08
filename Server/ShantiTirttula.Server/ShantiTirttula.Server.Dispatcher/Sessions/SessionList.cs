@@ -56,15 +56,15 @@ namespace ShantiTirttula.Server.Dispatcher.Sessions
                 Mc = data,
             };
 
-            //request = new HttpRequestMessage(HttpMethod.Get, "https://shantitest.somee.com/trigger/get?serial=" + data.Serial);
-            //response = client.Send(request);
-            //string trs = response.Content.ReadAsStringAsync().Result;
-            //try
-            //{
-            //    List<DispatcherTrigger> triggers = JsonConvert.DeserializeObject<List<DispatcherTrigger>>(trs);
-            //    session.Triggers = triggers;
-            //}
-            //catch (Exception ex) { }
+            request = new HttpRequestMessage(HttpMethod.Get, ApiUrl + "/api/trigger/list");
+            response = client.Send(request);
+            string trs = response.Content.ReadAsStringAsync().Result;
+            try
+            {
+                List<DispatcherTrigger> triggers = JsonConvert.DeserializeObject<List<DispatcherTrigger>>(trs);
+                session.Triggers = triggers;
+            }
+            catch (Exception ex) { }
 
             Sessions.Add(session);
             return session;
