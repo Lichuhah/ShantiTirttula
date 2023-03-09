@@ -2,7 +2,7 @@
 {
     public class MqttHeader
     {
-        public string MAC { get; set; }
+        public string Mac { get; set; }
         public string Key { get; set; }
     }
 }

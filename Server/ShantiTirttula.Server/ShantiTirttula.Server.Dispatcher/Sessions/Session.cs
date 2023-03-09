@@ -19,7 +19,7 @@ namespace ShantiTirttula.Server.Dispatcher.Sessions
         {
             SensorsData = new List<List<McSensorData>>();
             Triggers = new List<DispatcherTrigger>();
-            Commands = new List<McCommand>();
+            Commands = new List<McCommand>();          
         }
         public void AddSensorsData(List<McSensorData> data)
         {
@@ -33,20 +33,14 @@ namespace ShantiTirttula.Server.Dispatcher.Sessions
 
         private void CheckTriggers(List<McSensorData> data)
         {
-            Commands.Add(new McCommand
+            foreach (McSensorData sensor in data)
             {
-                Pin = 1,
-                IsPwm = true,
-                Value = 1
-            });
-            //foreach (McSensorData sensor in data)
-            //{
-            //    List<DispatcherTrigger> triggers = Triggers.Where(x => x.SensorNumber == sensor.SensorId).ToList();
-            //    foreach (DispatcherTrigger trigger in triggers)
-            //    {
-            //        CreateCommand(sensor, trigger);
-            //    }
-            //}
+                List<DispatcherTrigger> triggers = Triggers.Where(x => x.SensorNumber == sensor.SensorId).ToList();
+                foreach (DispatcherTrigger trigger in triggers)
+                {
+                    CreateCommand(sensor, trigger);
+                }
+            }
         }
 
         private void CreateCommand(McSensorData sensor, DispatcherTrigger trigger)
@@ -55,7 +49,7 @@ namespace ShantiTirttula.Server.Dispatcher.Sessions
             switch (trigger.Type)
             {
                 case ETriggerType.More: isTrigger = sensor.Value > trigger.TriggerValue; break;
-                case ETriggerType.Less: isTrigger = sensor.Value > trigger.TriggerValue; break;
+                case ETriggerType.Less: isTrigger = sensor.Value < trigger.TriggerValue; break;
             }
             if (isTrigger)
             {
@@ -66,6 +60,17 @@ namespace ShantiTirttula.Server.Dispatcher.Sessions
                     Value = trigger.DeviceValue
                 });
             }
+        }
+
+        public void LoadTriggers()
+        {
+            string answer = HttpHelper.GetData("/api/trigger/list", this.Token);
+            try
+            {
+                List<DispatcherTrigger> triggers = JsonConvert.DeserializeObject<List<DispatcherTrigger>>(answer);
+                Triggers = triggers;
+            }
+            catch (Exception ex) { }
         }
 
         public void SendSensorData()

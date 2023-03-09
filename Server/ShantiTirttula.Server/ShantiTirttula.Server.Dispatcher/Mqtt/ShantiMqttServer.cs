@@ -33,7 +33,7 @@ namespace ShantiTirttula.Server.Dispatcher.Mqtt
         /// <summary>
         /// The port.
         /// </summary>
-        private int port = 773;
+        private int port = 707;
         private ShantiMqttServer()
         {
             CreateServer();
@@ -48,14 +48,18 @@ namespace ShantiTirttula.Server.Dispatcher.Mqtt
                 return;
             }
 
-            var options = new MqttServerOptions();
-            options.DefaultEndpointOptions.Port = port;
-            options.EnablePersistentSessions = true;
+            var options = new MqttServerOptionsBuilder()
+                                    // set endpoint to localhost
+                                    .WithDefaultEndpoint()
+                                    // port used will be 707
+                                    .WithDefaultEndpointPort(port)
+                                    .Build();
+            //options.EnablePersistentSessions = true;
             this.mqttServer = new MqttFactory().CreateMqttServer(options);
 
             try
             {
-                this.mqttServer.StartAsync();
+                this.mqttServer.StartAsync().GetAwaiter().GetResult();
             }
             catch (Exception ex)
             {
@@ -63,10 +67,11 @@ namespace ShantiTirttula.Server.Dispatcher.Mqtt
                 this.mqttServer = null;
             }
         }
+
         public void CreateSubscriber()
         {
             var options = new ManagedMqttClientOptionsBuilder().WithAutoReconnectDelay(TimeSpan.FromSeconds(5))
-           .WithClientOptions(new MqttClientOptionsBuilder().WithClientId("DispacherSubscriber").WithTcpServer("localhost", port).WithTls().Build()).Build();
+           .WithClientOptions(new MqttClientOptionsBuilder().WithClientId("DispatcherSubscriber").WithTcpServer("localhost", port).Build()).Build();
 
             this.managedMqttClientSubscriber = new MqttFactory().CreateManagedMqttClient();
             this.managedMqttClientSubscriber.ApplicationMessageReceivedAsync += this.HandleReceivedApplicationMessage;
@@ -75,23 +80,18 @@ namespace ShantiTirttula.Server.Dispatcher.Mqtt
             this.managedMqttClientSubscriber.StartAsync(options);
         }
 
-        /// <summary>
-        /// Handles the publisher connected event.
-        /// </summary>
-        private static Task OnPublisherConnected(MqttClientConnectedEventArgs _)
-        {
+        private static Task OnPublisherConnected(MqttClientConnectedEventArgs con)
+        {      
             return Task.CompletedTask;
         }
 
-        /// <summary>
-        /// Handles the publisher disconnected event.
-        /// </summary>
         private static Task OnPublisherDisconnected(MqttClientDisconnectedEventArgs _)
         {
             return Task.CompletedTask;
         }
         private Task HandleReceivedApplicationMessage(MqttApplicationMessageReceivedEventArgs eventArgs)
         {
+            MqttHelper.NewMessage(eventArgs.ApplicationMessage);
             return Task.CompletedTask;
         }
 
@@ -110,7 +110,7 @@ namespace ShantiTirttula.Server.Dispatcher.Mqtt
             var options = new MqttClientOptions
             {
                 ClientId = "DispatcherPublisher",
-                ProtocolVersion = MqttProtocolVersion.V311,
+                ProtocolVersion = MqttProtocolVersion.V500,
                 ChannelOptions = new MqttClientTcpOptions
                 {
                     Server = "localhost",
@@ -139,14 +139,12 @@ namespace ShantiTirttula.Server.Dispatcher.Mqtt
                 });
         }
 
-        public void SendMessage()
+        public void SendMessage(string topic, string payload)
         {
             try
             {
-                var payload = Encoding.UTF8.GetBytes("message from disp publisher");
-
                 var message = new MqttApplicationMessageBuilder()
-                    .WithTopic("test").WithPayload(payload).WithQualityOfServiceLevel(MqttQualityOfServiceLevel.AtLeastOnce).WithRetainFlag().Build();
+                    .WithTopic(topic).WithPayload(payload).Build();
 
                 if (this.managedMqttClientPublisher != null)
                 {

@@ -66,6 +66,7 @@ namespace ShantiTirttula.Server.Dispatcher.Sessions
             }
             catch (Exception ex) { }
 
+            session.LoadTriggers();
             Sessions.Add(session);
             return session;
         }
@@ -90,6 +91,7 @@ namespace ShantiTirttula.Server.Dispatcher.Sessions
                 Commands = oldsession.Commands
             };
 
+            session.LoadTriggers();
             Sessions.Add(session);
             return session;
         }
