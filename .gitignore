@@ -18,3 +18,6 @@
 /Server/ShantiTirttula.Server/ShantiTirttula.Server.Api/bin/Release/net7.0
 /Server/ShantiTirttula.Server/ShantiTirttula.Server.Api/deployscript.sh
 /Server/ShantiTirttula.Server/ShantiTirttula.Simulator/obj/Release
+/Server/ShantiTirttula.Server/ShantiTirttula.Server.Dispatcher/bin/Debug/net7.0
+/create_vm_string.sh
+/Server/ShantiTirttula.Server/ShantiTirttula.Server.Dispatcher/Properties/PublishProfiles/yc_disp_publish.pubxml.user
