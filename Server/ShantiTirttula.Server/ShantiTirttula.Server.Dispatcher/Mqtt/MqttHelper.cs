@@ -15,13 +15,21 @@ namespace ShantiTirttula.Server.Dispatcher.Mqtt
         public static void NewMessage(MqttApplicationMessage context)
         {
             var payload = context?.Payload == null ? null : Encoding.UTF8.GetString(context?.Payload);
-            var message = JsonConvert.DeserializeObject<MqttMessage>(payload);
-            Session session = SessionList.GetList().GetSession(new McData { Mac = message.Headers.Mac, Key = message.Headers.Key });
-            session.AddSensorsData(message.Data);
-            if (session.Commands.Any())
+            ShantiMqttServer mqttServer = ShantiMqttServer.GetServer();
+            mqttServer.SendMessage("test", "hello,\n i got" + payload);
+            try
             {
-                SendCommand(session);
-                session.Commands.Clear();
+                var message = JsonConvert.DeserializeObject<MqttMessage>(payload);
+                Session session = SessionList.GetList().GetSession(new McData { Mac = message.Headers.Mac, Key = message.Headers.Key });
+                session.AddSensorsData(message.Data);
+                if (session.Commands.Any())
+                {
+                    SendCommand(session);
+                    session.Commands.Clear();
+                }
+            } catch (Exception ex)
+            {
+                mqttServer.SendMessage("test", ex.Message);
             }
         }
 
