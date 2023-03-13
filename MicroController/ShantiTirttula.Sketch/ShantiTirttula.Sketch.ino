@@ -1,6 +1,5 @@
 #include <ESP8266WiFi.h>   
 
-
 bool IsWiFiConnect = false;
 bool IsMqttConnect = false;
 int sensors[1] = {1};
@@ -12,6 +11,7 @@ void setup() {
   delay(1000);
   Serial.begin(115200);
   pinMode(A0, INPUT);
+  pinMode(5, OUTPUT);
   Serial.println("Start 1-WIFI");
   //Запускаем WIFI
   IsWiFiConnect = WIFIinit();

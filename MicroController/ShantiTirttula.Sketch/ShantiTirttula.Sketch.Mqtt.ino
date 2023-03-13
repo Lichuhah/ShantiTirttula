@@ -10,6 +10,7 @@ bool MQTTinit(){
   if (client.connect("ESP8266"))
     {
       client.subscribe("answer");
+      client.subscribe(key.c_str());
       Serial.println("connected");
       return true;
     }
@@ -26,6 +27,7 @@ void reconnect() {
    if (client.connect("ESP8266"))
     {
       client.subscribe("answer");
+      client.subscribe(key.c_str());
       Serial.println("connected");
     }
     else
@@ -52,5 +54,6 @@ void callback(char* topic, byte* payload, unsigned int length) {
   for (int i=0;i<length;i++) {
     Serial.print((char)payload[i]);
   }
+  ExecuteCommands(String((char *)payload));
   Serial.println();
 }
