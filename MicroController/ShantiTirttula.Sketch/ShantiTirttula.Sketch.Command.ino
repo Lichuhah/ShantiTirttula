@@ -1,7 +1,8 @@
 #include <ArduinoJson.h>
 
+StaticJsonDocument<200> doc;
+
 void ExecuteCommands(String command){
-  StaticJsonDocument<200> doc;
   DeserializationError error = deserializeJson(doc, command);
 
   // Test if parsing succeeds.
@@ -15,9 +16,7 @@ void ExecuteCommands(String command){
       int pin = repo["Pin"].as<int>();
       int value = repo["Value"].as<int>();
       bool isPWM = repo["IsPwm"].as<bool>();
-      Serial.println(isPWM);
-      Serial.println(value);
-      Serial.println(pin);
+      
       if(isPWM){
         analogWrite(pin, value);
       } else {

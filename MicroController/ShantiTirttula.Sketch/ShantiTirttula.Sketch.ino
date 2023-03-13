@@ -4,22 +4,27 @@ bool IsWiFiConnect = false;
 bool IsMqttConnect = false;
 int sensors[1] = {1};
 int sensorValues[1] = {0};
-String key = "F0YVLRB7M091IJGX";
-String mac = "111111111111";
+String key;
+String mac;
+String wifi_ssid     = ""; // Для хранения SSID
+String wifi_password = ""; // Для хранения пароля сети
 
 void setup() {
   delay(1000);
   Serial.begin(115200);
+  mac = WiFi.macAddress();
   pinMode(A0, INPUT);
   pinMode(5, OUTPUT);
-  Serial.println("Start 1-WIFI");
+  //Serial.println("Start 1-WIFI");
   //Запускаем WIFI
+  LoadConfig();
   IsWiFiConnect = WIFIinit();
-  IsMqttConnect = MQTTinit();
+  //IsMqttConnect = MQTTinit();
 }
 
 void loop() {
-  if(IsWiFiConnect){
+  ReadSerial();
+  if(IsWiFiConnect && IsMqttConnect){
     ReadData(A0);
     SendData(sensors, sensorValues);
   }

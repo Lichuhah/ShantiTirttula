@@ -4,6 +4,6 @@ void ReadData(int outPin){
 
 int ReadSensorByPin(int pin){
   int value = analogRead(pin);
-  Serial.println(value);
+  //Serial.println(value);
   return value;
 }

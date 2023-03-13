@@ -28,12 +28,12 @@ void reconnect() {
     {
       client.subscribe("answer");
       client.subscribe(key.c_str());
-      Serial.println("connected");
+      //Serial.println("connected");
     }
     else
     {
-      Serial.print("failed with state ");
-      Serial.println(client.state());
+      //Serial.print("failed with state ");
+      //Serial.println(client.state());
     }
   }
 }
@@ -48,12 +48,12 @@ bool SendData(int sensors[], int values[]){
 }
 
 void callback(char* topic, byte* payload, unsigned int length) {
-  Serial.print("Message arrived [");
-  Serial.print(topic);
-  Serial.print("] ");
+  //Serial.print("Message arrived [");
+  //Serial.print(topic);
+  //Serial.print("] ");
   for (int i=0;i<length;i++) {
-    Serial.print((char)payload[i]);
+    //Serial.print((char)payload[i]);
   }
   ExecuteCommands(String((char *)payload));
-  Serial.println();
+  //Serial.println();
 }

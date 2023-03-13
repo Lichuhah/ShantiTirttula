@@ -34,3 +34,14 @@ String GetMqttMessage(int sensors[], int values[]){
   Serial.println(json);
   return json;
 }
+
+String GetWifiConfigJson(){
+  doc["ssid"]=wifi_ssid;
+  doc["password"]=wifi_password;
+  doc["isconnect"]=IsWiFiConnect;
+  doc["mac"]=mac;
+  String jsonConfig; 
+  serializeJson(doc, jsonConfig);
+  doc.clear();
+  return jsonConfig;
+}
