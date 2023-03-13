@@ -1,9 +1,12 @@
-#include <ESP8266WiFi.h>      
+#include <ESP8266WiFi.h>   
+
 
 bool IsWiFiConnect = false;
 bool IsMqttConnect = false;
 int sensors[1] = {1};
 int sensorValues[1] = {0};
+String key = "F0YVLRB7M091IJGX";
+String mac = "111111111111";
 
 void setup() {
   delay(1000);
@@ -18,7 +21,7 @@ void setup() {
 void loop() {
   if(IsWiFiConnect){
     ReadData(A0);
-    Serial.println(GetSensorJson(sensors, sensorValues));
+    SendData(sensors, sensorValues);
   }
   delay(1000);
 }

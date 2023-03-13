@@ -29,8 +29,12 @@ namespace ShantiTirttula.Server.Api.Controllers
             foreach (McSensorData data in listData)
             {
                 ISensor sensor = listData2.FirstOrDefault(x => x.Number == data.SensorId);
-                sensor.SensorDatas.Add(new SensorData
+                SensorDataManager sensorDataManager = new SensorDataManager(Session);
+                sensorDataManager.Save(new SensorData
                 {
+                    Id = 0,
+                    Sensor = sensor,
+                    Auth = auth,
                     Value = data.Value
                 });
                 manager2.Save(sensor);

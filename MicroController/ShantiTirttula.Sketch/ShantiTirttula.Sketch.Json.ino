@@ -13,3 +13,24 @@ String GetSensorJson(int sensors[], int values[]){
   json += "]";
   return json;
 }
+
+String GetHeadersJson(){
+  String json = "{";
+  json += "\"Mac\":\"";
+  json += mac;
+  json += "\",\"Key\":\"";
+  json += key;
+  json += "\"}";
+  return json;
+}
+
+String GetMqttMessage(int sensors[], int values[]){
+  String json = "{";
+  json += "\"Headers\":";
+  json += GetHeadersJson();
+  json += ",\"Data\":";
+  json += GetSensorJson(sensors, values);
+  json += "}";
+  Serial.println(json);
+  return json;
+}
