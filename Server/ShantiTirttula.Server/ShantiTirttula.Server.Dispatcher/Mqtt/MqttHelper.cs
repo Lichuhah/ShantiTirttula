@@ -16,7 +16,7 @@ namespace ShantiTirttula.Server.Dispatcher.Mqtt
         {
             var payload = context?.Payload == null ? null : Encoding.UTF8.GetString(context?.Payload);
             ShantiMqttServer mqttServer = ShantiMqttServer.GetServer();
-            mqttServer.SendMessage("test", "hello,\n i got" + payload);
+            mqttServer.SendMessage("answer", "hello,\n i got" + payload);
             try
             {
                 var message = JsonConvert.DeserializeObject<MqttMessage>(payload);
@@ -29,7 +29,7 @@ namespace ShantiTirttula.Server.Dispatcher.Mqtt
                 }
             } catch (Exception ex)
             {
-                mqttServer.SendMessage("test", ex.Message);
+                mqttServer.SendMessage("answer", ex.Message);
             }
         }
 
