@@ -22,3 +22,27 @@
 /create_vm_string.sh
 /Server/ShantiTirttula.Server/ShantiTirttula.Server.Dispatcher/Properties/PublishProfiles/yc_disp_publish.pubxml.user
 /Desktop/build-Desktop-Desktop_Qt_6_2_4_MinGW_64_bit-Debug
+
+
+# dependencies
+/Web/ShantiTirttula.Site/node_modules
+/Web/ShantiTirttula.Site/.pnp
+/Web/ShantiTirttula.Site.pnp.js
+
+# testing
+/Web/ShantiTirttula.Site/coverage
+
+# production
+/Web/ShantiTirttula.Site/build
+/Web/ShantiTirttula.Site/src/themes/generated
+
+# misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
