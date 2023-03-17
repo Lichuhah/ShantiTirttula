@@ -5,7 +5,7 @@ namespace ShantiTirttula.Server.Api.Domain.Implementations.Managers
 {
     public class DeviceTypeManager : EntityManager<IDeviceType>, IDeviceTypeManager
     {
-        public DeviceTypeManager(NHibernate.ISession session) : base(session)
+        public DeviceTypeManager() : base()
         {
 
         }

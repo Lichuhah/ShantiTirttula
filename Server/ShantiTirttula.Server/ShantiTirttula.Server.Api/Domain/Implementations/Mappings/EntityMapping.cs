@@ -17,7 +17,7 @@ namespace ShantiTirttula.Server.Api.Domain.Implementations.Mappings
             Id(x => x.Id, map =>
             {
                 map.Column("ID");
-                //map.Generator(Generators.Native, gen => { gen.Params(new { sequence = "ENTITY" + "_id_seq" }); });
+                map.Generator(Generators.Native, gen => { gen.Params(new { sequence = tableName + "_id_seq" }); });
             });
         }
     }

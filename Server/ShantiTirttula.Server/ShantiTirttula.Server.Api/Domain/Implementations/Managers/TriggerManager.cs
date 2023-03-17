@@ -5,7 +5,7 @@ namespace ShantiTirttula.Server.Api.Domain.Implementations.Managers
 {
     public class TriggerManager : EntityManager<ITrigger>, ITriggerManager
     {
-        public TriggerManager(NHibernate.ISession session) : base(session)
+        public TriggerManager() : base()
         {
 
         }

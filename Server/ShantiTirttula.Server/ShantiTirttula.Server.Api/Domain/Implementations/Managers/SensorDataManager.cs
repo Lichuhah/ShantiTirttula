@@ -5,7 +5,7 @@ namespace ShantiTirttula.Server.Api.Domain.Implementations.Managers
 {
     public class SensorDataManager : EntityManager<ISensorData>, ISensorDataManager
     {
-        public SensorDataManager(NHibernate.ISession session) : base(session)
+        public SensorDataManager() : base()
         {
 
         }

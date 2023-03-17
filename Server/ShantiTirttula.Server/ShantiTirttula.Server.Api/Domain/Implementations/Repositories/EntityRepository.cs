@@ -2,32 +2,49 @@
 using ShantiTirttula.Server.Api.Domain.Interfaces.Models;
 using ShantiTirttula.Server.Api.Domain.Interfaces.Repositories;
 using NHibernate;
+using System.Data;
+using ShantiTirttula.Server.Api.Domain.Implementations.Models;
+using DevExpress.XtraPrinting.Native;
+using ISession = NHibernate.ISession;
 
 namespace ShantiTirttula.Server.Api.Domain.Implementations.Repositories
 {
     public class EntityRepository<T> : IEntityRepository<T> where T : IEntity
     {
-        NHibernate.ISession Session;
-        public EntityRepository(NHibernate.ISession session)
+        NHibernateHelper helper;
+        public EntityRepository()
         {
-            this.Session = session;
+            helper = new NHibernateHelper();
         }
 
         public virtual IQueryable<T> All()
         {
-            return Session.Query<T>();
+            return helper.OpenSession().Query<T>();
+        }
+
+        public T Create()
+        {
+            //IEntity newEntity = (IEntity)Activator.CreateInstance(typeof(Entity));
+            return (T)((IEntity)Activator.CreateInstance(typeof(Entity)));
         }
 
         public bool Delete(T entity)
         {
+            ISession Session = helper.OpenSession();
+            ITransaction transaction = Session.BeginTransaction(IsolationLevel.ReadCommitted);
             try
             {
-                this.Session.Delete(entity);
+                Session.Delete(entity);
                 return true;
             }
-            catch (Exception ex)
+            catch
             {
-                return false;
+                transaction.Rollback();
+                throw;
+            }
+            finally
+            {
+                transaction.Commit();
             }
         }
 
@@ -37,32 +54,40 @@ namespace ShantiTirttula.Server.Api.Domain.Implementations.Repositories
             {
                 foreach(var item in entities)
                 {
-                    this.Session.Delete(item);
+                    this.Delete(item);
                 }                
             }
             catch (Exception ex)
             {
-                return false;
+                throw;
             }
             return true;
         }
 
         public T Get(int id)
         {
+            ISession Session = helper.OpenSession();
             return Session.Get<T>(id);
         }
 
         public T Save(T entity)
         {
+            ISession Session = helper.OpenSession();
+            using ITransaction transaction = Session.BeginTransaction(IsolationLevel.ReadCommitted);
             try
             {
-                Session.SaveOrUpdate(entity);
-                Session.Flush();
-            } catch (Exception ex)
-            {
-                var a = ex;
+                entity.Id = (int)Session.Save(entity);
+                return entity;
             }
-            return entity;
+            catch
+            {
+                transaction.Rollback();
+                throw;
+            }
+            finally
+            {
+                transaction.Commit();
+            }
         }
 
         public bool Save(IEnumerable<T> entities)
@@ -71,12 +96,12 @@ namespace ShantiTirttula.Server.Api.Domain.Implementations.Repositories
             {
                 foreach (var item in entities)
                 {
-                    Session.SaveOrUpdate(item);
+                    this.Save(item);
                 }
             }
             catch (Exception ex)
             {
-                return false;
+                throw;
             }
             return true;
         }

@@ -1,4 +1,5 @@
-﻿using ShantiTirttula.Server.Api.Domain.Helpers;
+﻿using ShantiTirttula.Server.Api.Controllers.Models;
+using ShantiTirttula.Server.Api.Domain.Helpers;
 using ShantiTirttula.Server.Api.Domain.Implementations.Repositories;
 using ShantiTirttula.Server.Api.Domain.Interfaces.Managers;
 using ShantiTirttula.Server.Api.Domain.Interfaces.Models;
@@ -10,14 +11,21 @@ namespace ShantiTirttula.Server.Api.Domain.Implementations.Managers
     {
         protected readonly IEntityRepository<T> Repository;
 
-        public EntityManager(NHibernate.ISession session)
+        public EntityManager()
         {
-            NHibernateHelper helper = new NHibernateHelper();
-            Repository = new EntityRepository<T>(helper.OpenSession());
+            Repository = new EntityRepository<T>();
         }
+
+        public NHibernate.ISession Session { get; set; }
+
         public IQueryable<T> All()
         {
             return Repository.All();
+        }
+
+        public T Create()
+        {
+            return Repository.Create();
         }
 
         public bool Delete(T entity)
@@ -43,6 +51,18 @@ namespace ShantiTirttula.Server.Api.Domain.Implementations.Managers
         public bool Save(IEnumerable<T> entities)
         {
             return Repository.Save(entities);
+        }
+
+        public virtual ApiDto<T> ConvertToDto(T entity)
+        {
+            ApiDto<T> dto = new ApiDto<T>();
+            return dto;
+        }
+
+        public virtual T ConvertFromDto(ApiDto<T> entity)
+        {
+            T item = Create();
+            return item;
         }
     }
 }

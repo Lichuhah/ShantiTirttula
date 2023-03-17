@@ -19,8 +19,8 @@ namespace ShantiTirttula.Server.Api
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
-                    "default",
-                    "{controller=Login}/{action=Login}/{id?}");
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapSwagger();
             });
             app.UseSwagger();

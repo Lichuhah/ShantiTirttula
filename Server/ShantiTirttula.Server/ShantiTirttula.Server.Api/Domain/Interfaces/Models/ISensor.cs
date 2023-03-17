@@ -6,7 +6,7 @@ namespace ShantiTirttula.Server.Api.Domain.Interfaces.Models
     {
         public int Number { get; set; }
         public IList<ISensorData> SensorDatas { get; set; }
-        public IController Controller { get; set; }
+        public IMicroController Controller { get; set; }
         public ISensorType Type { get; set; }
     }
 }

@@ -4,7 +4,7 @@ namespace ShantiTirttula.Server.Api.Domain.Implementations.Models
 {
     public class Device : Entity, IDevice
     {
-        public virtual IController Controller { get; set; }
+        public virtual IMicroController Controller { get; set; }
         public virtual IDeviceType Type { get; set; }
         public virtual IList<IDeviceLog> Logs { get; set; }
         public virtual int Pin { get; set; }

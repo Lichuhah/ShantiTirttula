@@ -6,7 +6,7 @@ namespace ShantiTirttula.Server.Api.Domain.Implementations.Managers
 {
     public class McAuthManager : EntityManager<IMcAuth>, IMcAuthManager
     {
-        public McAuthManager(NHibernate.ISession session) : base(session)
+        public McAuthManager() : base()
         {
 
         }
