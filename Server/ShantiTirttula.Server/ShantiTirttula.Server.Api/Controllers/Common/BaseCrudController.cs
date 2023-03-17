@@ -1,6 +1,7 @@
 ﻿using ApiModels;
 using Microsoft.AspNetCore.Mvc;
 using DevExtreme.AspNet.Data;
+using DevExtreme.AspNet.Mvc;
 using DevExtreme.AspNet.Data.ResponseModel;
 using ShantiTirttula.Server.Api.Domain.Interfaces.Managers;
 using ShantiTirttula.Server.Api.Domain.Implementations.Managers;
@@ -21,7 +22,7 @@ namespace ShantiTirttula.Server.Api.Controllers.Common
 
         [HttpGet]
         [Route("")]
-        public ActionResult List(DataSourceLoadOptionsBase loadOptions)
+        public ActionResult List(DataSourceLoadOptions loadOptions)
         {
             try
             {
@@ -73,6 +74,7 @@ namespace ShantiTirttula.Server.Api.Controllers.Common
         {
             try
             {
+                dto.Id = id;
                 EntityType data = Manager.ConvertFromDto(dto);
                 Manager.Save(data);
                 return new ApiResponse<ApiDto<EntityType>>().SetData(dto).Result();

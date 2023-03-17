@@ -14,6 +14,7 @@ namespace ShantiTirttula.Server.Api
         {
             app.UseRouting();
             app.UseStaticFiles();
+            app.UseCors("_myAllowSpecificOrigins");
             app.UseAuthentication();
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
@@ -60,6 +61,18 @@ namespace ShantiTirttula.Server.Api
                             ValidateIssuerSigningKey = true,
                         };
                     });
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("_myAllowSpecificOrigins",
+                    policy =>
+                    {
+                        policy.SetIsOriginAllowed(_ => true);
+                        policy.AllowAnyMethod();
+                        policy.AllowAnyHeader();
+                        policy.AllowCredentials();
+                    });
+            });
 
             services.AddSwaggerGen(c =>
             {

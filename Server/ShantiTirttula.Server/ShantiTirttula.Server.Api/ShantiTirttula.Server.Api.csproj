@@ -11,6 +11,7 @@
 	<ItemGroup>
 		<PackageReference Include="DevExtreme.AspNet.Data" Version="2.9.1" />
 		<PackageReference Include="FluentNHibernate" Version="3.1.0" />
+		<PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.9" />
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.3" />
 		<PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.27.0" />
 		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.17.0" />
@@ -29,23 +30,26 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Reference Include="DevExpress.AspNetCore.Core.v22.2">
-	    <HintPath>..\libs\DevExpress.AspNetCore.Core.v22.2.dll</HintPath>
+	  <Reference Include="DevExpress.AspNetCore.Core.v22.1">
+	    <HintPath>..\libs\DevExpress.AspNetCore.Core.v22.1.dll</HintPath>
 	  </Reference>
-	<Reference Include="DevExpress.AspNetCore.Common.v22.2">
-	    <HintPath>..\libs\DevExpress.AspNetCore.Common.v22.2.dll</HintPath>
+	<Reference Include="DevExpress.AspNetCore.Common.v22.1">
+	    <HintPath>..\libs\DevExpress.AspNetCore.Common.v22.1.dll</HintPath>
 	  </Reference>
-	<Reference Include="DevExpress.Data.v22.2">
-	    <HintPath>..\libs\DevExpress.Data.v22.2.dll</HintPath>
+	<Reference Include="DevExpress.Data.v22.1">
+	    <HintPath>..\libs\DevExpress.Data.v22.1.dll</HintPath>
 	  </Reference>
-	<Reference Include="DevExpress.Printing.v22.2.Core">
-	    <HintPath>..\libs\DevExpress.Printing.v22.2.Core.dll</HintPath>
+	<Reference Include="DevExpress.Printing.v22.1.Core">
+	    <HintPath>..\libs\DevExpress.Printing.v22.1.Core.dll</HintPath>
 	  </Reference>
-	<Reference Include="DevExpress.Office.v22.2.Core">
-	    <HintPath>..\libs\DevExpress.Office.v22.2.Core.dll</HintPath>
+	<Reference Include="DevExpress.Office.v22.1.Core">
+	    <HintPath>..\libs\DevExpress.Office.v22.1.Core.dll</HintPath>
 	  </Reference>
-	<Reference Include="DevExpress.Drawing.v22.2">
+	<Reference Include="DevExpress.Drawing.v22.1">
 	    <HintPath>..\libs\DevExpress.Drawing.v22.2.dll</HintPath>
+	  </Reference>
+	<Reference Include="DevExtreme.AspNet.Core">
+	    <HintPath>..\libs\DevExtreme.AspNet.Core.dll</HintPath>
 	  </Reference>
 	</ItemGroup>
 
