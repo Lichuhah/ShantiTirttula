@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QtSerialPort/QSerialPort>
 #include <QtSerialPort/QSerialPortInfo>
+#include <QNetworkReply>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -29,6 +30,10 @@ private slots:
     void on_BtnWifiChange_clicked();
 
     void on_BtnWifiConnect_clicked();
+
+    void on_BtnLogin_clicked();
+
+    void on_BtnGetMcKey_clicked();
 
 private:
     Ui::MainWindow *ui;

@@ -1,6 +1,6 @@
-﻿namespace ShantiTirttula.Server.Api.Controllers.Models
+﻿namespace ShantiTirttula.Server.Api.Controllers.Models.Input
 {
-    public class McLoginData
+    public class McAuthDtoInput
     {
         public string Login { get; set; }
         public string Password { get; set; }

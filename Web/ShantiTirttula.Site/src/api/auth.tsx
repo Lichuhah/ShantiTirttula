@@ -1,14 +1,22 @@
+import { User } from '../types';
 import defaultUser from '../utils/default-user';
+import { ShantiApiPost } from './shantiajax';
 
-export async function signIn(email: string, password: string) {
+export async function signIn(login: string, password: string) {
   try {
-    // Send request
-    console.log(email, password);
-
-    return {
-      isOk: true,
-      data: defaultUser
-    };
+    var answer = ShantiApiPost("/api/login/signin", {login, password});
+    if((await answer).success){
+      storeTokenInLocalStorage((await answer).data, {email: login});
+      return {
+        isOk: true,
+        data: {email: login}
+      };
+    }  else {
+      return {
+        isOk: false,
+        message: (await answer).errorMessages
+      };
+    }    
   }
   catch {
     return {
@@ -20,11 +28,15 @@ export async function signIn(email: string, password: string) {
 
 export async function getUser() {
   try {
-    // Send request
-
-    return {
+    const token = getTokenFromLocalStorage();
+    if (!token) {
+      return { 
+        isOk: false,
+        data: undefined
+      }
+    } else return {
       isOk: true,
-      data: defaultUser
+      data: getUserFromLocalStorage()
     };
   }
   catch {
@@ -34,14 +46,21 @@ export async function getUser() {
   }
 }
 
-export async function createAccount(email: string, password: string) {
+export async function createAccount(login: string, password: string) {
   try {
-    // Send request
-    console.log(email, password);
+    var answer = ShantiApiPost("/api/login/signup", {login, password});
+    if((await answer).success){
+      return {
+        isOk: true,
+      };
+    }
+    else {
+      return {
+        isOk: false,
+        message: (await answer).errorMessages
+      };
+    }
 
-    return {
-      isOk: true
-    };
   }
   catch {
     return {
@@ -83,4 +102,17 @@ export async function resetPassword(email: string) {
       message: "Failed to reset password"
     };
   }
+}
+
+export function storeTokenInLocalStorage(token, user: User) {
+  localStorage.setItem('token', token);
+  localStorage.setItem('user', JSON.stringify(user));
+}
+
+export function getTokenFromLocalStorage() {
+  return localStorage.getItem('token');
+}
+
+export function getUserFromLocalStorage() {
+  return JSON.parse(localStorage.getItem('user'));
 }

@@ -7,13 +7,14 @@ using ShantiTirttula.Server.Api.Domain.Interfaces.Models;
 
 namespace ShantiTirttula.Server.Api.Controllers.CrudControllers
 {
-    [AllowAnonymous]
-    [Route("api/users")]
+    [Authorize]
+    [Route("api/mcauth")]
     [ApiController]
-    public class UserCrudController : BaseCrudController<UserDto, IUser>
+    public class McAuthController : BaseUserCrudController<McAuthDto, IMcAuth>
     {
-        public UserCrudController() : base(new UserManager())
+        public McAuthController(IHttpContextAccessor httpContextAccessor) : base(new McAuthManager(), httpContextAccessor)
         {
+
         }
     }
 }

@@ -9,27 +9,30 @@ import DataGrid, {
   FilterRow,
   Lookup
 } from 'devextreme-react/data-grid';
-import { ShantiApiPost } from '../../api/shantiajax';
 import ShantiDataGrid from '../../components/shanti-data-grid/ShantiDataGrid';
 
-export default function Task() {
+export default function Controllers() {
   return (
     <React.Fragment>
-      {/* <ShantiDataGrid
-        title = {'Задачи'}
+      <ShantiDataGrid
+        title={'Контроллеры'}
         path={'/api/mcauth'}
       >
         <Column
           dataField={'key'}
-          width={190}
-          caption={'Subject'}
+          caption={'Ключ'}
           hidingPriority={8}
         />
         <Column
-          dataField={'Task_Status'}
-          caption={'Status'}
+          dataField={'mac'}
+          caption={'Мас адрес'}
+          hidingPriority={8}
+        />
+        <Column
+          dataField={'typeName'}
+          caption={'Тип контроллера'}
           hidingPriority={6}
         />
-      </ShantiDataGrid>      */}
+      </ShantiDataGrid>     
     </React.Fragment>
 )}

@@ -12,7 +12,7 @@ using NHibernate.SqlCommand;
 namespace ShantiTirttula.Server.Api.Controllers.Common
 {
     [ApiController]
-    public class BaseCrudController<DtoType, EntityType> : Controller where DtoType : ApiDto<EntityType> where EntityType : IEntity 
+    public class BaseCrudController<DtoType, EntityType> : ControllerBase where DtoType : ApiDto<EntityType> where EntityType : IEntity 
     {
         EntityManager<EntityType> Manager;
         public BaseCrudController(EntityManager<EntityType> manager) : base()

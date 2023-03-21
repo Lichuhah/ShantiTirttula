@@ -31,7 +31,7 @@ namespace ApiModels
                 ContentType = "application/json",
                 Content = JsonConvert.SerializeObject(this,
                     new JsonSerializerSettings { ContractResolver = new CamelCasePropertyNamesContractResolver() }),
-                StatusCode = Success ? (int?)HttpStatusCode.OK : (int?)HttpStatusCode.InternalServerError
+                StatusCode = Success ? (int?)HttpStatusCode.OK : (int?)HttpStatusCode.OK
             };
         }
     }

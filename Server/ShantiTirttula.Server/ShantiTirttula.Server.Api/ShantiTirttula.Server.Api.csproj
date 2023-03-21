@@ -26,10 +26,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Folder Include="Controllers\Models\Input\" />
-	</ItemGroup>
-
-	<ItemGroup>
 	  <Reference Include="DevExpress.AspNetCore.Core.v22.1">
 	    <HintPath>..\libs\DevExpress.AspNetCore.Core.v22.1.dll</HintPath>
 	  </Reference>

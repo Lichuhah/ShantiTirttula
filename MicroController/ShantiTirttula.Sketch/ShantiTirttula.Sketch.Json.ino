@@ -40,6 +40,7 @@ String GetWifiConfigJson(){
   doc["password"]=wifi_password;
   doc["isconnect"]=IsWiFiConnect;
   doc["mac"]=mac;
+  doc["key"]=key;
   String jsonConfig; 
   serializeJson(doc, jsonConfig);
   doc.clear();

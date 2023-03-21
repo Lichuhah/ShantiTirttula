@@ -46,10 +46,9 @@ export default function CreateAccountForm() {
         <Item
           dataField={'email'}
           editorType={'dxTextBox'}
-          editorOptions={emailEditorOptions}
+          //editorOptions={emailEditorOptions}
         >
           <RequiredRule message="Email is required" />
-          <EmailRule message="Email is invalid" />
           <Label visible={false} />
         </Item>
         <Item

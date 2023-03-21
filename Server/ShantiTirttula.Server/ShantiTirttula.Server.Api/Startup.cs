@@ -37,6 +37,7 @@ namespace ShantiTirttula.Server.Api
             });
 
             services.AddRouting(options => options.LowercaseUrls = true);
+            services.AddHttpContextAccessor();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddAuthorization();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

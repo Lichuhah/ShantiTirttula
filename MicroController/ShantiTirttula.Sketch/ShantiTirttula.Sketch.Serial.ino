@@ -26,6 +26,9 @@ void ExecuteSerialCommand(String command){
     SetWiFi(serialDoc["data"].as<String>());
     return;
   }
+  if(command == "setkeyconfig"){
+    SetKey(serialDoc["data"].as<String>());
+  }
   serialDoc.clear();
   Serial.print("Wrong command");
 }
@@ -34,6 +37,15 @@ void SetWiFi(String data){
   deserializeJson(serialDoc, data);
   wifi_ssid = serialDoc["ssid"].as<String>();
   wifi_password = serialDoc["password"].as<String>();
+  serialDoc.clear();
+  WriteConfig();
+  IsWiFiConnect = WIFIinit();
+  Serial.print(GetWifiConfigJson());
+}
+
+void SetKey(String data){
+  deserializeJson(serialDoc, data);
+  key = serialDoc["key"].as<String>();
   serialDoc.clear();
   WriteConfig();
   IsWiFiConnect = WIFIinit();

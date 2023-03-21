@@ -1,7 +1,10 @@
+#include <QNetworkReply>
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QJsonObject>
 #include <QJsonDocument>
+#include <QNetworkRequest>
+#include <QNetworkAccessManager>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -42,6 +45,8 @@ void MainWindow::InitWiFi(){
         QJsonObject jsonObject = jsonResponse.object();
         this->ui->TxtWifiSsid->setText(jsonObject["ssid"].toString());
         this->ui->TxtWifiPassword->setText(jsonObject["password"].toString());
+        this->ui->TxtMac->setText(jsonObject["mac"].toString());
+        this->ui->TxtMcKey->setText(jsonObject["key"].toString());
         if(jsonObject["isconnect"].toBool()){
             this->ui->LblWifiStatus->setText("Wifi is connect.");
             this->ui->BtnWifiConnect->setEnabled(false);
@@ -115,5 +120,73 @@ void MainWindow::on_BtnWifiConnect_clicked()
             this->ui->LblWifiStatus->setText("Wifi is not connect.");
         }
     }
+}
+
+
+void MainWindow::on_BtnLogin_clicked()
+{
+   QJsonObject textObject;
+   textObject["login"] = this->ui->TxtUserLogin->text();
+   textObject["password"] = this->ui->TxtUserPassword->text();
+
+   QUrl url("http://localhost:5193/api/users/1");
+   QNetworkRequest request(url);
+   request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
+
+   QNetworkAccessManager *manager = new QNetworkAccessManager(this);
+
+   QNetworkReply *reply = manager->get(request);//, QJsonDocument(textObject).toJson(QJsonDocument::Indented));
+   QObject::connect(reply, &QNetworkReply::finished, [reply, this]() {
+      QString ReplyText = reply->readAll();
+      //QJsonParseError json_error;
+      QJsonDocument json = QJsonDocument::fromJson(ReplyText.toUtf8());
+      QJsonObject jsonObject = json.object();
+      if(jsonObject["success"].toBool()){
+          this->ui->lblUserStatus->setText("success");
+          this->ui->BtnGetMcKey->setEnabled(true);
+      } else {
+          this->ui->lblUserStatus->setText("error");
+          this->ui->BtnGetMcKey->setEnabled(false);
+      }
+      reply->deleteLater();
+    });
+}
+
+
+
+void MainWindow::on_BtnGetMcKey_clicked()
+{
+    QJsonObject textObject;
+    textObject["login"] = this->ui->TxtUserLogin->text();
+    textObject["password"] = this->ui->TxtUserPassword->text();
+    textObject["mac"] = this->ui->TxtMac->text();
+
+    QUrl url("http://localhost:5193/api/mc/signup");
+    QNetworkRequest request(url);
+    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
+
+    QNetworkAccessManager *manager = new QNetworkAccessManager(this);
+    QNetworkReply *reply = manager->post(request, QJsonDocument(textObject).toJson(QJsonDocument::Indented));
+    QObject::connect(reply, &QNetworkReply::finished, [reply, this]() {
+       QString ReplyText = reply->readAll();
+       //QJsonParseError json_error;
+       QJsonDocument json = QJsonDocument::fromJson(ReplyText.toUtf8());
+       QJsonObject jsonObject = json.object();
+       QJsonObject jsonKey = jsonObject["data"].toObject();
+       if(jsonObject["success"].toBool()){
+           this->ui->TxtMcKey->setText(jsonObject["data"].toString());
+           QJsonObject textObject, textObjectData;
+           textObject["command"] = "setkeyconfig";
+           textObjectData["key"] = jsonObject["data"].toString();
+           textObject["data"] = QString(QJsonDocument(textObjectData).toJson(QJsonDocument::Indented));
+           this->serial->write(QJsonDocument(textObject).toJson(QJsonDocument::Indented));
+           serial->waitForBytesWritten(10000);
+           serial->waitForReadyRead(15000);
+       } else {
+           this->ui->lblUserStatus->setText("error");
+
+       }
+       reply->deleteLater();
+     });
 }
 
