@@ -22,7 +22,10 @@ namespace ShantiTirttula.Server.Api.Domain.Implementations.Managers
         {
             return Repository.All();
         }
-
+        public IQueryable<T> AllAllowed(IUser user)
+        {
+            return Repository.All().ToList().Where(x => CheckUser(x, user) == true).AsQueryable();
+        }
         public T Create()
         {
             return Repository.Create();
@@ -63,6 +66,11 @@ namespace ShantiTirttula.Server.Api.Domain.Implementations.Managers
         {
             T item = Create();
             return item;
+        }
+
+        public virtual bool CheckUser(T entity, IUser user)
+        {
+            return true;
         }
     }
 }

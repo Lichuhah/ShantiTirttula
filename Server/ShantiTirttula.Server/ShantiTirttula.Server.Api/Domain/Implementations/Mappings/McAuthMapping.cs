@@ -16,7 +16,7 @@ namespace ShantiTirttula.Server.Api.Domain.Implementations.Mappings
             {
                 map.Column("USER_ID");
                 map.Class(typeof(User));
-                map.Lazy(LazyRelation.Proxy);
+                map.Lazy(LazyRelation.NoLazy);
             });
             ManyToOne(x => x.Controller, map =>
             {

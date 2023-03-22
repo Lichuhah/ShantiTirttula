@@ -7,12 +7,11 @@ using ShantiTirttula.Server.Api.Domain.Interfaces.Models;
 
 namespace ShantiTirttula.Server.Api.Controllers.CrudControllers
 {
-    [Authorize]
-    [Route("api/mcauth")]
+    [Route("api/triggers")]
     [ApiController]
-    public class McAuthController : BaseUserCrudController<McAuthDto, IMcAuth>
+    public class TriggerCrudController : BaseUserCrudController<TriggerDto, ITrigger>
     {
-        public McAuthController(IHttpContextAccessor httpContextAccessor) : base(new McAuthManager(), httpContextAccessor)
+        public TriggerCrudController(IHttpContextAccessor httpContextAccessor) : base(new TriggerManager(), httpContextAccessor)
         {
 
         }

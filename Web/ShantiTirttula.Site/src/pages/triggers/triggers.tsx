@@ -5,25 +5,25 @@ import DataGrid, {
 } from 'devextreme-react/data-grid';
 import ShantiDataGrid from '../../components/shanti-data-grid/ShantiDataGrid';
 
-export default function Controllers() {
+export default function Triggers() {
   return (
     <React.Fragment>
       <ShantiDataGrid
-        title={'Контроллеры'}
-        path={'/api/mcauth'}
+        title={'Триггеры'}
+        path={'/api/triggers'}
       >
         <Column
-          dataField={'key'}
+          dataField={'deviceValue'}
           caption={'Ключ'}
           hidingPriority={8}
         />
         <Column
-          dataField={'mac'}
+          dataField={'typeName'}
           caption={'Мас адрес'}
           hidingPriority={8}
         />
         <Column
-          dataField={'typeName'}
+          dataField={'triggerValue'}
           caption={'Тип контроллера'}
           hidingPriority={6}
         />

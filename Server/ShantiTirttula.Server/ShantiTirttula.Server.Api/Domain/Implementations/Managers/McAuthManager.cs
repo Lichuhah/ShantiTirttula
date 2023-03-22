@@ -42,5 +42,10 @@ namespace ShantiTirttula.Server.Api.Domain.Implementations.Managers
 
             return item;
         }
+
+        public override bool CheckUser(IMcAuth entity, IUser user)
+        {
+            return entity.User.Id == user.Id;
+        }
     }
 }

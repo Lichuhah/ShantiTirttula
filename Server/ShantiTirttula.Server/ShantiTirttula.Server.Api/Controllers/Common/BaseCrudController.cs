@@ -14,7 +14,7 @@ namespace ShantiTirttula.Server.Api.Controllers.Common
     [ApiController]
     public class BaseCrudController<DtoType, EntityType> : ControllerBase where DtoType : ApiDto<EntityType> where EntityType : IEntity 
     {
-        EntityManager<EntityType> Manager;
+        protected EntityManager<EntityType> Manager;
         public BaseCrudController(EntityManager<EntityType> manager) : base()
         {
             Manager = manager;
@@ -22,7 +22,7 @@ namespace ShantiTirttula.Server.Api.Controllers.Common
 
         [HttpGet]
         [Route("")]
-        public ActionResult List(DataSourceLoadOptions loadOptions)
+        public virtual ActionResult List(DataSourceLoadOptions loadOptions)
         {
             try
             {

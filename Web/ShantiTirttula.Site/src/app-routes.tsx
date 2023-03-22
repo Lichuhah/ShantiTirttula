@@ -1,4 +1,4 @@
-import { HomePage, ProfilePage, ControllerPage } from './pages';
+import { HomePage, ProfilePage, ControllerPage, TriggerPage } from './pages';
 import { withNavigationWatcher } from './contexts/navigation';
 
 const routes = [
@@ -13,6 +13,10 @@ const routes = [
     {
         path: '/controllers',
         element: ControllerPage
+    },
+    {
+        path: '/triggers',
+        element: TriggerPage
     }
 ];
 
