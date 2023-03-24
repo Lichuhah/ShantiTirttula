@@ -7,6 +7,7 @@ using ShantiTirttula.Server.Api.Domain.Interfaces.Models;
 
 namespace ShantiTirttula.Server.Api.Controllers.CrudControllers
 {
+    [Authorize]
     [Route("api/triggers")]
     [ApiController]
     public class TriggerCrudController : BaseUserCrudController<TriggerDto, ITrigger>

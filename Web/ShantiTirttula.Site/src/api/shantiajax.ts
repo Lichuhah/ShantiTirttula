@@ -1,3 +1,5 @@
+import { getTokenFromLocalStorage } from "./auth";
+
 export function ShantiApiPost(path: string, data: object, params?: any){
     var reqPath = '';
     if(params != null)
@@ -9,7 +11,8 @@ export function ShantiApiPost(path: string, data: object, params?: any){
         method: 'POST',
         headers: {
           "Accept": "*/*",
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          "Authorization": "Bearer " + getTokenFromLocalStorage()
         },
         body: JSON.stringify(data)})
         .then((response) => response.json())
@@ -19,5 +22,24 @@ export function ShantiApiPost(path: string, data: object, params?: any){
           errorMessages: json.errorMessages
         }))
         .catch(() => { throw new Error('Data Loading Error'); });
+}
+
+export function ShantiApiGet(path: string){
+  var reqPath=`${process.env.REACT_APP_API_URL}${path}`
+
+  return fetch(reqPath, {
+      method: 'GET',
+      headers: {
+        "Accept": "*/*",
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + getTokenFromLocalStorage()
+      }})
+      .then((response) => response.json())
+      .then((json) => ({
+        data: json.data,
+        success: json.success,
+        errorMessages: json.errorMessages
+      }))
+      .catch(() => { throw new Error('Data Loading Error'); });
 }
 

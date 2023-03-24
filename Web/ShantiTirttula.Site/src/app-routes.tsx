@@ -1,4 +1,4 @@
-import { HomePage, ProfilePage, ControllerPage, TriggerPage } from './pages';
+import { HomePage, ProfilePage, ControllerPage, TriggerPage, TriggerFormPage } from './pages';
 import { withNavigationWatcher } from './contexts/navigation';
 
 const routes = [
@@ -17,6 +17,10 @@ const routes = [
     {
         path: '/triggers',
         element: TriggerPage
+    },
+    {
+        path: '/triggers/form',
+        element: TriggerFormPage
     }
 ];
 

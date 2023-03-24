@@ -7,9 +7,13 @@ import DataGrid, {
   Pager,
   Paging,
   FilterRow,
-  Lookup
+  Lookup,
+  Item,
+  Toolbar
 } from 'devextreme-react/data-grid';
 import { getTokenFromLocalStorage } from '../../api/auth';
+import Button from 'devextreme-react/button';
+import { Link } from 'react-router-dom';
 
 interface ShantiDataGridProps {
     path: string,
@@ -21,17 +25,51 @@ function isNotEmpty(value) {
     return value !== undefined && value !== null && value !== '';
 }
 
+
 class ShantiDataGrid extends React.Component<ShantiDataGridProps> {
 
     path: string;
     title: string;
     dataSource: DataSource;
+    dataGrid : any;
 
     constructor(props:ShantiDataGridProps){
         super(props);
         this.path = props.path;
         this.title = props.title;
+        this.dataGrid = null;
         this.dataSource = this.getDataSource(props);
+        this.refreshDataGrid = this.refreshDataGrid.bind(this);
+        this.getRef = this.getRef.bind(this);
+    }
+
+    getToolbar(){
+      return(
+        <Toolbar>
+          <Item location="after">
+            <Button
+              icon='refresh' 
+              onClick={this.refreshDataGrid} 
+              />
+          </Item>
+          <Item location="after">
+            <Link to={'form?mode=new'}>
+
+            <Button
+              icon='add' 
+              
+              /></Link>
+          </Item>
+        </Toolbar>
+      );
+    }
+
+    refreshDataGrid() {
+      this.dataGrid.instance.refresh();
+    }
+
+    getRef(ref) {
+      this.dataGrid = ref;
     }
 
     getDataSource(props){
@@ -84,6 +122,7 @@ class ShantiDataGrid extends React.Component<ShantiDataGridProps> {
               <h2 className={'content-block'}>{this.title}</h2>
         
                 <DataGrid
+                ref={this.getRef}
                 className={'dx-card wide-card'}
                 dataSource={this.dataSource as DataSource}
                 showBorders={false}
@@ -96,7 +135,7 @@ class ShantiDataGrid extends React.Component<ShantiDataGridProps> {
                     <Pager showPageSizeSelector={true} showInfo={true} />
                     <FilterRow visible={true} />
                     <SearchPanel visible={true} highlightCaseSensitive={true} />
-
+                    {this.getToolbar()}
                     {this.props.children.map((col, i) => {       
                         return (col) 
                     })}
