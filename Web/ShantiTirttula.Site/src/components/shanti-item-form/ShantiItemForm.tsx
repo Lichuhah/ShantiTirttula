@@ -47,7 +47,7 @@ export default class ShantiItemForm extends React.Component<ShantiItemFormProps,
         this.state = {pageMode: this.getMode(), itemId: this.getId(), formData: {}}
 
         if(this.state.itemId > 0){
-            this.loadData();
+            this.loadData(this.state.itemId);
         }
 
         this.setEditMode = this.setEditMode.bind(this);
@@ -103,6 +103,7 @@ export default class ShantiItemForm extends React.Component<ShantiItemFormProps,
     }
 
     setViewMode(){
+        console.log(this.state)
         this.setState({pageMode: Mode.View})
     }
 
@@ -110,8 +111,8 @@ export default class ShantiItemForm extends React.Component<ShantiItemFormProps,
         this.setState({pageMode: Mode.New})
     }
 
-    loadData(){
-        var data = ShantiApiGet(`${this.props.path}/`+this.state.itemId);
+    async loadData(id){
+        return ShantiApiGet(`${this.props.path}/`+id);
     }
 
     async saveData(){
@@ -119,7 +120,13 @@ export default class ShantiItemForm extends React.Component<ShantiItemFormProps,
         data['id'] = 0;
         var result = ShantiApiPost(`${this.props.path}`,this.getFormData());
         if((await result).success){
-            console.log("success");
+            let newData = this.loadData((await result).data.id);
+            this.setState({
+                pageMode: Mode.View,
+                itemId: (await newData).data.id,
+                formData: (await newData).data
+            });
+            console.log(this.state)
         } else {
             console.log((await result).errorMessages)
         }

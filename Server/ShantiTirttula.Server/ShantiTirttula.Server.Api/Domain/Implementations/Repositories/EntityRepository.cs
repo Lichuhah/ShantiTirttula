@@ -31,10 +31,10 @@ namespace ShantiTirttula.Server.Api.Domain.Implementations.Repositories
         public bool Delete(T entity)
         {
             ISession Session = helper.OpenSession();
-            ITransaction transaction = Session.BeginTransaction(IsolationLevel.ReadCommitted);
+            using ITransaction transaction = Session.BeginTransaction(IsolationLevel.ReadCommitted);
             try
             {
-                Session.Delete(entity);
+                Session.Delete(Session.Get<T>(entity.Id));
                 return true;
             }
             catch

@@ -9,11 +9,14 @@ import DataGrid, {
   FilterRow,
   Lookup,
   Item,
-  Toolbar
+  Toolbar,
+  Selection
 } from 'devextreme-react/data-grid';
 import { getTokenFromLocalStorage } from '../../api/auth';
 import Button from 'devextreme-react/button';
 import { Link } from 'react-router-dom';
+import { Menu } from 'devextreme-react';
+import { ShantiApiDelete } from '../../api/shantiajax';
 
 interface ShantiDataGridProps {
     path: string,
@@ -32,6 +35,7 @@ class ShantiDataGrid extends React.Component<ShantiDataGridProps> {
     title: string;
     dataSource: DataSource;
     dataGrid : any;
+    columns: any[];
 
     constructor(props:ShantiDataGridProps){
         super(props);
@@ -41,6 +45,63 @@ class ShantiDataGrid extends React.Component<ShantiDataGridProps> {
         this.dataSource = this.getDataSource(props);
         this.refreshDataGrid = this.refreshDataGrid.bind(this);
         this.getRef = this.getRef.bind(this);
+        this.createColumns = this.createColumns.bind(this);
+        this.renderCommandCell = this.renderCommandCell.bind(this);
+        this.removeCellClick = this.removeCellClick.bind(this);
+        this.columns = this.createColumns();
+        console.log('test')
+    }
+
+    createColumns(){
+        this.columns = [];
+        this.props.children.map((col, i) => {    
+          let columnProps = { key: ('col'+i)};
+          Object.assign(columnProps, col.props);
+          //columnProps['cellTemplate'] = (el, info,cell) => this.cellTemplate(el, info,cell);
+          this.columns.push(
+            <Column {...columnProps} />
+          );
+        });
+        return this.columns;
+    }
+
+    renderCommandCell(){
+        let ds = [
+          {
+            icon:'overflow',
+            onClick: this.rowMenuCellClick,
+            items: [{             
+                text:'Удалить',
+                icon:'trash',
+                onClick: this.removeCellClick              
+            }]
+          },
+         ]
+
+        return (
+          <Menu 
+            dataSource={ds}
+            itemRender={(el)=>{
+              return (<Button 
+                icon={el.icon}
+                onClick= {(id)=>{
+                  el.onClick();
+                }}
+              />)
+            }}
+          />
+        );
+    }
+
+    rowMenuCellClick(){
+
+    }
+    
+    async removeCellClick() {
+        let result = ShantiApiDelete(this.path, this.dataGrid.instance.getSelectedRowsData()[0].id)
+        if((await result).success){
+          this.refreshDataGrid();
+        }
     }
 
     getToolbar(){
@@ -135,8 +196,13 @@ class ShantiDataGrid extends React.Component<ShantiDataGridProps> {
                     <Pager showPageSizeSelector={true} showInfo={true} />
                     <FilterRow visible={true} />
                     <SearchPanel visible={true} highlightCaseSensitive={true} />
+                    <Selection mode={'single'} />
                     {this.getToolbar()}
-                    {this.props.children.map((col, i) => {       
+                    <Column
+                      width={'5%'}
+                      cellRender={this.renderCommandCell}
+                    />
+                    {this.columns.map((col, i) => {       
                         return (col) 
                     })}
 

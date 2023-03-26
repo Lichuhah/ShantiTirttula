@@ -44,3 +44,22 @@ export function ShantiApiGet(path: string){
       .catch(() => { throw new Error('Data Loading Error'); });
 }
 
+export function ShantiApiDelete(path: string, id:number){
+  var reqPath=`${process.env.REACT_APP_API_URL}${path}/${id}`
+
+  return fetch(reqPath, {
+      method: 'DELETE',
+      headers: {
+        "Accept": "*/*",
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + getTokenFromLocalStorage()
+      }})
+      .then((response) => response.json())
+      .then((json) => ({
+        data: json.data,
+        success: json.success,
+        errorMessages: json.errorMessages
+      }))
+      .catch(() => { throw new Error('Data Loading Error'); });
+}
+
