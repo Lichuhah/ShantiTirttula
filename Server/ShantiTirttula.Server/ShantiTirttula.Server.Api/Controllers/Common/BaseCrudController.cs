@@ -37,6 +37,22 @@ namespace ShantiTirttula.Server.Api.Controllers.Common
         }
 
         [HttpGet]
+        [Route("json")]
+        public virtual ActionResult JsonList()
+        {
+            try
+            {
+                IQueryable<EntityType> data = Manager.All();
+                List<ApiDto<EntityType>> list = data.Select(x => Manager.ConvertToDto(x)).ToList();
+                return new ApiResponse<List<ApiDto<EntityType>>>().SetData(list).Result();
+            }
+            catch (Exception e)
+            {
+                return new ApiResponse<object>().Error(e.Message).Result();
+            }
+        }
+
+        [HttpGet]
         [Route("{id:int}")]
         public ActionResult Get(int id)
         {

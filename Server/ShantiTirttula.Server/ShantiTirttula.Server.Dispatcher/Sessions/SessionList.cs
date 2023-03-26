@@ -1,5 +1,7 @@
 ﻿using Newtonsoft.Json;
+using ShantiTirttula.Server.Dispatcher.Http;
 using ShantiTirttula.Server.Dispatcher.Models;
+using ShantiTirttula.Server.Dispatcher.Models.ApiModels;
 using System.Text;
 
 namespace ShantiTirttula.Server.Dispatcher.Sessions
@@ -43,10 +45,10 @@ namespace ShantiTirttula.Server.Dispatcher.Sessions
         public Session CreateSession(McData data)
         {
             HttpClient client = new HttpClient();
-            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, ApiUrl+"/api/auth/token");
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, ApiUrl+ "/api/disp/signin");
             request.Content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
             HttpResponseMessage response = client.Send(request);
-            string token = response.Content.ReadAsStringAsync().Result;
+            string token = JsonConvert.DeserializeObject<ApiResponse<string>>(response.Content.ReadAsStringAsync().Result).Data;
 
             Session session = new Session()
             {
@@ -56,12 +58,11 @@ namespace ShantiTirttula.Server.Dispatcher.Sessions
                 Mc = data,
             };
 
-            request = new HttpRequestMessage(HttpMethod.Get, ApiUrl + "/api/trigger/list");
+            request = new HttpRequestMessage(HttpMethod.Get, ApiUrl + "/api/triggers");
             response = client.Send(request);
-            string trs = response.Content.ReadAsStringAsync().Result;
             try
             {
-                List<DispatcherTrigger> triggers = JsonConvert.DeserializeObject<List<DispatcherTrigger>>(trs);
+                List<DispatcherTrigger> triggers = JsonConvert.DeserializeObject<ApiResponse<List<DispatcherTrigger>>>(HttpHelper.GetData("/api/triggers/json", token)).Data;
                 session.Triggers = triggers;
             }
             catch (Exception ex) { }
@@ -74,10 +75,10 @@ namespace ShantiTirttula.Server.Dispatcher.Sessions
         public Session RefreshSession(Session oldsession)
         {
             HttpClient client = new HttpClient();
-            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, ApiUrl + "/api/auth/token");
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, ApiUrl + "/api/disp/signin");
             request.Content = new StringContent(JsonConvert.SerializeObject(oldsession.Mc), Encoding.UTF8, "application/json");
             HttpResponseMessage response = client.Send(request);
-            string token = response.Content.ReadAsStringAsync().Result;
+            string token = JsonConvert.DeserializeObject<ApiResponse<string>>(response.Content.ReadAsStringAsync().Result).Data;
 
             Sessions.Remove(oldsession);
             Session session = new Session()
@@ -91,7 +92,7 @@ namespace ShantiTirttula.Server.Dispatcher.Sessions
                 Commands = oldsession.Commands
             };
 
-            session.LoadTriggers();
+            //session.LoadTriggers();
             Sessions.Add(session);
             return session;
         }

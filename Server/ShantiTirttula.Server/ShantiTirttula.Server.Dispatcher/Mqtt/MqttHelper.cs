@@ -29,7 +29,6 @@ namespace ShantiTirttula.Server.Dispatcher.Mqtt
             } catch (Exception ex)
             {
                 mqttServer.SendMessage("answer", ex.Message);
-                mqttServer.SendMessage("answer", ex.InnerException.Message);
             }
         }
 
