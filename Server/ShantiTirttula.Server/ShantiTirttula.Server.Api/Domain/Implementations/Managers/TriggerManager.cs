@@ -41,10 +41,14 @@ namespace ShantiTirttula.Server.Api.Domain.Implementations.Managers
             TriggerDto dto = (TriggerDto)data;
             item.DeviceValue = dto.DeviceValue;
             item.TriggerValue = dto.TriggerValue;
-            item.Device = new DeviceManager().Get(dto.DeviceId);
-            item.Sensor = new SensorManager().Get(dto.SensorId);
-            item.Type = new TriggerTypeManager().Get(dto.Type);
-
+            if (dto.DeviceId > 0) 
+                item.Device = new DeviceManager().Get(dto.DeviceId);
+            if (dto.SensorId > 0)
+                item.Sensor = new SensorManager().Get(dto.SensorId);
+            if (dto.Type > 0)
+                item.Type = new TriggerTypeManager().Get(dto.Type);
+            if (dto.AuthId > 0)
+                item.Auth = new McAuthManager().Get(dto.AuthId);
             return item;
         }
 

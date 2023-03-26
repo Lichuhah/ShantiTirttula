@@ -17,7 +17,7 @@ namespace ShantiTirttula.Server.Api.Domain.Implementations.Managers
         {
             DeviceDto dto = new DeviceDto();
             dto.Id = entity.Id;          
-            dto.TypeName = entity.Controller.Type.Name;
+            dto.TypeName = entity.Type.Name;
             dto.IsPwm = entity.IsAnalog;
             dto.Pin = entity.Pin;
             return dto;

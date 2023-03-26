@@ -34,16 +34,45 @@ namespace ShantiTirttula.Server.Api.Controllers.CrudControllers
                 List<IDevice> devices = new List<IDevice>();
                 data.ForEach(x => x.Controller.Devices.ForEach(device => devices.Add(device)));
                 var a = Manager.Get(1);
-                List<ControllerWithDevicesTreeDto> dto = data.Select(x => new ControllerWithDevicesTreeDto()
+                List<CommonTreeDto> dto = data.Select(x => new CommonTreeDto()
                 {
                     Id = -1*x.Controller.Id,
                     Name = x.Key
                 }).ToList();
-                dto = dto.Concat(devices.Select(x => new ControllerWithDevicesTreeDto()
+                dto = dto.Concat(devices.Select(x => new CommonTreeDto()
                 {
                     Id = x.Id,
                     Name = x.Type.Name,
                     ParentId = -1*x.Controller.Id
+                })).ToList();
+                return new ApiResponse<LoadResult>().SetData(DataSourceLoader.Load(dto, loadOptions)).Result();
+            }
+            catch (Exception e)
+            {
+                return new ApiResponse<object>().Error(e.Message).Result();
+            }
+        }
+
+        [HttpGet]
+        [Route("sensors/tree")]
+        public ActionResult SensorTree(DataSourceLoadOptions loadOptions)
+        {
+            try
+            {
+                IQueryable<IMcAuth> data = Manager.AllAllowed(User);
+                List<ISensor> sensors = new List<ISensor>();
+                data.ForEach(x => x.Controller.Sensors.ForEach(sensor => sensors.Add(sensor)));
+                var a = Manager.Get(1);
+                List<CommonTreeDto> dto = data.Select(x => new CommonTreeDto()
+                {
+                    Id = -1 * x.Controller.Id,
+                    Name = x.Key
+                }).ToList();
+                dto = dto.Concat(sensors.Select(x => new CommonTreeDto()
+                {
+                    Id = x.Id,
+                    Name = x.Type.Name,
+                    ParentId = -1 * x.Controller.Id
                 })).ToList();
                 return new ApiResponse<LoadResult>().SetData(DataSourceLoader.Load(dto, loadOptions)).Result();
             }

@@ -19,6 +19,7 @@ interface ShantiItemFormProps {
     title: string,
     children?: any,
     colCount: number,
+    path: string
 }
 
 interface ShantiItemFormState {
@@ -49,8 +50,6 @@ export default class ShantiItemForm extends React.Component<ShantiItemFormProps,
             this.loadData();
         }
 
-       
-
         this.setEditMode = this.setEditMode.bind(this);
         this.setNewMode = this.setNewMode.bind(this);
         this.setViewMode = this.setViewMode.bind(this);
@@ -65,6 +64,7 @@ export default class ShantiItemForm extends React.Component<ShantiItemFormProps,
 
     setListener(){
         document.addEventListener('onValueChanged',  (e:any) => {
+            console.log(e)
             this.setFormDataValue(e.detail.dataField, e.detail.newValue);
         });
     }
@@ -111,15 +111,22 @@ export default class ShantiItemForm extends React.Component<ShantiItemFormProps,
     }
 
     loadData(){
-        var data = ShantiApiGet("/api/forms?id="+this.state.itemId);
+        var data = ShantiApiGet(`${this.props.path}/`+this.state.itemId);
     }
 
-    saveData(){
-        this.getFormData();
+    async saveData(){
+        let data = this.getFormData();
+        data['id'] = 0;
+        var result = ShantiApiPost(`${this.props.path}`,this.getFormData());
+        if((await result).success){
+            console.log("success");
+        } else {
+            console.log((await result).errorMessages)
+        }
     }
 
     getFormData(){
-        console.log(this.state.formData);
+        return this.state.formData;
     }
 
     getToolBar(mode:Mode){
@@ -188,7 +195,7 @@ export default class ShantiItemForm extends React.Component<ShantiItemFormProps,
                     onOptionChanged ={function(e){console.log(e)}}
                     onFieldDataChanged = {this.fieldChanged}
                     >
-                    {this.props.children.map((col,i) => {  
+                    {this.props.children.map((col,i) => { 
                         return col;
                     })} 
                 </Form>

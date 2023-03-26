@@ -30,12 +30,12 @@ namespace ShantiTirttula.Server.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews().AddJsonOptions(options =>
-            {
-                options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
-                options.JsonSerializerOptions.PropertyNamingPolicy = null;
-            });
-
+            services.AddControllers().AddJsonOptions(options =>
+             {
+                 options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
+                 options.JsonSerializerOptions.PropertyNamingPolicy = null;
+                 //options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+             });
             services.AddRouting(options => options.LowercaseUrls = true);
             services.AddHttpContextAccessor();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();

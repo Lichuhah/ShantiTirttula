@@ -1,14 +1,13 @@
 import React from 'react';
 import DropDownBox from 'devextreme-react/drop-down-box';
-import TreeView from 'devextreme-react/tree-view';
 import DataSource from 'devextreme/data/custom_store';
 import { getTokenFromLocalStorage } from '../../api/auth';
 import TreeList, {Column, Selection} from 'devextreme-react/tree-list';
 import { ShantiApiGet } from '../../api/shantiajax';
-import { defer } from 'react-router-dom';
 
 interface ShantiDropDownTreeViewProps {
     path: string,
+    byKeyPath: string,
     dataField: string,
 }
 
@@ -87,8 +86,9 @@ class ShantiDropDownTreeView extends React.PureComponent<ShantiDropDownTreeViewP
             },
             byKey(id) {
               return new Promise<void>((resolve, reject) => {  
-                ShantiApiGet("/api/devices/"+id)
-                   .then(res => resolve(res.data));  
+                ShantiApiGet(`${props.byKeyPath}`+id)
+                   .then(res => resolve(res.data))
+                   .catch(err => console.log(err));  
                 });
             }
           });

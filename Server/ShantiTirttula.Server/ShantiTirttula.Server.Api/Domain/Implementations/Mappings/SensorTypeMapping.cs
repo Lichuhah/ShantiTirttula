@@ -9,7 +9,7 @@ namespace ShantiTirttula.Server.Api.Domain.Implementations.Mappings
         {
             Property(x => x.Name, map =>
             {
-                map.Column("NUMBER");
+                map.Column("NAME");
             });
             Bag(x => x.Sensors, map =>
             {

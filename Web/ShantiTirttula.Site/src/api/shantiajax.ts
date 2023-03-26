@@ -1,6 +1,7 @@
 import { getTokenFromLocalStorage } from "./auth";
 
 export function ShantiApiPost(path: string, data: object, params?: any){
+    console.log(JSON.stringify(data))
     var reqPath = '';
     if(params != null)
         reqPath=`${process.env.REACT_APP_API_URL}${path}${params}`
