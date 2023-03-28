@@ -75,7 +75,7 @@ namespace ShantiTirttula.Server.Api.Controllers.Common
             try
             {
                 EntityType data = Manager.ConvertFromDto(dto);
-                dto.Id = Manager.Save(data).Id;                
+                dto.Id = Manager.Save(data).Id;
                 return new ApiResponse<ApiDto<EntityType>>().SetData(dto).Result();
             }
             catch (Exception e)
@@ -86,7 +86,7 @@ namespace ShantiTirttula.Server.Api.Controllers.Common
 
         [HttpPut]
         [Route("{id:int}")]
-        public ActionResult Put(int id, [FromBody] DtoType dto)
+        public virtual ActionResult Put(int id, [FromBody] DtoType dto)
         {
             try
             {
@@ -103,7 +103,7 @@ namespace ShantiTirttula.Server.Api.Controllers.Common
 
         [HttpDelete]
         [Route("{id:int}")]
-        public ActionResult Delete(int id)
+        public virtual ActionResult Delete(int id)
         {
             try
             {
@@ -116,6 +116,5 @@ namespace ShantiTirttula.Server.Api.Controllers.Common
                 return new ApiResponse<object>().Error(e.Message).Result();
             }
         }
-
     }
 }
