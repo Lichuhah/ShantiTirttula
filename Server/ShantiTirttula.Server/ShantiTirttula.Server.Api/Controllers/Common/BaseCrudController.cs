@@ -70,7 +70,7 @@ namespace ShantiTirttula.Server.Api.Controllers.Common
 
         [HttpPost]
         [Route("")]
-        public ActionResult Post([FromBody] DtoType dto)
+        public virtual ActionResult Post([FromBody] DtoType dto)
         {
             try
             {

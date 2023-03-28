@@ -6,5 +6,6 @@ namespace ShantiTirttula.Server.Dispatcher.Mqtt.Models
     {
         public MqttHeader Headers { get; set; }
         public List<McSensorData> Data {get; set;}
+        public List<McDeviceValues> Devices { get; set; }
     }
 }

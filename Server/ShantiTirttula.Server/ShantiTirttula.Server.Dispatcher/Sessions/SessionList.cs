@@ -67,7 +67,6 @@ namespace ShantiTirttula.Server.Dispatcher.Sessions
             }
             catch (Exception ex) { }
 
-            session.LoadTriggers();
             Sessions.Add(session);
             return session;
         }

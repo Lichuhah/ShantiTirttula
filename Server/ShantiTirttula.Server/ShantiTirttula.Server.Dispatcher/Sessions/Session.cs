@@ -13,22 +13,30 @@ namespace ShantiTirttula.Server.Dispatcher.Sessions
         public List<List<McSensorData>> SensorsData { get; set; }
         public List<DispatcherTrigger> Triggers { get; set; }
         public List<McCommand> Commands { get; set; }
+        public List<McDeviceValues> DeviceValues { get; set;}
         public DateTime LastSendTime { get; set; }
         public DateTime CreateTime { get; set; }
         public Session()
         {
             SensorsData = new List<List<McSensorData>>();
             Triggers = new List<DispatcherTrigger>();
-            Commands = new List<McCommand>();          
+            Commands = new List<McCommand>();
+            DeviceValues = new List<McDeviceValues>();
         }
         public void AddSensorsData(List<McSensorData> data)
         {
             this.SensorsData.Add(data);
             CheckTriggers(data);
-            if (DateTime.UtcNow - LastSendTime > TimeSpan.FromSeconds(60))
+            if (DateTime.UtcNow - LastSendTime > TimeSpan.FromSeconds(30))
             {
                 SendSensorData();
             }
+        }
+
+        public void SetDeviceValues(List<McDeviceValues> data)
+        {
+            this.DeviceValues.Clear();
+            this.DeviceValues.AddRange(data);
         }
 
         private void CheckTriggers(List<McSensorData> data)
@@ -53,12 +61,15 @@ namespace ShantiTirttula.Server.Dispatcher.Sessions
             }
             if (isTrigger)
             {
-                Commands.Add(new McCommand
+                if (this.DeviceValues.First(x => x.Pin == trigger.Pin).Value != trigger.DeviceValue)
                 {
-                    Pin = trigger.Pin,
-                    IsPwm = trigger.IsPwm,
-                    Value = trigger.DeviceValue
-                });
+                    Commands.Add(new McCommand
+                    {
+                        Pin = trigger.Pin,
+                        IsPwm = trigger.IsPwm,
+                        Value = trigger.DeviceValue
+                    });
+                }
             }
         }
 
@@ -94,8 +105,9 @@ namespace ShantiTirttula.Server.Dispatcher.Sessions
         {        
             try
             {
-                string answer = HttpHelper.PostData("/api/sensor/data/post", JsonConvert.SerializeObject(data), this.Token);
-                Console.WriteLine(answer);
+                foreach(McSensorData sensorData in data){
+                    HttpHelper.PostData("/api/sensordata", JsonConvert.SerializeObject(sensorData), this.Token);
+                }
                 this.LastSendTime = DateTime.UtcNow;
                 this.SensorsData.Clear();
                 return true;

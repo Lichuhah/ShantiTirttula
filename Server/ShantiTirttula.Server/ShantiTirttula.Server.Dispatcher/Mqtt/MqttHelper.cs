@@ -20,6 +20,7 @@ namespace ShantiTirttula.Server.Dispatcher.Mqtt
             {
                 var message = JsonConvert.DeserializeObject<MqttMessage>(payload);
                 Session session = SessionList.GetList().GetSession(new McData { Mac = message.Headers.Mac, Key = message.Headers.Key });
+                session.SetDeviceValues(message.Devices);
                 session.AddSensorsData(message.Data);
                 if (session.Commands.Any())
                 {
