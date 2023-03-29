@@ -2,6 +2,8 @@
 {
     public class DispatcherTrigger
     {
+        public int Id { get; set; }
+        public int AuthId { get; set; }
         public ETriggerType Type { get; set; }
         public int SensorNumber { get; set; }
         public float TriggerValue { get; set; }

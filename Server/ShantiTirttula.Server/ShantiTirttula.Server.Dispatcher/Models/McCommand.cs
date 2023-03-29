@@ -2,8 +2,9 @@
 {
     public class McCommand
     {
+        public int TriggerId { get; set; }
         public int Pin { get; set; }
         public bool IsPwm { get; set; }
-        public float Value { get; set; }
+        public double Value { get; set; }
     }
 }

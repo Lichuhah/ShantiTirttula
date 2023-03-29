@@ -25,7 +25,7 @@ namespace ShantiTirttula.Server.Dispatcher.Mqtt
                 if (session.Commands.Any())
                 {
                     SendCommand(session);
-                    session.Commands.Clear();
+                    session.SaveCommandsLog();
                 }
             } catch (Exception ex)
             {

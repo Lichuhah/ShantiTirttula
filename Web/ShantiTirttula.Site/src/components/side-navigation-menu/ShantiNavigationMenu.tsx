@@ -88,6 +88,20 @@ export class ShantiNavigationMenu extends React.PureComponent<ShantiNavigationMe
                     path: '/sensordata',
                     disabled: !this.state.isMcSelected,
                  }
+                 ,
+                 {
+                    text: 'Устройства',
+                    key: 'devices',
+                    path: '/devices',
+                    disabled: !this.state.isMcSelected,
+                 }
+                 ,
+                 {
+                    text: 'Лог команд',
+                    key: 'commandlog',
+                    path: '/commandlog',
+                    disabled: !this.state.isMcSelected,
+                 }
                ]
          }
         ];

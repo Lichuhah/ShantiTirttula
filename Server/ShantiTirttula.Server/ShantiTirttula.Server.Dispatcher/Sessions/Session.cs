@@ -12,6 +12,7 @@ namespace ShantiTirttula.Server.Dispatcher.Sessions
         public string Token { get; set; }
         public List<List<McSensorData>> SensorsData { get; set; }
         public List<DispatcherTrigger> Triggers { get; set; }
+        public List<McCommand> CommandLog { get; set; }
         public List<McCommand> Commands { get; set; }
         public List<McDeviceValues> DeviceValues { get; set;}
         public DateTime LastSendTime { get; set; }
@@ -20,6 +21,7 @@ namespace ShantiTirttula.Server.Dispatcher.Sessions
         {
             SensorsData = new List<List<McSensorData>>();
             Triggers = new List<DispatcherTrigger>();
+            CommandLog = new List<McCommand>();
             Commands = new List<McCommand>();
             DeviceValues = new List<McDeviceValues>();
         }
@@ -30,6 +32,10 @@ namespace ShantiTirttula.Server.Dispatcher.Sessions
             if (DateTime.UtcNow - LastSendTime > TimeSpan.FromSeconds(30))
             {
                 SendSensorData();
+                SendCommandsLog();
+                this.LastSendTime = DateTime.UtcNow;
+                this.SensorsData.Clear();
+                this.CommandLog.Clear();
             }
         }
 
@@ -65,6 +71,7 @@ namespace ShantiTirttula.Server.Dispatcher.Sessions
                 {
                     Commands.Add(new McCommand
                     {
+                        TriggerId = trigger.Id,
                         Pin = trigger.Pin,
                         IsPwm = trigger.IsPwm,
                         Value = trigger.DeviceValue
@@ -101,6 +108,29 @@ namespace ShantiTirttula.Server.Dispatcher.Sessions
             SendAverageDataToServer(data);
         }
 
+        public void SaveCommandsLog()
+        {
+            CommandLog.AddRange(Commands);
+            Commands.Clear();
+        }
+
+        public bool SendCommandsLog()
+        {
+            try
+            {
+                foreach (McCommand com in CommandLog)
+                {
+                    HttpHelper.PostData("/api/commandlog", JsonConvert.SerializeObject(com), this.Token);
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+        }
+
         private bool SendAverageDataToServer(List<McSensorData> data)
         {        
             try
@@ -108,8 +138,6 @@ namespace ShantiTirttula.Server.Dispatcher.Sessions
                 foreach(McSensorData sensorData in data){
                     HttpHelper.PostData("/api/sensordata", JsonConvert.SerializeObject(sensorData), this.Token);
                 }
-                this.LastSendTime = DateTime.UtcNow;
-                this.SensorsData.Clear();
                 return true;
             }
             catch (Exception ex)
