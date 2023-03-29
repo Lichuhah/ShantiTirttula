@@ -1,4 +1,4 @@
-import { Item, SimpleItem } from "devextreme-react/form";
+import { Item, SimpleItem, IItemProps } from "devextreme-react/form";
 import React from "react";
 import { ShantiItemForm } from "../../components";
 import ShantiDropDownTreeView from "../../components/shanti-drop-down-treeview/ShantiDropDownTreeView";
@@ -15,11 +15,6 @@ export default function TriggersForm() {
             />
             <Item
                 dataField={'deviceValue'}
-                editorType={'dxTextBox'}
-                itemType={'simple'}
-            />
-            <Item
-                dataField={'authId'}
                 editorType={'dxTextBox'}
                 itemType={'simple'}
             />

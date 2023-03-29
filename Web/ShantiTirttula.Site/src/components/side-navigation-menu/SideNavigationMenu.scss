@@ -15,7 +15,7 @@
 
     .dx-treeview {
       // ## Long text positioning
-      white-space: nowrap;
+      white-space: pre-wrap;
       // ##
 
       // ## Icon width customization
@@ -50,7 +50,7 @@
       .dx-treeview-node {
         &[aria-level='1'] {
           font-weight: bold;
-          border-bottom: 1px solid $base-border-color;
+          border-bottom: 1px solid $base-border-color;   
         }
   
         &[aria-level='2'] .dx-treeview-item-content {

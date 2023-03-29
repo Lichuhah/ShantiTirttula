@@ -5,8 +5,10 @@ import { useNavigation } from '../../contexts/navigation';
 import { useScreenSize } from '../../utils/media-query';
 import './SideNavigationMenu.scss';
 import type { SideNavigationMenuProps } from '../../types';
+import { Link, useNavigate } from 'react-router-dom';
 
 import * as events from 'devextreme/events';
+import ShantiNavigationMenu from './ShantiNavigationMenu';
 
 export default function SideNavigationMenu(props: React.PropsWithChildren<SideNavigationMenuProps>) {
   const {
@@ -62,6 +64,8 @@ export default function SideNavigationMenu(props: React.PropsWithChildren<SideNa
     }
   }, [currentPath, compactMode]);
 
+
+
   return (
     <div
       className={'dx-swatch-additional side-navigation-menu'}
@@ -69,18 +73,17 @@ export default function SideNavigationMenu(props: React.PropsWithChildren<SideNa
     >
       {children}
       <div className={'menu-container'}>
-        <TreeView
-          ref={treeViewRef}
-          items={items}
-          keyExpr={'path'}
-          selectionMode={'single'}
-          focusStateEnabled={false}
-          expandEvent={'click'}
-          onItemClick={selectedItemChanged}
-          onContentReady={onMenuReady}
-          width={'100%'}
+        <ShantiNavigationMenu
+          navigate={useNavigate()}
+          selectedItemChanged={selectedItemChanged}
+          onMenuReady={onMenuReady} 
+          children={undefined} 
+          openMenu={openMenu} 
+          compactMode={undefined}  
+          isLarge={useScreenSize()}
         />
       </div>
     </div>
   );
 }
+

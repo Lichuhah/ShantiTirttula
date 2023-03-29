@@ -1,24 +1,31 @@
 export const navigation = [
   {
     text: 'Home',
+    key: 'Home',
     path: '/home',
     icon: 'home'
   },
   {
-    text: 'Объекты',
+    text: 'Контроллер:',
+    key: 'controllerfolder',
     icon: 'folder',
     items: [
       {
         text: 'Профиль',
-        path: '/profile'
+        key: 'profile',
+        path: '/profile',
+        disabled: true
       },
       {
         text: 'Контроллеры',
+        key: 'controllers',
         path: '/controllers'
       },
       {
         text: 'Триггеры',
-        path: '/triggers'
+        key: 'triggers',
+        path: '/triggers',
+        disabled: true
       }
     ]
   }

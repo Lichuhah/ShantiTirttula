@@ -133,7 +133,9 @@ export default class ShantiItemForm extends React.Component<ShantiItemFormProps,
     }
 
     getFormData(){
-        return this.state.formData;
+        let data = this.state.formData;
+        data['authId'] = sessionStorage.getItem("mcId");
+        return data;
     }
 
     getToolBar(mode:Mode){

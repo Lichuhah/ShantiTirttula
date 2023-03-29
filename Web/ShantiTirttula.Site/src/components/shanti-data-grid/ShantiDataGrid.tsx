@@ -21,6 +21,7 @@ import { ShantiApiDelete } from '../../api/shantiajax';
 interface ShantiDataGridProps {
     path: string,
     title: string,
+    rowActions?: any,
     children: any[]
 }
 
@@ -29,7 +30,7 @@ function isNotEmpty(value) {
 }
 
 
-class ShantiDataGrid extends React.Component<ShantiDataGridProps> {
+class ShantiDataGrid extends React.PureComponent<ShantiDataGridProps> {
 
     path: string;
     title: string;
@@ -49,7 +50,13 @@ class ShantiDataGrid extends React.Component<ShantiDataGridProps> {
         this.renderCommandCell = this.renderCommandCell.bind(this);
         this.removeCellClick = this.removeCellClick.bind(this);
         this.columns = this.createColumns();
-        console.log('test')
+    }
+
+    /**
+     * GetSelectedItems
+     */
+    public GetSelectedItems() {
+      return this.dataGrid.instance.getSelectedRowsData();
     }
 
     createColumns(){
@@ -66,18 +73,28 @@ class ShantiDataGrid extends React.Component<ShantiDataGridProps> {
     }
 
     renderCommandCell(){
+        let items = [];
+        items.push({             
+          text:'Удалить',
+          icon:'trash',
+          onClick: this.removeCellClick              
+        });
+
+        if(this.props.rowActions != undefined){
+          this.props.rowActions.forEach(element => {
+            items.push(element)
+          });
+        }
+
         let ds = [
           {
             icon:'overflow',
             onClick: this.rowMenuCellClick,
-            items: [{             
-                text:'Удалить',
-                icon:'trash',
-                onClick: this.removeCellClick              
-            }]
+            items: items
           },
-         ]
+        ]
 
+        console.log(ds)
         return (
           <Menu 
             dataSource={ds}

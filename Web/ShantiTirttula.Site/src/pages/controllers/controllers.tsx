@@ -6,27 +6,48 @@ import DataGrid, {
 import ShantiDataGrid from '../../components/shanti-data-grid/ShantiDataGrid';
 
 export default function Controllers() {
+
+  let rowActions = new Array(
+  {             
+    text:'Установить основным',
+    icon:'pin',
+    onClick: ()=>{
+      document.dispatchEvent(new CustomEvent("selectedControllerChanged", { 
+        detail: {
+          value: grid.GetSelectedItems()[0]
+        } 
+      }));
+    }            
+  });
+
+  let columns = [
+    <Column
+      dataField={'key'}
+      caption={'Ключ'}
+      hidingPriority={8}
+    />,
+    <Column
+      dataField={'mac'}
+      caption={'Мас адрес'}
+      hidingPriority={8}
+    />,
+    <Column
+      dataField={'typeName'}
+      caption={'Тип контроллера'}
+      hidingPriority={6}
+    />
+  ];
+
+  let grid:ShantiDataGrid = new ShantiDataGrid(
+    { 
+      title: 'Контроллеры',
+      path: '/api/mcauth', 
+      children: columns,
+      rowActions: rowActions
+    })
+
   return (
     <React.Fragment>
-      <ShantiDataGrid
-        title={'Контроллеры'}
-        path={'/api/mcauth'}
-      >
-        <Column
-          dataField={'key'}
-          caption={'Ключ'}
-          hidingPriority={8}
-        />
-        <Column
-          dataField={'mac'}
-          caption={'Мас адрес'}
-          hidingPriority={8}
-        />
-        <Column
-          dataField={'typeName'}
-          caption={'Тип контроллера'}
-          hidingPriority={6}
-        />
-      </ShantiDataGrid>     
+      {grid.render()}  
     </React.Fragment>
 )}
