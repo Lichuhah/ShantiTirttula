@@ -22,7 +22,7 @@ interface ShantiDataGridProps {
     path: string,
     title: string,
     rowActions?: any,
-    children: any[]
+    children: any
 }
 
 function isNotEmpty(value) {

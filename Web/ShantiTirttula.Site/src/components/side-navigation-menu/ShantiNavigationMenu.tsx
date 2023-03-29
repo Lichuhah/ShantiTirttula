@@ -59,12 +59,12 @@ export class ShantiNavigationMenu extends React.PureComponent<ShantiNavigationMe
                text: 'Контроллер: '+this.state.mcKey,
                icon: 'folder',
                items: [
-                 {
-                   text: 'Профиль',
-                   key: 'profile',
-                   path: '/profile',
-                   disabled: !this.state.isMcSelected,
-                 },
+                //  {
+                //    text: 'Профиль',
+                //    key: 'profile',
+                //    path: '/profile',
+                //    disabled: !this.state.isMcSelected,
+                //  },
                  {
                    text: 'Контроллеры',
                    key: 'controllers',
@@ -75,6 +75,18 @@ export class ShantiNavigationMenu extends React.PureComponent<ShantiNavigationMe
                    key: 'triggers',
                    path: '/triggers',
                    disabled: !this.state.isMcSelected,
+                 },
+                 {
+                    text: 'Датчики',
+                    key: 'sensors',
+                    path: '/sensors',
+                    disabled: !this.state.isMcSelected,
+                 },
+                 {
+                    text: 'Значения датчиков',
+                    key: 'sensordata',
+                    path: '/sensordata',
+                    disabled: !this.state.isMcSelected,
                  }
                ]
          }
