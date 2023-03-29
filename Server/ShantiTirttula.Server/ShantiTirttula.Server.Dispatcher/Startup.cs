@@ -19,6 +19,7 @@ namespace ShantiTirttula.Server.Dispatcher
         {
             app.UseRouting();
             app.UseStaticFiles();
+            app.UseCors("_myAllowSpecificOrigins");
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
@@ -38,7 +39,17 @@ namespace ShantiTirttula.Server.Dispatcher
                 options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
                 options.JsonSerializerOptions.PropertyNamingPolicy = null;
             });
-
+            services.AddCors(options =>
+            {
+                options.AddPolicy("_myAllowSpecificOrigins",
+                    policy =>
+                    {
+                        policy.SetIsOriginAllowed(_ => true);
+                        policy.AllowAnyMethod();
+                        policy.AllowAnyHeader();
+                        policy.AllowCredentials();
+                    });
+            });
             services.AddRouting(options => options.LowercaseUrls = true);
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             ShantiMqttServer mqttServer = ShantiMqttServer.GetServer();
