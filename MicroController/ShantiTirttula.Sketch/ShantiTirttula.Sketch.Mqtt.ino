@@ -9,7 +9,7 @@ bool MQTTinit(){
   client.setCallback(callback);
   if (client.connect("ESP8266"))
     {
-      client.subscribe("answer");
+      //client.subscribe("answer");
       client.subscribe(key.c_str());
       Serial.println("connected");
       return true;
@@ -38,11 +38,11 @@ void reconnect() {
   }
 }
 
-bool SendData(int sensors[], int values[]){
+bool SendData(){
   if (!client.connected()) {
     reconnect();
   }
-  client.publish("test", GetMqttMessage(sensors, values).c_str());
+  client.publish("test", GetMqttMessage().c_str());
   delay(100);
   client.loop();
   delay(100);

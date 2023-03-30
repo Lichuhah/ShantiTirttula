@@ -1,5 +1,6 @@
-void ReadData(int outPin){
-  sensorValues[0]=ReadSensorByPin(A0);
+void ReadData(){
+  sensorValues[0]=ReadSensorByPin(35);
+  sensorValues[1]=ReadSensorByPin(32);
 }
 
 int ReadSensorByPin(int pin){

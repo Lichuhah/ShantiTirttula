@@ -1,10 +1,10 @@
-String GetSensorJson(int sensors[], int values[]){
-  int leng = sizeof(sensors)/sizeof(int);
+String GetSensorJson(){
+  int leng = 2;
   String json = "[";
   for(int i=0; i<leng; i++){
     json += "{";
     json += "\"Value\":";
-    json += values[i];
+    json += sensorValues[i];
     json += ",\"SensorId\":";
     json += sensors[i];
     json += "}";
@@ -15,14 +15,14 @@ String GetSensorJson(int sensors[], int values[]){
 }
 
 String GetDeviceJson(){
-  int leng = sizeof(devicesValues)/sizeof(double);
+  int leng = 2;
   String json = "[";
   for(int i=0; i<leng; i++){
     json += "{";
     json += "\"Value\":";
-    json += devicesValues[0];
+    json += devicesValues[i];
     json += ",\"Pin\":";
-    json += 5;
+    json += devices[i];
     json += "}";
     if(i!=leng-1) json+=",";
   }
@@ -40,12 +40,12 @@ String GetHeadersJson(){
   return json;
 }
 
-String GetMqttMessage(int sensors[], int values[]){
+String GetMqttMessage(){
   String json = "{";
   json += "\"Headers\":";
   json += GetHeadersJson();
   json += ",\"Data\":";
-  json += GetSensorJson(sensors, values);
+  json += GetSensorJson();
   json += ",\"Devices\":";
   json += GetDeviceJson();
   json += "}";

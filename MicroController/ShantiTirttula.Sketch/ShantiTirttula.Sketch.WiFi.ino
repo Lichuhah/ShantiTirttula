@@ -7,23 +7,23 @@ bool WIFIinit() {
   // не станет равен нулю или не получим подключение
   while (--tries && WiFi.status() != WL_CONNECTED)
   {
-    //Serial.print(".");
+    Serial.print(".");
     delay(1000);
   }
   if (WiFi.status() != WL_CONNECTED)
   {
     // Если не удалось подключиться запускаем в режиме AP
     //Serial.println("");
-    //Serial.println("WiFi up AP");
+    Serial.println("WiFi up AP");
     return false;
   }
   else {
     // Иначе удалось подключиться отправляем сообщение
     // о подключении и выводим адрес IP
-    //Serial.println("");
-    //Serial.println("WiFi connected");
-    //Serial.println("IP address: ");
-    //Serial.println(WiFi.localIP());
+    Serial.println("");
+    Serial.println("WiFi connected");
+    Serial.println("IP address: ");
+    Serial.println(WiFi.localIP());
     WiFi.setAutoReconnect(true);
     WiFi.persistent(true);
     return true;

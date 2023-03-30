@@ -1,10 +1,10 @@
-#include "LittleFS.h" 
+#include "LITTLEFS.h" 
 
 String LoadFromFile(String file_name) {
-  LittleFS.begin();
+  LITTLEFS.begin();
   String result = "";
   
-  File this_file = LittleFS.open(file_name, "r");
+  File this_file = LITTLEFS.open(file_name, "r");
   if (!this_file) { // failed to open the file, retrn empty result
     return result;
   }
@@ -17,9 +17,8 @@ String LoadFromFile(String file_name) {
 }
 
 bool WriteToFile(String file_name, String contents) {  
-  File this_file = LittleFS.open(file_name, "w");
+  File this_file = LITTLEFS.open(file_name, "w");
   if (!this_file) { // failed to open the file, return false
-    Serial.print("error open");
     return false;
   }
   int bytesWritten = this_file.print(contents);

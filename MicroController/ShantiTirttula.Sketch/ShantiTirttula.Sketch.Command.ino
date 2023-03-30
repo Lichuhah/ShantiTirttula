@@ -7,6 +7,7 @@ void ExecuteCommands(String command){
 
   // Test if parsing succeeds.
   if (error) {
+    Serial.println("fff");
     Serial.print(F("deserializeJson() failed: "));
     Serial.println(error.f_str());
     return;
@@ -14,11 +15,15 @@ void ExecuteCommands(String command){
     JsonArray arr = doc.as<JsonArray>();
     for (JsonObject repo : arr) {
       int pin = repo["Pin"].as<int>();
-      double value = repo["Value"].as<double>();
+      int value = repo["Value"].as<int>();
       bool isPWM = repo["IsPwm"].as<bool>();
-      devicesValues[0]=value;
+      for(int i=0; i<2; i++){
+        if(devices[i]==pin){
+          devicesValues[i]=value;
+        }
+      }
       if(isPWM){
-        analogWrite(pin, value);
+        ledcWrite(pin, value);
       } else {
         if(value==1){ digitalWrite(pin, HIGH); }
         else { digitalWrite(pin, LOW); }

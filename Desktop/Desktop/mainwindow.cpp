@@ -129,13 +129,13 @@ void MainWindow::on_BtnLogin_clicked()
    textObject["login"] = this->ui->TxtUserLogin->text();
    textObject["password"] = this->ui->TxtUserPassword->text();
 
-   QUrl url("http://localhost:5193/api/users/1");
+   QUrl url("http://130.193.34.231:8000/api/login/signin");
    QNetworkRequest request(url);
    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
 
    QNetworkAccessManager *manager = new QNetworkAccessManager(this);
 
-   QNetworkReply *reply = manager->get(request);//, QJsonDocument(textObject).toJson(QJsonDocument::Indented));
+   QNetworkReply *reply = manager->post(request, QJsonDocument(textObject).toJson(QJsonDocument::Indented));//, QJsonDocument(textObject).toJson(QJsonDocument::Indented));
    QObject::connect(reply, &QNetworkReply::finished, [reply, this]() {
       QString ReplyText = reply->readAll();
       //QJsonParseError json_error;
