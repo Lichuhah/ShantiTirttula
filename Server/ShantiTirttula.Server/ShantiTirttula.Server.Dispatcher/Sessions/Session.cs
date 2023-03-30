@@ -17,12 +17,14 @@ namespace ShantiTirttula.Server.Dispatcher.Sessions
         public List<McDeviceValues> DeviceValues { get; set;}
         public DateTime LastSendTime { get; set; }
         public DateTime CreateTime { get; set; }
+        public bool IsBusy { get; set; }
         public Session()
         {
             SensorsData = new List<List<McSensorData>>();
             Triggers = new List<DispatcherTrigger>();
             CommandLog = new List<McCommand>();
             Commands = new List<McCommand>();
+            IsBusy = false;
             DeviceValues = new List<McDeviceValues>();
         }
         public void AddSensorsData(List<McSensorData> data)

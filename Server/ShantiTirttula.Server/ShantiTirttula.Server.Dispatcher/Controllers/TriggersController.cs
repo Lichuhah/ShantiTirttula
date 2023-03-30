@@ -17,7 +17,12 @@ namespace ShantiTirttula.Server.Dispatcher.Controllers
             {
                 Session session = SessionList.GetList().Sessions.FirstOrDefault(ses => ses.Mc.Key == key);
                 if (session != null)
+                {
+                    session.IsBusy = true;
+                    session.Triggers.Clear();
                     session.Triggers = triggers;
+                    session.IsBusy = false;
+                }
                 else
                     return false;
                 return true;
