@@ -38,6 +38,12 @@ namespace ShantiTirttula.Server.Dispatcher.Mqtt
             ShantiMqttServer mqttServer = ShantiMqttServer.GetServer();
             mqttServer.SendMessage(session.Mc.Key, JsonConvert.SerializeObject(session.Commands));
         }
+
+        public static void SendError(string error)
+        {
+            ShantiMqttServer mqttServer = ShantiMqttServer.GetServer();
+            mqttServer.SendMessage("answer", error);
+        }
     }
 
 }

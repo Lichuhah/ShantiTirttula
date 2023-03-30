@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using ShantiTirttula.Server.Dispatcher.Mqtt;
 using System.Text;
 
 namespace ShantiTirttula.Server.Dispatcher.Http
@@ -13,6 +14,7 @@ namespace ShantiTirttula.Server.Dispatcher.Http
             request.Content = new StringContent(data, Encoding.UTF8, "application/json");
             HttpResponseMessage response = client.Send(request);
             string result = response.Content.ReadAsStringAsync().Result;
+            MqttHelper.SendError(JsonConvert.SerializeObject(result));
             return result;
         }
 
