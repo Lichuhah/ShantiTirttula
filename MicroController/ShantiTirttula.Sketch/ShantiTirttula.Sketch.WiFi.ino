@@ -24,6 +24,8 @@ bool WIFIinit() {
     //Serial.println("WiFi connected");
     //Serial.println("IP address: ");
     //Serial.println(WiFi.localIP());
+    WiFi.setAutoReconnect(true);
+    WiFi.persistent(true);
     return true;
   }
 }

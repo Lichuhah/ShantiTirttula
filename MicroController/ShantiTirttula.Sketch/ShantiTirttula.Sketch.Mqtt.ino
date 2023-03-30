@@ -2,7 +2,7 @@
 WiFiClient espClient;   
 PubSubClient client(espClient);
 const char* mqtt_server = "130.193.34.231";
-const int mqtt_port = 8002;
+const int mqtt_port = 9002;
 
 bool MQTTinit(){
   client.setServer(mqtt_server, mqtt_port);
@@ -28,12 +28,12 @@ void reconnect() {
     {
       client.subscribe("answer");
       client.subscribe(key.c_str());
-      //Serial.println("connected");
+      Serial.println("connected");
     }
     else
     {
-      //Serial.print("failed with state ");
-      //Serial.println(client.state());
+      Serial.print("failed with state ");
+      Serial.println(client.state());
     }
   }
 }
@@ -43,7 +43,9 @@ bool SendData(int sensors[], int values[]){
     reconnect();
   }
   client.publish("test", GetMqttMessage(sensors, values).c_str());
+  delay(100);
   client.loop();
+  delay(100);
   return true;
 }
 
@@ -51,9 +53,12 @@ void callback(char* topic, byte* payload, unsigned int length) {
   //Serial.print("Message arrived [");
   //Serial.print(topic);
   //Serial.print("] ");
-  for (int i=0;i<length;i++) {
+  //for (int i=0;i<length;i++) {
     //Serial.print((char)payload[i]);
-  }
+  //}
+  delay(100);
   ExecuteCommands(String((char *)payload));
+  delay(100);
+  return;
   //Serial.println();
 }

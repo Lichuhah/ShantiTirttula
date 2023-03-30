@@ -161,7 +161,7 @@ void MainWindow::on_BtnGetMcKey_clicked()
     textObject["password"] = this->ui->TxtUserPassword->text();
     textObject["mac"] = this->ui->TxtMac->text();
 
-    QUrl url("http://localhost:5193/api/mc/signup");
+    QUrl url("http://130.193.34.231:8000/api/mc/signup");
     QNetworkRequest request(url);
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
 

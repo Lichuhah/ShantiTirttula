@@ -18,40 +18,40 @@ namespace ShantiTirttula.Server.Api.Domain.Implementations.Managers
 
         public NHibernate.ISession Session { get; set; }
 
-        public IQueryable<T> All()
+        public virtual IQueryable<T> All()
         {
             return Repository.All();
         }
-        public IQueryable<T> AllAllowed(IUser user)
+        public virtual IQueryable<T> AllAllowed(IUser user)
         {
             return Repository.All().ToList().Where(x => CheckUser(x, user) == true).AsQueryable();
         }
-        public T Create()
+        public virtual T Create()
         {
             return Repository.Create();
         }
 
-        public bool Delete(T entity)
+        public virtual bool Delete(T entity)
         {
             return Repository.Delete(entity);
         }
 
-        public bool Delete(IEnumerable<T> entities)
+        public virtual bool Delete(IEnumerable<T> entities)
         {
             return Repository.Delete(entities);
         }
 
-        public T Get(int id)
+        public virtual T Get(int id)
         {
             return Repository.Get(id);
         }
 
-        public T Save(T entity)
+        public virtual T Save(T entity)
         {
             return Repository.Save(entity);
         }
 
-        public bool Save(IEnumerable<T> entities)
+        public virtual bool Save(IEnumerable<T> entities)
         {
             return Repository.Save(entities);
         }

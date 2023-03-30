@@ -13,6 +13,13 @@ namespace ShantiTirttula.Server.Api.Domain.Implementations.Managers
 
         }
 
+        //public override bool Delete(ITrigger entity)
+        //{
+        //    ICommandLogManager logManager = new CommandLogManager();
+        //    foreach(ICommandLog log in entity.)
+        //    return Repository.Delete(entity);
+        //}
+
         public override TriggerDto ConvertToDto(ITrigger entity)
         {
             TriggerDto dto = new TriggerDto() {

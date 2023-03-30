@@ -3,11 +3,27 @@ String GetSensorJson(int sensors[], int values[]){
   String json = "[";
   for(int i=0; i<leng; i++){
     json += "{";
-    json += "\"Value\":\"";
+    json += "\"Value\":";
     json += values[i];
-    json += "\",\"SensorId\":\"";
+    json += ",\"SensorId\":";
     json += sensors[i];
-    json += "\"}";
+    json += "}";
+    if(i!=leng-1) json+=",";
+  }
+  json += "]";
+  return json;
+}
+
+String GetDeviceJson(){
+  int leng = sizeof(devicesValues)/sizeof(double);
+  String json = "[";
+  for(int i=0; i<leng; i++){
+    json += "{";
+    json += "\"Value\":";
+    json += devicesValues[0];
+    json += ",\"Pin\":";
+    json += 5;
+    json += "}";
     if(i!=leng-1) json+=",";
   }
   json += "]";
@@ -30,6 +46,8 @@ String GetMqttMessage(int sensors[], int values[]){
   json += GetHeadersJson();
   json += ",\"Data\":";
   json += GetSensorJson(sensors, values);
+  json += ",\"Devices\":";
+  json += GetDeviceJson();
   json += "}";
   Serial.println(json);
   return json;

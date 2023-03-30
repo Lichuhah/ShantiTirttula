@@ -8,5 +8,6 @@
         public IMcAuth Auth { get; set; }
         public float TriggerValue { get; set; }
         public float DeviceValue { get; set; }
+        public IList<ICommandLog> Logs { get; set; }
     }
 }

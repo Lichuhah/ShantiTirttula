@@ -14,15 +14,15 @@ void ExecuteCommands(String command){
     JsonArray arr = doc.as<JsonArray>();
     for (JsonObject repo : arr) {
       int pin = repo["Pin"].as<int>();
-      int value = repo["Value"].as<int>();
+      int value = repo["Value"].as<double>();
       bool isPWM = repo["IsPwm"].as<bool>();
-      
+      devicesValues[1]=value;
       if(isPWM){
         analogWrite(pin, value);
       } else {
         if(value==1){ digitalWrite(pin, HIGH); }
         else { digitalWrite(pin, LOW); }
-      } 
+      }
     }
   }
 }

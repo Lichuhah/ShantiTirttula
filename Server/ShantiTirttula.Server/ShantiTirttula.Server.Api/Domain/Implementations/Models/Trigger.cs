@@ -10,5 +10,6 @@ namespace ShantiTirttula.Server.Api.Domain.Implementations.Models
         public virtual IMcAuth Auth { get; set; }
         public virtual float TriggerValue { get; set; }
         public virtual float DeviceValue { get; set; }
+        public virtual IList<ICommandLog> Logs { get; set; }
     }
 }

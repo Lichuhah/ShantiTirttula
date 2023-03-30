@@ -4,6 +4,7 @@ bool IsWiFiConnect = false;
 bool IsMqttConnect = false;
 int sensors[1] = {1};
 int sensorValues[1] = {0};
+double devicesValues[1]={0};
 String key;
 String mac;
 String wifi_ssid     = ""; // Для хранения SSID
@@ -19,14 +20,23 @@ void setup() {
   //Запускаем WIFI
   LoadConfig();
   IsWiFiConnect = WIFIinit();
-  //IsMqttConnect = MQTTinit();
+  IsMqttConnect = MQTTinit();
 }
 
 void loop() {
+  Serial.println("work0");
+  Serial.println(IsWiFiConnect);
+  Serial.println(IsMqttConnect);
   ReadSerial();
-  if(IsWiFiConnect && IsMqttConnect){
-    ReadData(A0);
-    SendData(sensors, sensorValues);
+  if(IsWiFiConnect){
+    if(IsMqttConnect){
+      ReadData(A0);
+      SendData(sensors, sensorValues);
+    } else {
+      IsMqttConnect = MQTTinit();
+    }
+  } else {
+    IsWiFiConnect = WIFIinit();
   }
   delay(1000);
 }
