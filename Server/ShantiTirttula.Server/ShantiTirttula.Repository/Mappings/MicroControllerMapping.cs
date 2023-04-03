@@ -7,6 +7,14 @@ namespace ShantiTirttula.Repository.Mappings
     {
         public MicroControllerMapping() : base("MC_CONTROLLER")
         {
+            Property(x => x.AdcMax, map =>
+            {
+                map.Column("ADC_MAX");
+            });
+            Property(x => x.Voltage, map =>
+            {
+                map.Column("VOLTAGE");
+            });
             ManyToOne(x => x.Type, map =>
             {
                 map.Column("TYPE_ID");

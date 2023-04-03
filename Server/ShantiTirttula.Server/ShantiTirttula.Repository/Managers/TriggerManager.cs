@@ -1,7 +1,6 @@
 ﻿using ShantiTirttula.Domain.Dto;
 using ShantiTirttula.Domain.Models;
 using ShantiTirttula.Domain.Managers;
-using ShantiTirttula.Domain.Models;
 using ShantiTirttula.Domain.Dto.Models;
 using ShantiTirttula.Repository.Models;
 

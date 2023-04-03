@@ -11,6 +11,26 @@ namespace ShantiTirttula.Repository.Mappings
             {
                 map.Column("NAME");
             });
+            Property(x => x.Power, map =>
+            {
+                map.Column("POWER");
+            });
+            Property(x => x.MaxValue, map =>
+            {
+                map.Column("MAX_VALUE");
+            });
+            Property(x => x.MinValue, map =>
+            {
+                map.Column("MIN_VALUE");
+            });
+            Property(x => x.Algorithm, map =>
+            {
+                map.Column("ALGORITHM");
+            });
+            Property(x => x.IsReverse, map =>
+            {
+                map.Column("REVERSE");
+            });
             Bag(x => x.Sensors, map =>
             {
                 map.Lazy(CollectionLazy.Lazy);
