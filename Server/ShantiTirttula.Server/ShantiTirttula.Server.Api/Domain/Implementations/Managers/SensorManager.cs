@@ -42,10 +42,5 @@ namespace ShantiTirttula.Server.Api.Domain.Implementations.Managers
 
             return item;
         }
-
-        public override bool CheckUser(ISensor entity, IUser user)
-        {
-            return true;
-        }
     }
 }

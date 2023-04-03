@@ -55,13 +55,8 @@ namespace ShantiTirttula.Server.Api.Domain.Implementations.Managers
             if (dto.Type > 0)
                 item.Type = new TriggerTypeManager().Get(dto.Type);
             if (dto.AuthId > 0)
-                item.Auth = new McAuthManager().Get(dto.AuthId);
+                item.Auth = new AuthManager().Get(dto.AuthId);
             return item;
-        }
-
-        public override bool CheckUser(ITrigger entity, IUser user)
-        {
-            return entity.Auth.User.Id == user.Id;
         }
     }
 }

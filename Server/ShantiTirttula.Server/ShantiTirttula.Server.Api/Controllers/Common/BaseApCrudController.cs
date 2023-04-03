@@ -1,4 +1,6 @@
-﻿using ApiModels;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using ApiModels;
 using Microsoft.AspNetCore.Mvc;
 using DevExtreme.AspNet.Data;
 using DevExtreme.AspNet.Mvc;
@@ -8,15 +10,18 @@ using ShantiTirttula.Server.Api.Domain.Implementations.Managers;
 using ShantiTirttula.Server.Api.Domain.Interfaces.Models;
 using ShantiTirttula.Server.Api.Controllers.Models;
 using NHibernate.SqlCommand;
+using System.Security.Claims;
 
 namespace ShantiTirttula.Server.Api.Controllers.Common
 {
     [ApiController]
-    public class BaseCrudController<DtoType, EntityType> : ControllerBase where DtoType : ApiDto<EntityType> where EntityType : IEntity 
+    public class BaseApCrudController<DtoType, EntityType> : ControllerBase where DtoType : ApiDto<EntityType> where EntityType : IEntityAuth
     {
         protected EntityManager<EntityType> Manager;
-        public BaseCrudController(EntityManager<EntityType> manager) : base()
+        protected IAuth Auth;
+        public BaseApCrudController(EntityManager<EntityType> manager, IHttpContextAccessor httpContextAccessor)
         {
+            Auth = new AuthManager().Get(Convert.ToInt32(httpContextAccessor.HttpContext.User.Claims.First(x => x.Type == ClaimTypes.Sid).Value));
             Manager = manager;
         }
 
@@ -26,7 +31,7 @@ namespace ShantiTirttula.Server.Api.Controllers.Common
         {
             try
             {
-                IQueryable<EntityType> data = Manager.All();
+                IQueryable<EntityType> data = Manager.All().Where(x => x.Auth.Id == this.Auth.Id);
                 List<ApiDto<EntityType>> list = data.Select(x => Manager.ConvertToDto(x)).ToList();
                 return new ApiResponse<LoadResult>().SetData(DataSourceLoader.Load(list, loadOptions)).Result();
             }
@@ -42,7 +47,7 @@ namespace ShantiTirttula.Server.Api.Controllers.Common
         {
             try
             {
-                IQueryable<EntityType> data = Manager.All();
+                IQueryable<EntityType> data = Manager.All().Where(x => x.Auth.Id == this.Auth.Id);
                 List<ApiDto<EntityType>> list = data.Select(x => Manager.ConvertToDto(x)).ToList();
                 return new ApiResponse<List<ApiDto<EntityType>>>().SetData(list).Result();
             }

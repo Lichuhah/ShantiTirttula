@@ -18,10 +18,10 @@ namespace ShantiTirttula.Server.Api.Controllers.Common
     [ApiController]
     public class BaseMcCrudController<DtoType, EntityType> : BaseCrudController<DtoType, EntityType> where DtoType : ApiDtoWithAuth<EntityType> where EntityType : IEntity
     {
-        protected IMcAuth Auth;
+        protected IAuth Auth;
         public BaseMcCrudController(EntityManager<EntityType> manager, IHttpContextAccessor httpContextAccessor) : base(manager)
         {
-            Auth = new McAuthManager().Get(Convert.ToInt32(httpContextAccessor.HttpContext.User.Claims.First(x => x.Type == ClaimTypes.Sid).Value));
+            Auth = new AuthManager().Get(Convert.ToInt32(httpContextAccessor.HttpContext.User.Claims.First(x => x.Type == ClaimTypes.Sid).Value));
         }
 
         [HttpPost]

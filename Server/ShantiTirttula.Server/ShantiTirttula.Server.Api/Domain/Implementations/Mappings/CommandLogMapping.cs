@@ -15,7 +15,7 @@ namespace ShantiTirttula.Server.Api.Domain.Implementations.Mappings
             ManyToOne(x => x.Auth, map =>
             {
                 map.Column("AUTH_ID");
-                map.Class(typeof(McAuth));
+                map.Class(typeof(Auth));
                 map.Lazy(LazyRelation.Proxy);
             });
             ManyToOne(x => x.Trigger, map =>

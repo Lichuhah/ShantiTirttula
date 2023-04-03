@@ -15,11 +15,11 @@ using ShantiTirttula.Server.Api.Domain.Interfaces.Models;
 namespace ShantiTirttula.Server.Api.Controllers.CrudControllers
 {
     [Authorize]
-    [Route("api/mcauth")]
+    [Route("api/auth")]
     [ApiController]
-    public class McAuthCrudController : BaseUserCrudController<McAuthDto, IMcAuth>
+    public class AuthCrudController : BaseUserCrudController<McAuthDto, IAuth>
     {
-        public McAuthCrudController(IHttpContextAccessor httpContextAccessor) : base(new McAuthManager(), httpContextAccessor)
+        public AuthCrudController(IHttpContextAccessor httpContextAccessor) : base(new AuthManager(), httpContextAccessor)
         {
 
         }
@@ -30,13 +30,13 @@ namespace ShantiTirttula.Server.Api.Controllers.CrudControllers
         {
             try
             {
-                IQueryable<IMcAuth> data = Manager.AllAllowed(User);
+                IQueryable<IAuth> data = Manager.AllAllowed(User);
                 List<IDevice> devices = new List<IDevice>();
-                data.ForEach(x => x.Controller.Devices.ForEach(device => devices.Add(device)));
+                data.ForEach(x => x.Product.Controller.Devices.ForEach(device => devices.Add(device)));
                 var a = Manager.Get(1);
                 List<CommonTreeDto> dto = data.Select(x => new CommonTreeDto()
                 {
-                    Id = -1*x.Controller.Id,
+                    Id = -1*x.Product.Id,
                     Name = x.Key
                 }).ToList();
                 dto = dto.Concat(devices.Select(x => new CommonTreeDto()
@@ -59,13 +59,12 @@ namespace ShantiTirttula.Server.Api.Controllers.CrudControllers
         {
             try
             {
-                IQueryable<IMcAuth> data = Manager.AllAllowed(User);
+                IQueryable<IAuth> data = Manager.AllAllowed(User);
                 List<ISensor> sensors = new List<ISensor>();
-                data.ForEach(x => x.Controller.Sensors.ForEach(sensor => sensors.Add(sensor)));
-                var a = Manager.Get(1);
+                data.ForEach(x => x.Product.Controller.Sensors.ForEach(sensor => sensors.Add(sensor)));
                 List<CommonTreeDto> dto = data.Select(x => new CommonTreeDto()
                 {
-                    Id = -1 * x.Controller.Id,
+                    Id = -1 * x.Product.Id,
                     Name = x.Key
                 }).ToList();
                 dto = dto.Concat(sensors.Select(x => new CommonTreeDto()

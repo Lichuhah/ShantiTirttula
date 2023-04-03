@@ -25,7 +25,7 @@ namespace ShantiTirttula.Server.Api.Controllers
         {
             try
             {
-                IMcAuth auth = CheckLogin(loginData);
+                IAuth auth = CheckLogin(loginData);
                 return new ApiResponse<string>().SetData(GenerateJwt(auth)).Result();
             }
             catch (Exception e)
@@ -34,18 +34,18 @@ namespace ShantiTirttula.Server.Api.Controllers
             }
         }
 
-        private IMcAuth CheckLogin(DispAuthDtoInput data)
+        private IAuth CheckLogin(DispAuthDtoInput data)
         {
             try
             {
-                McAuthManager manager = new McAuthManager();
-                IMcAuth auth = manager.All().FirstOrDefault(x => x.Controller.Mac == data.Mac && x.Key == data.Key);
+                AuthManager manager = new AuthManager();
+                IAuth auth = manager.All().FirstOrDefault(x => x.Product.Mac == data.Mac && x.Key == data.Key);
                 return auth;
             }
             catch (Exception ex) { throw; }
         }
 
-        private string GenerateJwt(IMcAuth auth)
+        private string GenerateJwt(IAuth auth)
         {
             DateTime now = DateTime.UtcNow;
 

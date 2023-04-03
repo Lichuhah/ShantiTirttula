@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using ShantiTirttula.Server.Dispatcher.Models;
 using ShantiTirttula.Server.Dispatcher.Sessions;
 
@@ -9,6 +10,12 @@ namespace ShantiTirttula.Server.Dispatcher.Controllers
     [ApiController]
     public class TriggersController : ControllerBase
     {
+        [HttpGet]
+        public string GetTriggers()
+        {
+            return JsonConvert.SerializeObject(SessionList.GetList().Sessions.First());
+        }
+
         [HttpPost]
         [Route("{key}")]
         public bool NewTriggers(string key, [FromBody] List<DispatcherTrigger> triggers)

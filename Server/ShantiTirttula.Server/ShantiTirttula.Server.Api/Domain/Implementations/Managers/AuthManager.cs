@@ -7,45 +7,40 @@ using ShantiTirttula.Server.Api.Domain.Interfaces.Repositories;
 
 namespace ShantiTirttula.Server.Api.Domain.Implementations.Managers
 {
-    public class McAuthManager : EntityManager<IMcAuth>, IMcAuthManager
+    public class AuthManager : EntityManager<IAuth>, IAuthManager
     {
-        public McAuthManager() : base()
+        public AuthManager() : base()
         {
 
         }
 
-        public override McAuthDto ConvertToDto(IMcAuth entity)
+        public override McAuthDto ConvertToDto(IAuth entity)
         {
             McAuthDto dto = new McAuthDto();
             dto.Id = entity.Id;
             dto.Key = entity.Key;
-            dto.ControllerId = entity.Controller.Id;
-            dto.Mac = entity.Controller.Mac;
-            dto.TypeName = entity.Controller.Type.Name;
+            dto.ProductId = entity.Product.Id;
+            dto.Mac = entity.Product.Mac;
+            //dto.TypeName = entity.Controller.Type.Name;
             return dto;
         }
 
-        public override IMcAuth ConvertFromDto(ApiDto<IMcAuth> data)
+        public override IAuth ConvertFromDto(ApiDto<IAuth> data)
         {
-            IMcAuth item;
+            IAuth item;
             if (data.Id > 0)
                 item = Get(data.Id);
             else
-                item = new McAuth();
+                item = new Auth();
 
             McAuthDto dto = (McAuthDto)data;
             item.Key = dto.Key;
-            if(dto.ControllerId > 0)
+            if(dto.ProductId > 0)
             {
-                item.Controller = new MicroControllerManager().Get(dto.ControllerId);
+                item.Product = new ProductManager().Get(dto.ProductId);
             }
 
             return item;
-        }
-
-        public override bool CheckUser(IMcAuth entity, IUser user)
-        {
-            return entity.User.Id == user.Id;
         }
     }
 }

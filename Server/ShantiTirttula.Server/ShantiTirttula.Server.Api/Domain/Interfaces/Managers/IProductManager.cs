@@ -2,7 +2,7 @@
 
 namespace ShantiTirttula.Server.Api.Domain.Interfaces.Managers
 {
-    public interface IDeviceLogManager : IEntityManager<IDeviceLog>
+    public interface IProductManager : IEntityManager<IProduct>
     {
     }
 }

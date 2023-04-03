@@ -2,7 +2,7 @@
 {
     public interface ICommandLog : IEntity
     {
-        public IMcAuth Auth { get; set; }
+        public IAuth Auth { get; set; }
         public ITrigger Trigger { get; set; }
         public DateTime DateTime { get; set; }
     }

@@ -4,6 +4,6 @@
     {
         public double Value { get; set; }
         public ISensor Sensor { get; set; }
-        public IMcAuth Auth { get; set; }
+        public IAuth Auth { get; set; }
     }
 }

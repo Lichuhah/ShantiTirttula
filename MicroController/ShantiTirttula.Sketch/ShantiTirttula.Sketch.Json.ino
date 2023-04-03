@@ -1,5 +1,5 @@
 String GetSensorJson(){
-  int leng = 2;
+  int leng = 3;
   String json = "[";
   for(int i=0; i<leng; i++){
     json += "{";

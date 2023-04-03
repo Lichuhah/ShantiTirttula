@@ -2,11 +2,9 @@
 
 namespace ShantiTirttula.Server.Api.Domain.Implementations.Models
 {
-    public class McAuth : Entity, IMcAuth
+    public class Product : Entity, IProduct
     {
-        public virtual string Key { get; set; }
-        public virtual IUser User { get; set; }
-        public virtual IList<ITrigger> Triggers { get; set; }
+        public virtual string Mac { get; set; }
         public virtual IMicroController Controller { get; set; }
     }
 }

@@ -38,22 +38,22 @@ namespace ShantiTirttula.Server.Api.Controllers
 
         private string AddNewKey(McAuthDtoInput data, IUser user)
         {
-            McAuthManager manager = new McAuthManager();
-            MicroControllerManager controllerManager = new MicroControllerManager();
+            AuthManager manager = new AuthManager();
+            ProductManager productManager = new ProductManager();
             string newkey = GenerateNewKey(manager);
 
             data.Mac = data.Mac.Replace(":","");
-            IMcAuth auth = new McAuth
+            IAuth auth = new Auth
             {
                 Key = newkey,
                 User = user,
-                Controller = controllerManager.All().First(x => x.Mac == data.Mac)
+                Product = productManager.All().First(x => x.Mac == data.Mac)
             };
             manager.Save(auth);
             return newkey;
         }
 
-        private string GenerateNewKey(McAuthManager manager)
+        private string GenerateNewKey(AuthManager manager)
         {
             List<string> keys = manager.All().Select(x => x.Key).ToList();
             Random random = new Random(DateTime.UtcNow.Millisecond);

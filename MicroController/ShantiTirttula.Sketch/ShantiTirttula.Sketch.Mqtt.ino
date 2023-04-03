@@ -57,7 +57,12 @@ void callback(char* topic, byte* payload, unsigned int length) {
     //Serial.print((char)payload[i]);
   //}
   delay(100);
-  ExecuteCommands(String((char *)payload));
+  if(topic==key.c_str()+"_cm"){
+    ExecuteCommands(String((char *)payload));
+  }
+  if(topec==key.c_str()+"_cl"){
+    ClearData(String((char* payload));
+  }
   delay(100);
   return;
   //Serial.println();

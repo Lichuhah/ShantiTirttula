@@ -3,11 +3,12 @@ using ShantiTirttula.Server.Api.Domain.Interfaces.Models;
 
 namespace ShantiTirttula.Server.Api.Domain.Implementations.Managers
 {
-    public class DeviceLogManager : EntityManager<IDeviceLog>, IDeviceLogManager
+    public class ProductManager : EntityManager<IProduct>, IProductManager
     {
-        public DeviceLogManager() : base()
+        public ProductManager() : base()
         {
 
         }
+
     }
 }

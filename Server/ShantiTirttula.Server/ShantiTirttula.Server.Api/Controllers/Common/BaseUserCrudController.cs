@@ -25,7 +25,7 @@ namespace ShantiTirttula.Server.Api.Controllers.Common
         }
 
         [HttpGet]
-        [Route("")]
+        [Route("grid")]
         public override ActionResult List(DataSourceLoadOptions loadOptions)
         {
             try

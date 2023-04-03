@@ -2,9 +2,9 @@
 
 namespace ShantiTirttula.Server.Api.Controllers.Models.Dto
 {
-    public class McAuthDto : ApiDto<IMcAuth>
+    public class McAuthDto : ApiDto<IAuth>
     {
-        public int ControllerId { get; set; }
+        public int ProductId { get; set; }
         public string Key { get; set; }
         public string Mac { get; set; }
         public string TypeName { get; set; }

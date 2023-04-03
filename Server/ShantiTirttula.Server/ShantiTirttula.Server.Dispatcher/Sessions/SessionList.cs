@@ -48,27 +48,31 @@ namespace ShantiTirttula.Server.Dispatcher.Sessions
             HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, ApiUrl+ "/api/disp/signin");
             request.Content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
             HttpResponseMessage response = client.Send(request);
-            string token = JsonConvert.DeserializeObject<ApiResponse<string>>(response.Content.ReadAsStringAsync().Result).Data;
-
-            Session session = new Session()
+            string content = response.Content.ReadAsStringAsync().Result;
+            ApiResponse<string> result = JsonConvert.DeserializeObject<ApiResponse<string>>(content);
+            if (result.Success)
             {
-                CreateTime = DateTime.UtcNow,
-                LastSendTime = DateTime.UtcNow,
-                Token = token,
-                Mc = data,
-            };
+                string token = result.Data;
 
-            request = new HttpRequestMessage(HttpMethod.Get, ApiUrl + "/api/triggers");
-            response = client.Send(request);
-            try
-            {
-                List<DispatcherTrigger> triggers = JsonConvert.DeserializeObject<ApiResponse<List<DispatcherTrigger>>>(HttpHelper.GetData("/api/triggers/json", token)).Data;
-                session.Triggers = triggers;
+                Session session = new Session()
+                {
+                    CreateTime = DateTime.UtcNow,
+                    LastSendTime = DateTime.UtcNow,
+                    Token = token,
+                    Mc = data,
+                };
+
+                try
+                {
+                    List<DispatcherTrigger> triggers = JsonConvert.DeserializeObject<ApiResponse<List<DispatcherTrigger>>>(HttpHelper.GetData("/api/ap/triggers", token)).Data;
+                    session.Triggers = triggers;
+                }
+                catch (Exception ex) { }
+
+                Sessions.Add(session);
+                return session;
             }
-            catch (Exception ex) { }
-
-            Sessions.Add(session);
-            return session;
+            else throw new Exception("Authorization error");
         }
 
         public Session RefreshSession(Session oldsession)

@@ -35,7 +35,7 @@ namespace ShantiTirttula.Server.Api.Domain.Implementations.Managers
             item.Value = dto.Value;
             if (dto.AuthId > 0 && dto.AuthId != item.Auth?.Id)
             {
-                item.Auth = new McAuthManager().Get(dto.AuthId);
+                item.Auth = new AuthManager().Get(dto.AuthId);
             }
             if (dto.SensorId > 0 && dto.SensorId != item.Sensor?.Id)
             {
@@ -43,11 +43,6 @@ namespace ShantiTirttula.Server.Api.Domain.Implementations.Managers
             }
 
             return item;
-        }
-
-        public override bool CheckUser(ISensorData entity, IUser user)
-        {
-            return true;
         }
     }
 }

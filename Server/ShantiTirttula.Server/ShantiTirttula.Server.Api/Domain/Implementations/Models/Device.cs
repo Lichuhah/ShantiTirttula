@@ -6,7 +6,6 @@ namespace ShantiTirttula.Server.Api.Domain.Implementations.Models
     {
         public virtual IMicroController Controller { get; set; }
         public virtual IDeviceType Type { get; set; }
-        public virtual IList<IDeviceLog> Logs { get; set; }
         public virtual int Pin { get; set; }
         public virtual bool IsAnalog { get; set; }
     }

@@ -6,6 +6,6 @@ namespace ShantiTirttula.Server.Api.Domain.Implementations.Models
     {
         public virtual double Value { get; set; }
         public virtual ISensor Sensor { get; set; }
-        public virtual IMcAuth Auth { get; set; }
+        public virtual IAuth Auth { get; set; }
     }
 }

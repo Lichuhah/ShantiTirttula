@@ -27,14 +27,14 @@ namespace ShantiTirttula.Server.Api.Domain.Implementations.Mappings
                 map.Class(typeof(DeviceType));
                 map.Lazy(LazyRelation.Proxy);
             });
-            Bag(x => x.Logs, map =>
-            {
-                map.Lazy(CollectionLazy.Lazy);
-                map.BatchSize(30);
-                map.Cascade(Cascade.All);
-                map.Inverse(true);
-                map.Key(key => { key.Column("DEVICE_ID"); });
-            }, action => { action.OneToMany(x => { x.Class(typeof(DeviceLog)); }); });
+            //Bag(x => x.Logs, map =>
+            //{
+            //    map.Lazy(CollectionLazy.Lazy);
+            //    map.BatchSize(30);
+            //    map.Cascade(Cascade.All);
+            //    map.Inverse(true);
+            //    map.Key(key => { key.Column("DEVICE_ID"); });
+            //}, action => { action.OneToMany(x => { x.Class(typeof(DeviceLog)); }); });
         }
     }
 }

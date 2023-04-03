@@ -5,7 +5,7 @@ namespace ShantiTirttula.Server.Api.Domain.Implementations.Mappings
 {
     public class SensorDataMapping : EntityMapping<SensorData>
     {
-        public SensorDataMapping() : base("MC_SENSOR_DATA")
+        public SensorDataMapping() : base("AP_SENSOR_DATA")
         {
             Property(x => x.Value, map =>
             {
@@ -20,7 +20,7 @@ namespace ShantiTirttula.Server.Api.Domain.Implementations.Mappings
             ManyToOne(x => x.Auth, map =>
             {
                 map.Column("AUTH_ID");
-                map.Class(typeof(McAuth));
+                map.Class(typeof(Auth));
                 map.Lazy(LazyRelation.Proxy);
             });
         }

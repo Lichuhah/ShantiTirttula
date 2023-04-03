@@ -34,9 +34,5 @@ namespace ShantiTirttula.Server.Api.Domain.Implementations.Managers
             return item;
         }
 
-        public override bool CheckUser(ITriggerType entity, IUser user)
-        {
-            return true;
-        }
     }
 }

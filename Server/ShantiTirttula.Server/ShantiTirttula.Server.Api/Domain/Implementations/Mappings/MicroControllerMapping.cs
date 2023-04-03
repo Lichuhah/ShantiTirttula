@@ -7,10 +7,6 @@ namespace ShantiTirttula.Server.Api.Domain.Implementations.Mappings
     {
         public MicroControllerMapping() : base("MC_CONTROLLER")
         {
-            Property(x => x.Mac, map =>
-            {
-                map.Column("MAC");
-            });
             ManyToOne(x => x.Type, map =>
             {
                 map.Column("TYPE_ID");

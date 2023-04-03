@@ -16,6 +16,5 @@ namespace ShantiTirttula.Server.Api.Domain.Interfaces.Managers
         public bool Delete(IEnumerable<T> entities);
         public ApiDto<T> ConvertToDto(T entity);
         public T ConvertFromDto(ApiDto<T> entity);
-        public bool CheckUser(T entity, IUser user);
     }
 }

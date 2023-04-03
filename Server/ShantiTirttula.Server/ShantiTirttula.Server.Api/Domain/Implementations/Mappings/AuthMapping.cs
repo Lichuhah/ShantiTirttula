@@ -4,9 +4,9 @@ using ShantiTirttula.Server.Api.Domain.Interfaces.Models;
 
 namespace ShantiTirttula.Server.Api.Domain.Implementations.Mappings
 {
-    public class McAuthMapping : EntityMapping<McAuth>
+    public class AuthMapping : EntityMapping<Auth>
     {
-        public McAuthMapping() : base("MC_CONTROLLER_AUTH")
+        public AuthMapping() : base("AP_AUTH")
         {
             Property(x => x.Key, map =>
             {
@@ -18,10 +18,10 @@ namespace ShantiTirttula.Server.Api.Domain.Implementations.Mappings
                 map.Class(typeof(User));
                 map.Lazy(LazyRelation.NoLazy);
             });
-            ManyToOne(x => x.Controller, map =>
+            ManyToOne(x => x.Product, map =>
             {
-                map.Column("CONTROLLER_ID");
-                map.Class(typeof(MicroController));
+                map.Column("PRODUCT_ID");
+                map.Class(typeof(Product));
                 map.Lazy(LazyRelation.Proxy);
             });
             Bag(x => x.Triggers, map =>

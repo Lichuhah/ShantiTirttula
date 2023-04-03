@@ -17,8 +17,11 @@ void setup() {
   mac = WiFi.macAddress();
   pinMode(35, INPUT);
   pinMode(32, INPUT);
+  pinMode(34, INPUT);
+  attachInterrupt(34,ReadWater,RISING);
+  sei();
   pinMode(4, OUTPUT);
-  pinMode(16, OUTPUT);
+  pinMode(16,OUTPUT);
   //Serial.println("Start 1-WIFI");
   //Запускаем WIFI
   LoadConfig();
@@ -27,13 +30,14 @@ void setup() {
 }
 
 void loop() {
-   Serial.println("work0");
-   Serial.println(IsWiFiConnect);
-   Serial.println(IsMqttConnect);
+   //Serial.println("work0");
+   //Serial.println(IsWiFiConnect);
+   //Serial.println(IsMqttConnect);
    ReadSerial();
    if(IsWiFiConnect){
     if(IsMqttConnect){
       ReadData();
+      //Serial.println(GetMqttMessage().c_str());
       SendData();
     } else {
       IsMqttConnect = MQTTinit();
@@ -41,6 +45,6 @@ void loop() {
   } else {
     IsWiFiConnect = WIFIinit();
   }
-  delay(1000);
+  delay(2000);
   
 }

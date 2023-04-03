@@ -24,7 +24,7 @@ namespace ShantiTirttula.Server.Api.Domain.Implementations.Managers
         }
         public virtual IQueryable<T> AllAllowed(IUser user)
         {
-            return Repository.All().ToList().Where(x => CheckUser(x, user) == true).AsQueryable();
+            return Repository.All().ToList().AsQueryable();
         }
         public virtual T Create()
         {
@@ -66,11 +66,6 @@ namespace ShantiTirttula.Server.Api.Domain.Implementations.Managers
         {
             T item = Create();
             return item;
-        }
-
-        public virtual bool CheckUser(T entity, IUser user)
-        {
-            return true;
         }
     }
 }

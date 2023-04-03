@@ -34,7 +34,7 @@ namespace ShantiTirttula.Server.Dispatcher.Sessions
             if (DateTime.UtcNow - LastSendTime > TimeSpan.FromSeconds(30))
             {
                 SendSensorData();
-                SendCommandsLog();
+                //SendCommandsLog();
                 this.LastSendTime = DateTime.UtcNow;
                 this.SensorsData.Clear();
                 this.CommandLog.Clear();
@@ -69,7 +69,7 @@ namespace ShantiTirttula.Server.Dispatcher.Sessions
             }
             if (isTrigger)
             {
-                if (this.DeviceValues.First(x => x.Pin == trigger.Pin).Value != trigger.DeviceValue)
+                if (this.DeviceValues.FirstOrDefault(x => x.Pin == trigger.Pin)?.Value != trigger.DeviceValue)
                 {
                     Commands.Add(new McCommand
                     {
@@ -84,7 +84,7 @@ namespace ShantiTirttula.Server.Dispatcher.Sessions
 
         public void LoadTriggers()
         {
-            string answer = HttpHelper.GetData("/api/trigger/list", this.Token);
+            string answer = HttpHelper.GetData("/api/ap/triggers", this.Token);
             try
             {
                 List<DispatcherTrigger> triggers = JsonConvert.DeserializeObject<List<DispatcherTrigger>>(answer);

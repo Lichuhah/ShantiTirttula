@@ -39,7 +39,7 @@ namespace ShantiTirttula.Server.Api.Domain.Implementations.Managers
             CommandLogDto dto = (CommandLogDto)data;
             if(dto.AuthId > 0)
             {
-                item.Auth = new McAuthManager().Get(dto.AuthId);
+                item.Auth = new AuthManager().Get(dto.AuthId);
             }
             if (dto.TriggerId > 0)
             {
@@ -48,11 +48,6 @@ namespace ShantiTirttula.Server.Api.Domain.Implementations.Managers
             item.DateTime = DateTime.UtcNow;
 
             return item;
-        }
-
-        public override bool CheckUser(ICommandLog entity, IUser user)
-        {
-            return true;
         }
     }
 }
