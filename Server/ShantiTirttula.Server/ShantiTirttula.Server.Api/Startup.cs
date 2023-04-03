@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using ShantiTirttula.Server.Api.Domain.Helpers;
+using ShantiTirttula.Server.Api.Helpers;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Reflection;
 

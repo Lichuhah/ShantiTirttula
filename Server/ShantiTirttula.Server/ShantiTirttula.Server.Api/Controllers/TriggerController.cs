@@ -1,16 +1,4 @@
-﻿using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using ShantiTirttula.Server.Api.Controllers.Common;
-using ShantiTirttula.Server.Api.Controllers.Models.Output;
-using ShantiTirttula.Server.Api.Domain.Implementations.Managers;
-using ShantiTirttula.Server.Api.Domain.Implementations.Models;
-using ShantiTirttula.Server.Api.Domain.Interfaces.Models;
-using ShantiTirttula.Server.Dispatcher.Models;
-using System.Security.Claims;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace ShantiTirttula.Server.Api.Controllers
 {

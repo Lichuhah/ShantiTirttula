@@ -11,8 +11,8 @@ namespace ShantiTirttula.Server.Dispatcher.Sessions
         public McData Mc { get; set; }
         public string Token { get; set; }
         public List<List<McSensorData>> SensorsData { get; set; }
-        public List<DispatcherTrigger> Triggers { get; set; }
-        public List<McCommand> CommandLog { get; set; }
+       // public List<DispatcherTrigger> Triggers { get; set; }
+        //public List<McCommand> CommandLog { get; set; }
         public List<McCommand> Commands { get; set; }
         public List<McDeviceValues> DeviceValues { get; set;}
         public DateTime LastSendTime { get; set; }
@@ -21,8 +21,8 @@ namespace ShantiTirttula.Server.Dispatcher.Sessions
         public Session()
         {
             SensorsData = new List<List<McSensorData>>();
-            Triggers = new List<DispatcherTrigger>();
-            CommandLog = new List<McCommand>();
+            //Triggers = new List<DispatcherTrigger>();
+            //CommandLog = new List<McCommand>();
             Commands = new List<McCommand>();
             IsBusy = false;
             DeviceValues = new List<McDeviceValues>();
@@ -30,14 +30,14 @@ namespace ShantiTirttula.Server.Dispatcher.Sessions
         public void AddSensorsData(List<McSensorData> data)
         {
             this.SensorsData.Add(data);
-            CheckTriggers(data);
-            if (DateTime.UtcNow - LastSendTime > TimeSpan.FromSeconds(30))
+            //CheckTriggers(data);
+            if (DateTime.UtcNow - LastSendTime > TimeSpan.FromSeconds(5))
             {
                 SendSensorData();
                 //SendCommandsLog();
                 this.LastSendTime = DateTime.UtcNow;
                 this.SensorsData.Clear();
-                this.CommandLog.Clear();
+                //this.CommandLog.Clear();
             }
         }
 
@@ -47,17 +47,17 @@ namespace ShantiTirttula.Server.Dispatcher.Sessions
             this.DeviceValues.AddRange(data);
         }
 
-        private void CheckTriggers(List<McSensorData> data)
-        {
-            foreach (McSensorData sensor in data)
-            {
-                List<DispatcherTrigger> triggers = Triggers.Where(x => x.SensorNumber == sensor.SensorId).ToList();
-                foreach (DispatcherTrigger trigger in triggers)
-                {
-                    CreateCommand(sensor, trigger);
-                }
-            }
-        }
+        //private void CheckTriggers(List<McSensorData> data)
+        //{
+        //    foreach (McSensorData sensor in data)
+        //    {
+        //        List<DispatcherTrigger> triggers = Triggers.Where(x => x.SensorNumber == sensor.SensorId).ToList();
+        //        foreach (DispatcherTrigger trigger in triggers)
+        //        {
+        //            CreateCommand(sensor, trigger);
+        //        }
+        //    }
+        //}
 
         private void CreateCommand(McSensorData sensor, DispatcherTrigger trigger)
         {
@@ -82,16 +82,16 @@ namespace ShantiTirttula.Server.Dispatcher.Sessions
             }
         }
 
-        public void LoadTriggers()
-        {
-            string answer = HttpHelper.GetData("/api/ap/triggers", this.Token);
-            try
-            {
-                List<DispatcherTrigger> triggers = JsonConvert.DeserializeObject<List<DispatcherTrigger>>(answer);
-                Triggers = triggers;
-            }
-            catch (Exception ex) { }
-        }
+        //public void LoadTriggers()
+        //{
+        //    string answer = HttpHelper.GetData("/api/ap/triggers", this.Token);
+        //    try
+        //    {
+        //        List<DispatcherTrigger> triggers = JsonConvert.DeserializeObject<List<DispatcherTrigger>>(answer);
+        //        Triggers = triggers;
+        //    }
+        //    catch (Exception ex) { }
+        //}
 
         public void SendSensorData()
         {
@@ -110,35 +110,35 @@ namespace ShantiTirttula.Server.Dispatcher.Sessions
             SendAverageDataToServer(data);
         }
 
-        public void SaveCommandsLog()
-        {
-            CommandLog.AddRange(Commands);
-            Commands.Clear();
-        }
+        //public void SaveCommandsLog()
+        //{
+        //    CommandLog.AddRange(Commands);
+        //    Commands.Clear();
+        //}
 
-        public bool SendCommandsLog()
-        {
-            try
-            {
-                foreach (McCommand com in CommandLog)
-                {
-                    HttpHelper.PostData("/api/commandlog", JsonConvert.SerializeObject(com), this.Token);
-                }
-                return true;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                return false;
-            }
-        }
+        //public bool SendCommandsLog()
+        //{
+        //    try
+        //    {
+        //        foreach (McCommand com in CommandLog)
+        //        {
+        //            HttpHelper.PostData("/api/commandlog", JsonConvert.SerializeObject(com), this.Token);
+        //        }
+        //        return true;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine(ex.Message);
+        //        return false;
+        //    }
+        //}
 
         private bool SendAverageDataToServer(List<McSensorData> data)
         {        
             try
             {
                 foreach(McSensorData sensorData in data){
-                    HttpHelper.PostData("/api/sensordata", JsonConvert.SerializeObject(sensorData), this.Token);
+                    HttpHelper.PostData("/api/ap/sensor-data", JsonConvert.SerializeObject(sensorData), this.Token);
                 }
                 return true;
             }

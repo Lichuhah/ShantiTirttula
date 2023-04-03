@@ -1,16 +1,4 @@
-﻿using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
-using ShantiTirttula.Server.Api.Controllers.Common;
-using ShantiTirttula.Server.Api.Controllers.Models;
-using ShantiTirttula.Server.Api.Domain.Enums;
-using ShantiTirttula.Server.Api.Domain.Helpers;
-using ShantiTirttula.Server.Api.Domain.Implementations.Managers;
-using ShantiTirttula.Server.Api.Domain.Interfaces.Models;
-using System;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace ShantiTirttula.Server.Api.Controllers
 {

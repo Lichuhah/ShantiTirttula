@@ -1,17 +1,12 @@
-﻿using ApiModels;
-using DevExpress.ClipboardSource.SpreadsheetML;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ShantiTirttula.Server.Api.Controllers.Common;
-using ShantiTirttula.Server.Api.Controllers.Models;
-using ShantiTirttula.Server.Api.Controllers.Models.Dto;
-using ShantiTirttula.Server.Api.Domain.Implementations.Managers;
-using ShantiTirttula.Server.Api.Domain.Interfaces.Models;
-using static DevExpress.Data.Helpers.FindSearchRichParser;
-using System.Security.Policy;
 using System.Text;
-using NHibernate.Type;
 using Newtonsoft.Json;
+using ShantiTirttula.Repository.Managers;
+using ShantiTirttula.Domain.Dto;
+using ShantiTirttula.Domain.Models;
+using ShantiTirttula.Domain.Dto.Models;
 
 namespace ShantiTirttula.Server.Api.Controllers.CrudControllers
 {

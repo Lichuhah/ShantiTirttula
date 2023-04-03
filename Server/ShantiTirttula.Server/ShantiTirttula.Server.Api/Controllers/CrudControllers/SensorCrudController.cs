@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using ShantiTirttula.Domain.Models;
+using ShantiTirttula.Repository.Managers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using ShantiTirttula.Server.Api.Domain.Implementations.Managers;
-using ShantiTirttula.Server.Api.Domain.Interfaces.Models;
 using ShantiTirttula.Server.Api.Controllers.Common;
-using ShantiTirttula.Server.Api.Controllers.Models.Dto;
+using ShantiTirttula.Domain.Dto.Models;
 
 namespace ShantiTirttula.Server.Api.Controllers.CrudControllers
 {

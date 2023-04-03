@@ -62,12 +62,12 @@ namespace ShantiTirttula.Server.Dispatcher.Sessions
                     Mc = data,
                 };
 
-                try
-                {
-                    List<DispatcherTrigger> triggers = JsonConvert.DeserializeObject<ApiResponse<List<DispatcherTrigger>>>(HttpHelper.GetData("/api/ap/triggers", token)).Data;
-                    session.Triggers = triggers;
-                }
-                catch (Exception ex) { }
+                //try
+                //{
+                //    List<DispatcherTrigger> triggers = JsonConvert.DeserializeObject<ApiResponse<List<DispatcherTrigger>>>(HttpHelper.GetData("/api/ap/triggers", token)).Data;
+                //    session.Triggers = triggers;
+                //}
+                //catch (Exception ex) { }
 
                 Sessions.Add(session);
                 return session;
@@ -91,7 +91,7 @@ namespace ShantiTirttula.Server.Dispatcher.Sessions
                 Token = token,
                 Mc = oldsession.Mc,
                 SensorsData = oldsession.SensorsData,
-                Triggers = oldsession.Triggers,
+                //Triggers = oldsession.Triggers,
                 Commands = oldsession.Commands
             };
 

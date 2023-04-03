@@ -1,14 +1,10 @@
-﻿using ApiModels;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using DevExtreme.AspNet.Data;
 using DevExtreme.AspNet.Mvc;
 using DevExtreme.AspNet.Data.ResponseModel;
-using ShantiTirttula.Server.Api.Domain.Interfaces.Managers;
-using ShantiTirttula.Server.Api.Domain.Implementations.Managers;
-using ShantiTirttula.Server.Api.Domain.Interfaces.Models;
-using ShantiTirttula.Server.Api.Controllers.Models;
-using NHibernate.SqlCommand;
-
+using ShantiTirttula.Domain.Dto;
+using ShantiTirttula.Domain.Models;
+using ShantiTirttula.Repository.Managers;
 namespace ShantiTirttula.Server.Api.Controllers.Common
 {
     [ApiController]

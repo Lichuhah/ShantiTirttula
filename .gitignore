@@ -47,3 +47,8 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 /Web/ShantiTirttula.Site/.env
+/Server/ShantiTirttula.Server/DataProcessingLib
+/Server/ShantiTirttula.Server/ShantiTirttula.Domain/bin/Debug/net7.0
+/Server/ShantiTirttula.Server/ShantiTirttula.Domain/obj
+/Server/ShantiTirttula.Server/ShantiTirttula.Repository/bin/Debug/net7.0
+/Server/ShantiTirttula.Server/ShantiTirttula.Repository/obj

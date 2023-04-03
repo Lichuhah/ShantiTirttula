@@ -1,21 +1,16 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using ApiModels;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using DevExtreme.AspNet.Data;
 using DevExtreme.AspNet.Mvc;
 using DevExtreme.AspNet.Data.ResponseModel;
-using ShantiTirttula.Server.Api.Domain.Interfaces.Managers;
-using ShantiTirttula.Server.Api.Domain.Implementations.Managers;
-using ShantiTirttula.Server.Api.Domain.Interfaces.Models;
-using ShantiTirttula.Server.Api.Controllers.Models;
-using NHibernate.SqlCommand;
 using System.Security.Claims;
+using ShantiTirttula.Repository.Managers;
+using ShantiTirttula.Domain.Dto;
+using ShantiTirttula.Domain.Models;
 
 namespace ShantiTirttula.Server.Api.Controllers.Common
 {
     [ApiController]
-    public class BaseApCrudController<DtoType, EntityType> : ControllerBase where DtoType : ApiDto<EntityType> where EntityType : IEntityAuth
+    public class BaseApCrudController<DtoType, EntityType> : ControllerBase where DtoType : ApiDtoWithAuth<EntityType> where EntityType : IEntityAuth
     {
         protected EntityManager<EntityType> Manager;
         protected IAuth Auth;
@@ -79,6 +74,7 @@ namespace ShantiTirttula.Server.Api.Controllers.Common
         {
             try
             {
+                dto.AuthId = this.Auth.Id;
                 EntityType data = Manager.ConvertFromDto(dto);
                 dto.Id = Manager.Save(data).Id;
                 return new ApiResponse<ApiDto<EntityType>>().SetData(dto).Result();

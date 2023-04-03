@@ -1,19 +1,14 @@
-﻿using ApiModels;
-using DevExpress.ClipboardSource.SpreadsheetML;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ShantiTirttula.Server.Api.Controllers.Common;
-using ShantiTirttula.Server.Api.Controllers.Models;
-using ShantiTirttula.Server.Api.Controllers.Models.Dto;
-using ShantiTirttula.Server.Api.Domain.Implementations.Managers;
-using ShantiTirttula.Server.Api.Domain.Interfaces.Models;
-using static DevExpress.Data.Helpers.FindSearchRichParser;
-using System.Security.Policy;
 using System.Text;
-using NHibernate.Type;
 using Newtonsoft.Json;
+using ShantiTirttula.Domain.Models;
+using ShantiTirttula.Domain.Dto;
+using ShantiTirttula.Domain.Dto.Models;
+using ShantiTirttula.Repository.Managers;
 
-namespace ShantiTirttula.Server.Api.Controllers.CrudControllers
+namespace ShantiTirttula.Server.Api.Controllers.ApCrudController
 {
     [Authorize]
     [Route("api/ap/triggers")]
@@ -80,10 +75,10 @@ namespace ShantiTirttula.Server.Api.Controllers.CrudControllers
         private bool RefreshDispatcher(int authId, string key)
         {
             HttpClient client = new HttpClient();
-            IQueryable<ITrigger> data = Manager.All().Where(x=>x.Auth.Id == this.Auth.Id);
-            List<ApiDto<ITrigger>> list = data.Where(x => x.Auth.Id == authId).Select(x=>Manager.ConvertToDto(x)).ToList();
+            IQueryable<ITrigger> data = Manager.All().Where(x => x.Auth.Id == Auth.Id);
+            List<ApiDto<ITrigger>> list = data.Where(x => x.Auth.Id == authId).Select(x => Manager.ConvertToDto(x)).ToList();
             //if (token != null) client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
-            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, Environment.GetEnvironmentVariable("DISP_URL") +"/api/triggers/"+ key);
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, Environment.GetEnvironmentVariable("DISP_URL") + "/api/triggers/" + key);
             request.Content = new StringContent(JsonConvert.SerializeObject(list), Encoding.UTF8, "application/json");
             HttpResponseMessage response = client.Send(request);
             string result = response.Content.ReadAsStringAsync().Result;

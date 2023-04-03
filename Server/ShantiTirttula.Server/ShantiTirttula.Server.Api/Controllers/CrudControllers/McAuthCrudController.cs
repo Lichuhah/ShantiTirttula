@@ -1,4 +1,6 @@
-﻿using ApiModels;
+﻿using ShantiTirttula.Domain.Models;
+using ShantiTirttula.Repository.Managers;
+using ShantiTirttula.Domain.Dto;
 using DevExtreme.AspNet.Data;
 using DevExtreme.AspNet.Data.ResponseModel;
 using DevExtreme.AspNet.Mvc;
@@ -6,11 +8,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NHibernate.Util;
 using ShantiTirttula.Server.Api.Controllers.Common;
-using ShantiTirttula.Server.Api.Controllers.Models;
-using ShantiTirttula.Server.Api.Controllers.Models.Dto;
-using ShantiTirttula.Server.Api.Controllers.Models.Dto.TreeDto;
-using ShantiTirttula.Server.Api.Domain.Implementations.Managers;
-using ShantiTirttula.Server.Api.Domain.Interfaces.Models;
+using ShantiTirttula.Domain.Dto.Models.TreeDto;
+using ShantiTirttula.Domain.Dto.Models;
 
 namespace ShantiTirttula.Server.Api.Controllers.CrudControllers
 {

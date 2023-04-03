@@ -1,15 +1,13 @@
-﻿using ApiModels;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
-using ShantiTirttula.Server.Api.Controllers.Models.Input;
-using ShantiTirttula.Server.Api.Domain.Helpers;
-using ShantiTirttula.Server.Api.Domain.Implementations.Managers;
-using ShantiTirttula.Server.Api.Domain.Implementations.Models;
-using ShantiTirttula.Server.Api.Domain.Interfaces.Models;
+using ShantiTirttula.Domain.Dto.Input;
+using ShantiTirttula.Domain.Models;
+using ShantiTirttula.Server.Api.Helpers;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using ShantiTirttula.Repository.Managers;
+using ShantiTirttula.Domain.Dto;
 
 namespace ShantiTirttula.Server.Api.Controllers
 {
