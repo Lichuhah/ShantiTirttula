@@ -7,6 +7,8 @@ using ShantiTirttula.Domain.Models;
 using ShantiTirttula.Domain.Dto;
 using ShantiTirttula.Domain.Dto.Models;
 using ShantiTirttula.Repository.Managers;
+using NHibernate.Type;
+using ShantiTirttula.Domain.Dto.Output;
 
 namespace ShantiTirttula.Server.Api.Controllers.ApCrudController
 {
@@ -18,6 +20,23 @@ namespace ShantiTirttula.Server.Api.Controllers.ApCrudController
         public TriggerApCrudController(IHttpContextAccessor httpContextAccessor) : base(new TriggerManager(), httpContextAccessor)
         {
 
+        }
+
+        [HttpGet]
+        [Route("config")]
+        public ActionResult GetConfig()
+        {
+            IQueryable<ITrigger> data = Manager.All().Where(x => x.Auth.Id == this.Auth.Id);
+            var answer = data.Select(x => new TriggerOutput
+            {
+                Type = x.Type.Id,
+                SensorNumber = x.Sensor.Number,
+                TriggerValue = x.TriggerValue,
+                DeviceValue = x.DeviceValue,
+                Pin = x.Device.Pin,
+                IsPwm = x.Device.IsAnalog
+            }).ToList();
+            return new ApiResponse<List<TriggerOutput>>().SetData(answer).Result();
         }
 
         [HttpPost]

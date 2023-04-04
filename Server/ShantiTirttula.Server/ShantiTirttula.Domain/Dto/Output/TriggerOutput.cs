@@ -1,6 +1,8 @@
-﻿namespace ShantiTirttula.Domain.Dto.Output
+﻿using ShantiTirttula.Domain.Models;
+
+namespace ShantiTirttula.Domain.Dto.Output
 {
-    public class TriggerOutput
+    public class TriggerOutput : ApiDto<ITrigger>
     {
         public int Type { get; set; }
         public int SensorNumber { get; set; }
