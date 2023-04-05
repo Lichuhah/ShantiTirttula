@@ -26,7 +26,7 @@ namespace ShantiTirttula.Repository.Managers
 
         public override IAuth ConvertFromDto(ApiDto<IAuth> data)
         {
-            IAuth item
+            IAuth item;
             if (data.Id > 0)
                 item = Get(data.Id);
             else

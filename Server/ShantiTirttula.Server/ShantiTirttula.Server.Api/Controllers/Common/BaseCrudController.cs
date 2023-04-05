@@ -5,8 +5,13 @@ using DevExtreme.AspNet.Data.ResponseModel;
 using ShantiTirttula.Domain.Dto;
 using ShantiTirttula.Domain.Models;
 using ShantiTirttula.Repository.Managers;
+using Microsoft.AspNetCore.Authorization;
+
 namespace ShantiTirttula.Server.Api.Controllers.Common
 {
+#if DEBUG
+    [AllowAnonymous]
+#endif
     [ApiController]
     public class BaseCrudController<DtoType, EntityType> : ControllerBase where DtoType : ApiDto<EntityType> where EntityType : IEntity 
     {

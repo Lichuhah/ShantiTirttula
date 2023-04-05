@@ -11,6 +11,10 @@ namespace ShantiTirttula.Repository.Mappings.Managment.Shedules
             {
                 map.Column("PERIOD");
             });
+            Property(x => x.LastExecutionTime, map =>
+            {
+                map.Column("LAST_EXECUTION_TIME");
+            });
             Property(x => x.StartTime, map =>
             {
                 map.Column("START_TIME");

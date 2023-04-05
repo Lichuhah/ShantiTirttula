@@ -12,7 +12,7 @@ namespace ShantiTirttula.Repository.Repositories
     public class EntityRepository<T> : IEntityRepository<T> where T : IEntity
     {
         NHibernateHelper helper;
-        ISession Session;
+        public ISession Session { get; set; }
         public EntityRepository()
         {
             helper = new NHibernateHelper();
@@ -20,22 +20,16 @@ namespace ShantiTirttula.Repository.Repositories
             CurrentSessionContext.Bind(Session);
         }
 
+        public EntityRepository(ISession session)
+        {
+            Session = session;
+            CurrentSessionContext.Bind(Session);
+        }
         public virtual IQueryable<T> All()
-        { 
-            using (ITransaction transaction = Session.BeginTransaction(IsolationLevel.ReadCommitted)) {
-                try
-                {
-                    return helper.OpenSession().Query<T>();
-                }
-                catch
-                {
-                    transaction.Rollback();
-                    throw;
-                }
-                finally
-                {
-                    transaction.Commit();
-                }
+        {
+            using (ITransaction transaction = Session.BeginTransaction(IsolationLevel.ReadCommitted))
+            {
+                return Session.Query<T>();
             }
         }
 
@@ -86,19 +80,7 @@ namespace ShantiTirttula.Repository.Repositories
         {
             using (ITransaction transaction = Session.BeginTransaction(IsolationLevel.ReadCommitted))
             {
-                try
-                {
-                    return Session.Get<T>(id);
-                }
-                catch
-                {
-                    transaction.Rollback();
-                    throw;
-                }
-                finally
-                {
-                    transaction.Commit();
-                }
+                return Session.Get<T>(id);
             }
         }
 
@@ -110,6 +92,26 @@ namespace ShantiTirttula.Repository.Repositories
                 {
                     entity.Id = (int)Session.Save(entity);
                     return entity;
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    throw;
+                }
+                finally
+                {
+                    transaction.Commit();
+                }
+            }
+        }
+
+        public async Task SaveAsync(T entity)
+        {
+            using (ITransaction transaction = Session.BeginTransaction(IsolationLevel.ReadCommitted))
+            {
+                try
+                {
+                    await Session.SaveAsync(entity);
                 }
                 catch (Exception ex)
                 {

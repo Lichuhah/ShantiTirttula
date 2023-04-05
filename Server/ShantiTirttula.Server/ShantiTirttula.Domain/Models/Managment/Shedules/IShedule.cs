@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ShantiTirttula.Domain.Models.Managment.Shedules
+﻿namespace ShantiTirttula.Domain.Models.Managment.Shedules
 {
     public interface IShedule : IEntity
     {
@@ -13,5 +7,7 @@ namespace ShantiTirttula.Domain.Models.Managment.Shedules
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
         public int Period { get; set; }
+        public int PeriodCounter { get; }
+        public DateTime LastExecutionTime { get; set; }
     }
 }

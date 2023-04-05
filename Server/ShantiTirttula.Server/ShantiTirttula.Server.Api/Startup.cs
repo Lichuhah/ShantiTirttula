@@ -2,6 +2,7 @@
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using ShantiTirttula.Server.Api.Helpers;
+using ShantiTirttula.Server.Api.Helpers.Quartz;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Reflection;
 
@@ -25,6 +26,8 @@ namespace ShantiTirttula.Server.Api
             });
             app.UseSwagger();
             app.UseSwaggerUI(c => { c.SwaggerEndpoint("v1/swagger.json", "ShantiTirttula 1.0 alpha API"); });
+
+            QuartzShedulerHelper.Start();
         }
 
         public void ConfigureServices(IServiceCollection services)

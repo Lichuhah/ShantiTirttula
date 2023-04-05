@@ -14,29 +14,44 @@ namespace ShantiTirttula.Repository.Helpers
 {
     public class NHibernateHelper
     {
-        private ISessionFactory nhSessionFactory;
-        private ConnectionStringHelper connecionStringHelper;
+        private static ISessionFactory _sessionFactory;
+        private static readonly object _lockObject = new object();
 
         public NHibernateHelper()
         {
-            connecionStringHelper = new ConnectionStringHelper();
-            nhSessionFactory = GetNHibernateSessionFactory();
+
+        }
+
+        public static ISessionFactory GetSessionFactory()
+        {
+            if (_sessionFactory == null)
+            {
+                lock (_lockObject)
+                {
+                    if (_sessionFactory == null)
+                    {
+                        _sessionFactory = CreateSessionFactory();
+                    }
+                }
+            }
+            return _sessionFactory;
         }
 
         public ISession OpenSession()
         {
             try
             {
-                return this.nhSessionFactory.GetCurrentSession();
+                return GetSessionFactory().GetCurrentSession();
             }
-            catch
+            catch(Exception ex)
             {
-                return nhSessionFactory.OpenSession();
+                return GetSessionFactory().OpenSession();
             }            
         }
 
-        private ISessionFactory GetNHibernateSessionFactory()
+        private static ISessionFactory CreateSessionFactory()
         {
+            ConnectionStringHelper connecionStringHelper = new ConnectionStringHelper();
             ModelMapper mapper = new();
             mapper.AddMappings(typeof(EntityMapping<Entity>).Assembly.ExportedTypes);
             HbmMapping domainMapping = mapper.CompileMappingForAllExplicitlyAddedEntities();
@@ -91,5 +106,7 @@ namespace ShantiTirttula.Repository.Helpers
 
             return configuration.BuildSessionFactory();
         }
+
+
     }
 }

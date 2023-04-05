@@ -1,4 +1,5 @@
-﻿using ShantiTirttula.Domain.Dto;
+﻿using NHibernate;
+using ShantiTirttula.Domain.Dto;
 using ShantiTirttula.Domain.Managers;
 using ShantiTirttula.Domain.Models;
 using ShantiTirttula.Domain.Repositories;
@@ -8,14 +9,20 @@ namespace ShantiTirttula.Repository.Managers
 {
     public class EntityManager<T> : IEntityManager<T> where T : IEntity
     {
-        protected readonly IEntityRepository<T> Repository;
+        public IEntityRepository<T> Repository;
 
         public EntityManager()
         {
             Repository = new EntityRepository<T>();
         }
-
-        public NHibernate.ISession Session { get; set; }
+        public ISession GetSession()
+        {
+            return this.Repository.Session;
+        }
+        public void SetSession(ISession session)
+        {
+            this.Repository.Session = session;
+        }
 
         public virtual IQueryable<T> All()
         {
@@ -48,6 +55,11 @@ namespace ShantiTirttula.Repository.Managers
         public virtual T Save(T entity)
         {
             return Repository.Save(entity);
+        }
+
+        public virtual async Task SaveAsync(T entity)
+        {
+            await Repository.SaveAsync(entity);
         }
 
         public virtual bool Save(IEnumerable<T> entities)
