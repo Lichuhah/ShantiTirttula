@@ -7,5 +7,6 @@ namespace ShantiTirttula.Repository.Models.Managment.Shedules
     {
         public virtual DateTime StartDateTime { get; set; }
         public virtual ISheduleCommand Command { get; set; }
+        public virtual IAuth Auth { get; set; }
     }
 }

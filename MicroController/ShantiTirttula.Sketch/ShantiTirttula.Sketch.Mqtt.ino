@@ -5,11 +5,14 @@ const char* mqtt_server = "130.193.34.231";
 const int mqtt_port = 9002;
 
 bool MQTTinit(){
+  Serial.println("a");
   client.setServer(mqtt_server, mqtt_port);
   client.setCallback(callback);
+  Serial.println("b");
   if (client.connect("ESP8266"))
     {
       //client.subscribe("answer");
+      Serial.println("c");
       client.subscribe(key.c_str());
       Serial.println("connected");
       return true;
@@ -39,12 +42,16 @@ void reconnect() {
 }
 
 bool SendData(){
+  Serial.println("e");
   if (!client.connected()) {
+    Serial.println("work0");
     reconnect();
   }
+  Serial.println("f");
   client.publish("test", GetMqttMessage().c_str());
   delay(100);
   client.loop();
+  Serial.println("g");
   delay(100);
   return true;
 }
@@ -57,11 +64,11 @@ void callback(char* topic, byte* payload, unsigned int length) {
     //Serial.print((char)payload[i]);
   //}
   delay(100);
-  if(topic==key.c_str()+"_cm"){
+  if(topic==(key+"_cm").c_str()){
     ExecuteCommands(String((char *)payload));
   }
-  if(topec==key.c_str()+"_cl"){
-    ClearData(String((char* payload));
+  if(topic==(key+"_cl").c_str()){
+    ClearData(String((char*) payload));
   }
   delay(100);
   return;

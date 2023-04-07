@@ -2,8 +2,8 @@
 
 bool IsWiFiConnect = false;
 bool IsMqttConnect = false;
-int sensors[2] = {1,2};
-int sensorValues[2] = {0,0};
+int sensors[3] = {1,2,3};
+int sensorValues[3] = {0,0,0};
 int devices[2] ={4, 16};
 int devicesValues[2]={0,0};
 String key;

@@ -1,4 +1,5 @@
-﻿using ShantiTirttula.Domain.Models;
+﻿using ShantiTirttula.Domain.Enums;
+using ShantiTirttula.Domain.Models;
 
 namespace ShantiTirttula.Repository.Models
 {
@@ -8,5 +9,6 @@ namespace ShantiTirttula.Repository.Models
         public virtual IUser User { get; set; }
         public virtual IList<ITrigger> Triggers { get; set; }
         public virtual IProduct Product { get; set; }
+        public virtual ECommandProducerAlgorithm Producer { get; set; }
     }
 }

@@ -8,6 +8,7 @@ using ShantiTirttula.Domain.Models;
 using ShantiTirttula.Domain.Models.Managment.Shedules;
 using ShantiTirttula.Repository.Helpers;
 using ShantiTirttula.Repository.Managers.Managment.Shedules;
+using ShantiTirttula.Repository.Models;
 using ShantiTirttula.Repository.Models.Managment.Shedules;
 
 namespace ShantiTirttula.Server.Api.Helpers.Quartz
@@ -29,6 +30,7 @@ namespace ShantiTirttula.Server.Api.Helpers.Quartz
                         {
                             ISheduleTask newTask = new SheduleTask();
                             newTask.Command = session.Get<SheduleCommand>(shedule.StartCommandId);
+                            newTask.Auth = session.Get<Auth>(shedule.AuthId);
                             newTask.StartDateTime = DateTime.UtcNow.Date + shedule.StartTime.TimeOfDay;
                             session.Save(newTask);
                         }
@@ -47,6 +49,7 @@ namespace ShantiTirttula.Server.Api.Helpers.Quartz
                         {
                             ISheduleTask newTask = new SheduleTask();
                             newTask.Command = session.Get<SheduleCommand>(shedule.EndCommandId);
+                            newTask.Auth = session.Get<Auth>(shedule.AuthId);
                             newTask.StartDateTime = DateTime.UtcNow.Date + shedule.EndTime.TimeOfDay;
                             session.Save(newTask);
                         }
@@ -78,14 +81,6 @@ namespace ShantiTirttula.Server.Api.Helpers.Quartz
                     }
                 }             
             }
-        }
-
-        private async Task SaveTask(NHibernate.ISession session, SheduleDto shedule)
-        {
-            ISheduleTask newTask = new SheduleTask();
-            newTask.Command = session.Get<SheduleCommand>(shedule.StartCommandId);
-            newTask.StartDateTime = DateTime.UtcNow.Date + shedule.StartTime.TimeOfDay;
-
         }
 
         [Obsolete]

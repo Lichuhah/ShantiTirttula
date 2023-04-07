@@ -20,8 +20,8 @@ namespace ShantiTirttula.Repository.Managers.Managment.Shedules
             SheduleTaskDto dto = new SheduleTaskDto();
             dto.Id = entity.Id;
             dto.StartDateTime = entity.StartDateTime;
-            dto.CommandId = entity.Command.Id;
-
+            dto.Command = new SheduleCommandManager().ConvertToDto(entity.Command);
+            dto.AuthId = entity.Auth.Id;
             return dto;
         }
 
@@ -34,13 +34,13 @@ namespace ShantiTirttula.Repository.Managers.Managment.Shedules
                 item = new SheduleTask();
 
             SheduleTaskDto dto = (SheduleTaskDto)data;
-            //if (dto.AuthId > 0)
-            //{
-            //    item.Auth = new AuthManager().Get(dto.AuthId);
-            //}
-            if (dto.CommandId > 0)
+            if (dto.AuthId > 0)
             {
-                item.Command = new SheduleCommandManager().Get(dto.CommandId);
+                item.Auth = new AuthManager().Get(dto.AuthId);
+            }
+            if (dto.Command.Id > 0)
+            {
+                item.Command = new SheduleCommandManager().Get(dto.Command.Id);
             }
             item.StartDateTime = dto.StartDateTime;
 

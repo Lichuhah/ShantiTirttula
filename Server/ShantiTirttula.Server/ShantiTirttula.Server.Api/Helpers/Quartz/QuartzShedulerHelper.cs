@@ -21,7 +21,8 @@ namespace ShantiTirttula.Server.Api.Helpers.Quartz
 
             ITrigger trigger = TriggerBuilder.Create()  // создаем триггер
                 .WithIdentity("sheduleTrigger", "mainGroup")     // идентифицируем триггер с именем и группой
-                .StartAt(startTime)                            // запуск сразу после начала выполнения
+              //.StartAt(startTime) // запуск сразу после начала выполнения
+                .StartNow()
                 .WithSimpleSchedule(x => x            // настраиваем выполнение действия
                     .WithIntervalInHours(24)          // через 1 минуту
                     .RepeatForever())                   // бесконечное повторение

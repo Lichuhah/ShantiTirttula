@@ -24,7 +24,8 @@ namespace ShantiTirttula.Server.Dispatcher.Mqtt
                 {
                     session.SetDeviceValues(message.Devices);
                     session.AddSensorsData(message.Data);
-                    if (session.Commands.Any())
+                    session.Producer.Generate(message.Data);
+                    if (session.Producer.Commands.Any())
                     {
                         SendCommand(session);
                         //session.SaveCommandsLog();
@@ -39,7 +40,7 @@ namespace ShantiTirttula.Server.Dispatcher.Mqtt
         private static void SendCommand(Session session)
         {
             ShantiMqttServer mqttServer = ShantiMqttServer.GetServer();
-            mqttServer.SendMessage(session.Mc.Key, JsonConvert.SerializeObject(session.Commands));
+            mqttServer.SendMessage(session.Mc.Key, JsonConvert.SerializeObject(session.Producer.Commands));
         }
 
         public static void SendError(string error)

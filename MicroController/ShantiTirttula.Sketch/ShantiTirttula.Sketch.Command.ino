@@ -3,7 +3,7 @@
 StaticJsonDocument<200> doc;
 
 void ClearData(String data){
-  sensorValues[atoi(data.c_str()] = 0;
+  sensorValues[atoi(data.c_str())] = 0;
 }
 
 void ExecuteCommands(String command){

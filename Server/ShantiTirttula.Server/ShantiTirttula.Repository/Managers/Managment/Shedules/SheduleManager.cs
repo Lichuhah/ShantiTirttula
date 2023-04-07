@@ -22,7 +22,7 @@ namespace ShantiTirttula.Repository.Managers.Managment.Shedules
             dto.EndTime = entity.EndTime;
             dto.StartCommandId = entity.StartCommand.Id;
             dto.EndCommandId = entity.EndCommand.Id;
-
+            dto.AuthId = entity.Auth.Id;
             return dto;
         }
 
@@ -35,10 +35,10 @@ namespace ShantiTirttula.Repository.Managers.Managment.Shedules
                 item = new Shedule();
 
             SheduleDto dto = (SheduleDto)data;
-            //if (dto.AuthId > 0)
-            //{
-            //    item.Auth = new AuthManager().Get(dto.AuthId);
-            //}
+            if (dto.AuthId > 0)
+            {
+                item.Auth = new AuthManager().Get(dto.AuthId);
+            }
             if (dto.StartCommandId > 0)
             {
                 item.StartCommand = new SheduleCommandManager().Get(dto.StartCommandId);

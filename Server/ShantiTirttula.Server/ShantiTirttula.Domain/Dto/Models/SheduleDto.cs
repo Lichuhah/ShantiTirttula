@@ -9,5 +9,6 @@ namespace ShantiTirttula.Domain.Dto.Models
         public int StartCommandId { get; set; }
         public int EndCommandId { get; set; }
         public int Period { get; set; }
+        public int AuthId { get; set; }
     }
 }

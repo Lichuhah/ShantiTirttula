@@ -10,6 +10,8 @@ using NHibernate.Util;
 using ShantiTirttula.Server.Api.Controllers.Common;
 using ShantiTirttula.Domain.Dto.Models.TreeDto;
 using ShantiTirttula.Domain.Dto.Models;
+using System.Xml.Linq;
+using ShantiTirttula.Domain.Enums;
 
 namespace ShantiTirttula.Server.Api.Controllers.CrudControllers
 {
@@ -21,6 +23,24 @@ namespace ShantiTirttula.Server.Api.Controllers.CrudControllers
         public AuthCrudController(IHttpContextAccessor httpContextAccessor) : base(new AuthManager(), httpContextAccessor)
         {
 
+        }
+
+        [HttpGet]
+        [Route("byKey/{key}")]
+        public ActionResult GetProducerType(string key)
+        {
+            try
+            {
+                IAuth data = Manager.All().FirstOrDefault(x=>x.Key == key);
+                if(data != null)
+                    return new ApiResponse<ECommandProducerAlgorithm>().SetData(data.Producer).Result();
+                else
+                    return new ApiResponse<object>().Error("wrong key").Result();
+            }
+            catch (Exception e)
+            {
+                return new ApiResponse<object>().Error(e.Message).Result();
+            }
         }
 
         [HttpGet]

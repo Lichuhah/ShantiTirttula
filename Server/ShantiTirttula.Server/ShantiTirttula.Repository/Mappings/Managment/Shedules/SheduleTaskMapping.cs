@@ -1,4 +1,5 @@
 ﻿using NHibernate.Mapping.ByCode;
+using ShantiTirttula.Repository.Models;
 using ShantiTirttula.Repository.Models.Managment.Shedules;
 
 namespace ShantiTirttula.Repository.Mappings.Managment.Shedules
@@ -15,6 +16,12 @@ namespace ShantiTirttula.Repository.Mappings.Managment.Shedules
             {
                 map.Column("COMMAND_ID");
                 map.Class(typeof(SheduleCommand));
+                map.Lazy(LazyRelation.Proxy);
+            });
+            ManyToOne(x => x.Auth, map =>
+            {
+                map.Column("AUTH_ID");
+                map.Class(typeof(Auth));
                 map.Lazy(LazyRelation.Proxy);
             });
         }

@@ -1,8 +1,7 @@
 ﻿using Newtonsoft.Json;
 using ShantiTirttula.Server.Dispatcher.Http;
 using ShantiTirttula.Server.Dispatcher.Models;
-using System.Text;
-using System.Xml.Linq;
+using ShantiTirttula.Server.Dispatcher.Producer;
 
 namespace ShantiTirttula.Server.Dispatcher.Sessions
 {
@@ -11,19 +10,14 @@ namespace ShantiTirttula.Server.Dispatcher.Sessions
         public McData Mc { get; set; }
         public string Token { get; set; }
         public List<List<McSensorData>> SensorsData { get; set; }
-       // public List<DispatcherTrigger> Triggers { get; set; }
-        //public List<McCommand> CommandLog { get; set; }
-        public List<McCommand> Commands { get; set; }
         public List<McDeviceValues> DeviceValues { get; set;}
         public DateTime LastSendTime { get; set; }
         public DateTime CreateTime { get; set; }
         public bool IsBusy { get; set; }
+        public CommandProducer Producer { get; set; }
         public Session()
         {
             SensorsData = new List<List<McSensorData>>();
-            //Triggers = new List<DispatcherTrigger>();
-            //CommandLog = new List<McCommand>();
-            Commands = new List<McCommand>();
             IsBusy = false;
             DeviceValues = new List<McDeviceValues>();
         }
@@ -59,28 +53,28 @@ namespace ShantiTirttula.Server.Dispatcher.Sessions
         //    }
         //}
 
-        private void CreateCommand(McSensorData sensor, DispatcherTrigger trigger)
-        {
-            bool isTrigger = false;
-            switch (trigger.Type)
-            {
-                case ETriggerType.More: isTrigger = sensor.Value > trigger.TriggerValue; break;
-                case ETriggerType.Less: isTrigger = sensor.Value < trigger.TriggerValue; break;
-            }
-            if (isTrigger)
-            {
-                if (this.DeviceValues.FirstOrDefault(x => x.Pin == trigger.Pin)?.Value != trigger.DeviceValue)
-                {
-                    Commands.Add(new McCommand
-                    {
-                        TriggerId = trigger.Id,
-                        Pin = trigger.Pin,
-                        IsPwm = trigger.IsPwm,
-                        Value = trigger.DeviceValue
-                    });
-                }
-            }
-        }
+        //private void CreateCommand(McSensorData sensor, DispatcherTrigger trigger)
+        //{
+        //    bool isTrigger = false;
+        //    switch (trigger.Type)
+        //    {
+        //        case ETriggerType.More: isTrigger = sensor.Value > trigger.TriggerValue; break;
+        //        case ETriggerType.Less: isTrigger = sensor.Value < trigger.TriggerValue; break;
+        //    }
+        //    if (isTrigger)
+        //    {
+        //        if (this.DeviceValues.FirstOrDefault(x => x.Pin == trigger.Pin)?.Value != trigger.DeviceValue)
+        //        {
+        //            Commands.Add(new McCommand
+        //            {
+        //                TriggerId = trigger.Id,
+        //                Pin = trigger.Pin,
+        //                IsPwm = trigger.IsPwm,
+        //                Value = trigger.DeviceValue
+        //            });
+        //        }
+        //    }
+        //}
 
         //public void LoadTriggers()
         //{
