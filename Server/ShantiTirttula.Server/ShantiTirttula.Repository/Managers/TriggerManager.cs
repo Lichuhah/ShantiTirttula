@@ -3,6 +3,7 @@ using ShantiTirttula.Domain.Models;
 using ShantiTirttula.Domain.Managers;
 using ShantiTirttula.Domain.Dto.Models;
 using ShantiTirttula.Repository.Models;
+using ShantiTirttula.Repository.Managers.Managment.Shedules;
 
 namespace ShantiTirttula.Repository.Managers
 {
@@ -27,13 +28,10 @@ namespace ShantiTirttula.Repository.Managers
                 Id = entity.Id,
                 SensorNumber = entity.Sensor.Number,
                 TriggerValue = entity.TriggerValue,
-                Type = entity.Type.Id,
+                Type = (Domain.Enums.ETriggerType)entity.Type.Id,
                 TypeName = entity.Type.Name,
-                DeviceValue = entity.DeviceValue,
-                IsPwm = entity.Device.IsAnalog,
-                Pin = entity.Device.Pin,
                 SensorId = entity.Sensor.Id,
-                DeviceId = entity.Device.Id
+                Command = new SheduleCommandManager().ConvertToDto(entity.Command)
             };
             return dto;
         }
@@ -47,14 +45,11 @@ namespace ShantiTirttula.Repository.Managers
                 item = new Trigger();
 
             TriggerDto dto = (TriggerDto)data;
-            item.DeviceValue = dto.DeviceValue;
             item.TriggerValue = dto.TriggerValue;
-            if (dto.DeviceId > 0)
-                item.Device = new DeviceManager().Get(dto.DeviceId);
             if (dto.SensorId > 0)
                 item.Sensor = new SensorManager().Get(dto.SensorId);
             if (dto.Type > 0)
-                item.Type = new TriggerTypeManager().Get(dto.Type);
+                item.Type = new TriggerTypeManager().Get((int)dto.Type);
             if (dto.AuthId > 0)
                 item.Auth = new AuthManager().Get(dto.AuthId);
             return item;

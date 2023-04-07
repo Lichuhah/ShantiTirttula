@@ -1,10 +1,11 @@
 ﻿using ShantiTirttula.Server.Dispatcher.Models;
+using ShantiTirttula.Server.Dispatcher.Sessions;
 
 namespace ShantiTirttula.Server.Dispatcher.Producer
 {
     public class NoneProducer : CommandProducer
     {
-        public override void Generate(List<McSensorData> datas)
+        public override void Generate(Session session)
         {
             return;
         }

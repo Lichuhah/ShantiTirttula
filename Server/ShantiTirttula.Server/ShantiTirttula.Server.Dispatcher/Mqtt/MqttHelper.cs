@@ -24,7 +24,7 @@ namespace ShantiTirttula.Server.Dispatcher.Mqtt
                 {
                     session.SetDeviceValues(message.Devices);
                     session.AddSensorsData(message.Data);
-                    session.Producer.Generate(message.Data);
+                    session.Producer.Generate(session);
                     if (session.Producer.Commands.Any())
                     {
                         SendCommand(session);

@@ -32,9 +32,9 @@ namespace ShantiTirttula.Server.Api.Controllers.ApCrudController
                 Type = x.Type.Id,
                 SensorNumber = x.Sensor.Number,
                 TriggerValue = x.TriggerValue,
-                DeviceValue = x.DeviceValue,
-                Pin = x.Device.Pin,
-                IsPwm = x.Device.IsAnalog
+                DeviceValue = x.Command.Value,
+                Pin = x.Command.Device.Pin,
+                IsPwm = x.Command.Device.IsAnalog
             }).ToList();
             return new ApiResponse<List<TriggerOutput>>().SetData(answer).Result();
         }

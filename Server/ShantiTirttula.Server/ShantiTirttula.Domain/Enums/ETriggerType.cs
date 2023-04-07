@@ -1,4 +1,4 @@
-﻿namespace ShantiTirttula.Server.Dispatcher.Models
+﻿namespace ShantiTirttula.Domain.Enums
 {
     public enum ETriggerType
     {

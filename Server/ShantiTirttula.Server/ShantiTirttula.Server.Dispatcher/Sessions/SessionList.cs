@@ -126,7 +126,7 @@ namespace ShantiTirttula.Server.Dispatcher.Sessions
                         {
                             case ECommandProducerAlgorithm.NoneProducer: session.Producer = new NoneProducer(); break;
                             case ECommandProducerAlgorithm.TaskProducer: session.Producer = new TaskProducer(); break;
-                            //case ECommandProducerAlgorithm.TriggerProducer: session.Producer = new NoneProducer(); break;
+                            case ECommandProducerAlgorithm.TriggerProducer: session.Producer = new TriggerProducer(); break;
                             default: session.Producer = new NoneProducer(); break;
                         }
 

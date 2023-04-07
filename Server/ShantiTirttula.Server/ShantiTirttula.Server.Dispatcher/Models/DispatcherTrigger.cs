@@ -1,4 +1,6 @@
-﻿namespace ShantiTirttula.Server.Dispatcher.Models
+﻿using ShantiTirttula.Domain.Enums;
+
+namespace ShantiTirttula.Server.Dispatcher.Models
 {
     public class DispatcherTrigger
     {

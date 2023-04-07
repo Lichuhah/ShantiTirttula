@@ -2,6 +2,7 @@
 using ShantiTirttula.Domain.Dto;
 using ShantiTirttula.Domain.Dto.Models;
 using ShantiTirttula.Server.Dispatcher.Http;
+using ShantiTirttula.Server.Dispatcher.Sessions;
 
 namespace ShantiTirttula.Server.Dispatcher.Producer
 {
@@ -22,7 +23,7 @@ namespace ShantiTirttula.Server.Dispatcher.Producer
                 this.Tasks = result.Data;
             }
         }
-        public override void Generate(List<Dispatcher.Models.McSensorData> datas)
+        public override void Generate(Session session)
         {
             this.Commands.Clear();
             DateTime TimeNow = DateTime.UtcNow;
