@@ -1,5 +1,6 @@
 ﻿using NHibernate.Mapping.ByCode;
 using ShantiTirttula.Repository.Models;
+using ShantiTirttula.Repository.Models.Managment.Shedules;
 
 namespace ShantiTirttula.Repository.Mappings
 {
@@ -15,20 +16,16 @@ namespace ShantiTirttula.Repository.Mappings
             {
                 map.Column("AUTONOMY");
             });
-            Property(x => x.DeviceValue, map =>
-            {
-                map.Column("DEVICE_VALUE");
-            });
             ManyToOne(x => x.Auth, map =>
             {
                 map.Column("AUTH_ID");
                 map.Class(typeof(Auth));
                 map.Lazy(LazyRelation.Proxy);
             });
-            ManyToOne(x => x.Device, map =>
+            ManyToOne(x => x.Command, map =>
             {
-                map.Column("DEVICE_ID");
-                map.Class(typeof(Device));
+                map.Column("COMMAND_ID");
+                map.Class(typeof(SheduleCommand));
                 map.Lazy(LazyRelation.Proxy);
             });
             ManyToOne(x => x.Sensor, map =>
