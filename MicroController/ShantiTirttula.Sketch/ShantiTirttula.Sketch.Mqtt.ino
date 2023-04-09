@@ -75,6 +75,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
   } else 
   if(topic==(key+"_cf").c_str()){
     WriteAutonomy(String((char *)payload));
+    LoadAutonomy();
   }
   delay(100);
   return;
