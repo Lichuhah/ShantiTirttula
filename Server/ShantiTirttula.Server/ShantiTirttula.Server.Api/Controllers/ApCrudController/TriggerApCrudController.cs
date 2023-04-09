@@ -7,14 +7,10 @@ using ShantiTirttula.Domain.Models;
 using ShantiTirttula.Domain.Dto;
 using ShantiTirttula.Domain.Dto.Models;
 using ShantiTirttula.Repository.Managers;
-using NHibernate.Type;
 using ShantiTirttula.Domain.Dto.Output;
-using Quartz.Util;
-using ShantiTirttula.Repository.Models;
 
 namespace ShantiTirttula.Server.Api.Controllers.ApCrudController
 {
-    [Authorize]
     [Route("api/ap/triggers")]
     [ApiController]
     public class TriggerApCrudController : BaseApCrudController<TriggerDto, ITrigger>

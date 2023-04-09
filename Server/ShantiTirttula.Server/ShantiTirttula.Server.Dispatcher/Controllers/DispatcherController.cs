@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.DataProtection.KeyManagement;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using ShantiTirttula.Domain.Dto.Output;
@@ -9,6 +8,7 @@ using ShantiTirttula.Server.Dispatcher.Sessions;
 namespace ShantiTirttula.Server.Dispatcher.Controllers
 {
     [Route("api/disp")]
+    [AllowAnonymous]
     [ApiController]
     public class DispatcherController : ControllerBase
     {

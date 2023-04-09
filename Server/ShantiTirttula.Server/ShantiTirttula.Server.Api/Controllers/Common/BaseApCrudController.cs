@@ -6,11 +6,13 @@ using System.Security.Claims;
 using ShantiTirttula.Repository.Managers;
 using ShantiTirttula.Domain.Dto;
 using ShantiTirttula.Domain.Models;
-using Newtonsoft.Json;
-using System.Text;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ShantiTirttula.Server.Api.Controllers.Common
 {
+#if DEBUG
+    [AllowAnonymous]
+#endif
     [ApiController]
     public class BaseApCrudController<DtoType, EntityType> : ControllerBase where DtoType : ApiDtoWithAuth<EntityType> where EntityType : IEntityAuth
     {
