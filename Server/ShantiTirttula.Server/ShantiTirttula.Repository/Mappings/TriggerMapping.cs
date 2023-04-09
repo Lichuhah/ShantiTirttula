@@ -11,6 +11,10 @@ namespace ShantiTirttula.Repository.Mappings
             {
                 map.Column("TRIGGER_VALUE");
             });
+            Property(x => x.IsAutonomy, map =>
+            {
+                map.Column("AUTONOMY");
+            });
             Property(x => x.DeviceValue, map =>
             {
                 map.Column("DEVICE_VALUE");

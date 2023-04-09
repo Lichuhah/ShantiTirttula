@@ -6,6 +6,8 @@ using System.Security.Claims;
 using ShantiTirttula.Repository.Managers;
 using ShantiTirttula.Domain.Dto;
 using ShantiTirttula.Domain.Models;
+using Newtonsoft.Json;
+using System.Text;
 
 namespace ShantiTirttula.Server.Api.Controllers.Common
 {
@@ -77,6 +79,7 @@ namespace ShantiTirttula.Server.Api.Controllers.Common
                 dto.AuthId = this.Auth.Id;
                 EntityType data = Manager.ConvertFromDto(dto);
                 dto.Id = Manager.Save(data).Id;
+                RefreshDispatcher();
                 return new ApiResponse<ApiDto<EntityType>>().SetData(dto).Result();
             }
             catch (Exception e)
@@ -94,6 +97,7 @@ namespace ShantiTirttula.Server.Api.Controllers.Common
                 dto.Id = id;
                 EntityType data = Manager.ConvertFromDto(dto);
                 Manager.Save(data);
+                RefreshDispatcher();
                 return new ApiResponse<ApiDto<EntityType>>().SetData(dto).Result();
             }
             catch (Exception e)
@@ -110,12 +114,22 @@ namespace ShantiTirttula.Server.Api.Controllers.Common
             {
                 EntityType data = Manager.Get(id);
                 Manager.Delete(data);
+                RefreshDispatcher();
                 return new ApiResponse<bool>().SetData(true).Result();
             }
             catch (Exception e)
             {
                 return new ApiResponse<object>().Error(e.Message).Result();
             }
+        }
+
+        private bool RefreshDispatcher()
+        {
+            HttpClient client = new HttpClient();
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, Environment.GetEnvironmentVariable("DISP_URL") + "/api/disp/" + this.Auth.Key);
+            HttpResponseMessage response = client.Send(request);
+            string result = response.Content.ReadAsStringAsync().Result;
+            return true;
         }
     }
 }

@@ -9,6 +9,7 @@ namespace ShantiTirttula.Domain.Models
         public ISensor Sensor { get; set; }
         public float TriggerValue { get; set; }
         public ISheduleCommand Command { get; set; }
+        public bool IsAutonomy { get; set; }
         //public IList<ICommandLog> Logs { get; set; }
     }
 }
