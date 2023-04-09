@@ -15,6 +15,7 @@ bool WIFIinit() {
     // Если не удалось подключиться запускаем в режиме AP
     //Serial.println("");
     Serial.println("WiFi up AP");
+    triesConnect++;
     return false;
   }
   else {

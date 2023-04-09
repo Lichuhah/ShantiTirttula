@@ -1,30 +1,28 @@
 String GetSensorJson(){
-  int leng = 3;
   String json = "[";
-  for(int i=0; i<leng; i++){
+  for(int i=0; i<sensorCount; i++){
     json += "{";
     json += "\"Value\":";
     json += sensorValues[i];
     json += ",\"SensorId\":";
     json += sensors[i];
     json += "}";
-    if(i!=leng-1) json+=",";
+    if(i!=sensorCount-1) json+=",";
   }
   json += "]";
   return json;
 }
 
 String GetDeviceJson(){
-  int leng = 2;
   String json = "[";
-  for(int i=0; i<leng; i++){
+  for(int i=0; i<deviceCount; i++){
     json += "{";
     json += "\"Value\":";
     json += devicesValues[i];
     json += ",\"Pin\":";
     json += devices[i];
     json += "}";
-    if(i!=leng-1) json+=",";
+    if(i!=deviceCount-1) json+=",";
   }
   json += "]";
   return json;

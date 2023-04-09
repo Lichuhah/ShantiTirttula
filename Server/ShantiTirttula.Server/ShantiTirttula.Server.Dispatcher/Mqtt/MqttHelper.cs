@@ -40,7 +40,7 @@ namespace ShantiTirttula.Server.Dispatcher.Mqtt
         private static void SendCommand(Session session)
         {
             ShantiMqttServer mqttServer = ShantiMqttServer.GetServer();
-            mqttServer.SendMessage(session.Mc.Key, JsonConvert.SerializeObject(session.Producer.Commands));
+            mqttServer.SendMessage(session.Mc.Key+"_cm", JsonConvert.SerializeObject(session.Producer.Commands));
         }
 
         public static void SendError(string error)

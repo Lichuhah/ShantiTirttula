@@ -25,22 +25,14 @@ namespace ShantiTirttula.Server.Api.Controllers.ApCrudController
         public ActionResult SetConfig()
         {
             IQueryable<ITrigger> data = Manager.All().Where(x => x.Auth.Id == this.Auth.Id && x.IsAutonomy);
-            var answer = data.Select(x => new TriggerOutput
-            {
-                Type = x.Type.Id,
-                SensorNumber = x.Sensor.Number,
-                TriggerValue = x.TriggerValue,
-                DeviceValue = x.Command.Value,
-                Pin = x.Command.Device.Pin,
-                IsPwm = x.Command.Device.IsAnalog
-            }).ToList();
+            var answer = data.Select(x => Manager.ConvertToDto(x)).ToList();
             HttpClient client = new HttpClient();
             //if (token != null) client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
             HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, Environment.GetEnvironmentVariable("DISP_URL") + "/api/disp/cf/" + this.Auth.Key);
             request.Content = new StringContent(JsonConvert.SerializeObject(answer), Encoding.UTF8, "application/json");
             HttpResponseMessage response = client.Send(request);
             string result = response.Content.ReadAsStringAsync().Result;
-            return new ApiResponse<List<TriggerOutput>>().SetData(answer).Result();
+            return new ApiResponse<List<TriggerDto>>().SetData(answer).Result();
         }
     }
 }

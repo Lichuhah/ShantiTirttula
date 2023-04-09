@@ -14,13 +14,17 @@ bool MQTTinit(){
       //client.subscribe("answer");
       Serial.println("c");
       client.subscribe(key.c_str());
+      client.subscribe((key+"_cf").c_str());
       Serial.println("connected");
+      triesConnect = 0;
+      isConnected = true;
       return true;
     }
     else
     {
       Serial.print("failed with state ");
       Serial.println(client.state());
+      triesConnect++;
       return false;
     }
 }
@@ -31,6 +35,7 @@ void reconnect() {
     {
       client.subscribe("answer");
       client.subscribe(key.c_str());
+      client.subscribe((key+"_cf").c_str());
       Serial.println("connected");
     }
     else
@@ -47,11 +52,9 @@ bool SendData(){
     Serial.println("work0");
     reconnect();
   }
-  Serial.println("f");
   client.publish("test", GetMqttMessage().c_str());
   delay(100);
   client.loop();
-  Serial.println("g");
   delay(100);
   return true;
 }
@@ -66,9 +69,12 @@ void callback(char* topic, byte* payload, unsigned int length) {
   delay(100);
   if(topic==(key+"_cm").c_str()){
     ExecuteCommands(String((char *)payload));
-  }
+  } else
   if(topic==(key+"_cl").c_str()){
     ClearData(String((char*) payload));
+  } else 
+  if(topic==(key+"_cf").c_str()){
+    WriteAutonomy(String((char *)payload));
   }
   delay(100);
   return;
