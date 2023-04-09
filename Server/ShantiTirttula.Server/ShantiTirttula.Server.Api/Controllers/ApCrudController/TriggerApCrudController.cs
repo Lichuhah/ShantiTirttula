@@ -25,7 +25,7 @@ namespace ShantiTirttula.Server.Api.Controllers.ApCrudController
         public ActionResult SetConfig()
         {
             IQueryable<ITrigger> data = Manager.All().Where(x => x.Auth.Id == this.Auth.Id && x.IsAutonomy);
-            var answer = data.Select(x => Manager.ConvertToDto(x)).ToList();
+            var answer = data.Select(x => (TriggerDto)Manager.ConvertToDto(x)).ToList();
             HttpClient client = new HttpClient();
             //if (token != null) client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
             HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, Environment.GetEnvironmentVariable("DISP_URL") + "/api/disp/cf/" + this.Auth.Key);

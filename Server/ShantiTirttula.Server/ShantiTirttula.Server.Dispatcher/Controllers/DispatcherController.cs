@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using ShantiTirttula.Domain.Dto.Models;
 using ShantiTirttula.Domain.Dto.Output;
 using ShantiTirttula.Server.Dispatcher.Mqtt;
 using ShantiTirttula.Server.Dispatcher.Sessions;
@@ -37,7 +38,7 @@ namespace ShantiTirttula.Server.Dispatcher.Controllers
 
         [HttpPost]
         [Route("cf/{key}")]
-        public bool NewConfig(string key, [FromBody] List<TriggerOutput> config)
+        public bool NewConfig(string key, [FromBody] List<TriggerDto> config)
         {
             try
             {
