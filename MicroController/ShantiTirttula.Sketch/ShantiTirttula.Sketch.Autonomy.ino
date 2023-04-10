@@ -1,9 +1,10 @@
 void LoadAutonomy(){
-  String config = LoadFromFile("/autonomy.config");
-  if(config == ""){
+  String autoconfig = LoadFromFile("/autonomy.config");
+  Serial.println(autoconfig);
+  if(autoconfig == ""){
     AutonomyDoc.clear();
   }
-  DeserializationError error = deserializeJson(AutonomyDoc, config);
+  DeserializationError error = deserializeJson(AutonomyDoc, autoconfig);
    
   if (error) {
     Serial.print(F("deserializeJson() failed: "));
@@ -18,6 +19,7 @@ void WriteAutonomy(String newConfig){
 }
 
 void AutonomyWork(){
+  Serial.println("autonomywork");
   JsonArray arr = AutonomyDoc.as<JsonArray>();
   for (JsonObject repo : arr) {
     if(repo["Type"].as<bool>() == 1){
@@ -33,7 +35,7 @@ void CheckTrigger1(JsonObject trigger){
   for(int i=0; i<sensorCount; i++){
     if(sensors[i] == trigger["SensorNumber"].as<int>()){
       if(sensorValues[i] > trigger["TriggerValue"].as<int>()){
-        ExecuteCommands(trigger["Command"].as<String>());
+        ExecuteCommand(trigger["Command"].as<String>());
       }
     }
   }
@@ -43,7 +45,7 @@ void CheckTrigger2(JsonObject trigger){
    for(int i=0; i<sensorCount; i++){
     if(sensors[i] == trigger["SensorNumber"].as<int>()){
       if(sensorValues[i] < trigger["TriggerValue"].as<int>()){
-        ExecuteCommands(trigger["Command"].as<String>());
+        ExecuteCommand(trigger["Command"].as<String>());
       }
     }
   }

@@ -16,7 +16,7 @@ String wifi_ssid     = ""; // Для хранения SSID
 String wifi_password = ""; // Для хранения пароля сети
 int triesConnect = 0;
 bool isConnected = true;
-StaticJsonDocument<200> AutonomyDoc;
+StaticJsonDocument<512> AutonomyDoc;
 
 void setup() {
   delay(1000);
@@ -45,14 +45,14 @@ void networkLoop(){
       SendData();
     } else {
       IsMqttConnect = MQTTinit();
-      if(triesConnect==10)  { 
+      if(triesConnect>2)  { 
         isConnected = false;
         triesConnect = 0;
       }
     }
   } else {
     IsWiFiConnect = WIFIinit();
-    if(triesConnect==10) { 
+    if(triesConnect>2) { 
       isConnected = false;
       triesConnect = 0;
     }
@@ -60,10 +60,9 @@ void networkLoop(){
 }
 
 void autonomyLoop(){
-  Serial.println("not connected");
   triesConnect++;
-  if(triesConnect == 10){
-    triesConnect = 9;
+  if(triesConnect > 2){
+    triesConnect = 0;
     isConnected = true;
   } else {
     ReadData();

@@ -29,9 +29,33 @@ void ExecuteCommands(String command){
       if(isPWM){
         ledcWrite(pin, value);
       } else {
-        if(value==1){ digitalWrite(pin, HIGH); }
+        if(value>0){ digitalWrite(pin, HIGH);}
         else { digitalWrite(pin, LOW); }
       }
     }
   }
+}
+
+void ExecuteCommand(String command){
+  DeserializationError error = deserializeJson(doc, command);
+
+  if (error) {
+    Serial.print(error.f_str());
+    return;
+  } else {
+      int pin = doc["Pin"].as<int>();
+      int value = doc["Value"].as<int>();
+      bool isPWM = doc["IsPwm"].as<bool>();
+      for(int i=0; i<deviceCount; i++){
+        if(devices[i]==pin){
+          devicesValues[i]=value;
+        }
+      }
+      if(isPWM){
+        ledcWrite(pin, value);
+      } else {
+        if(value>0){ digitalWrite(pin, HIGH);}
+        else { digitalWrite(pin, LOW); }
+      }
+    }
 }

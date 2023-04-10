@@ -60,20 +60,14 @@ bool SendData(){
 }
 
 void callback(char* topic, byte* payload, unsigned int length) {
-  //Serial.print("Message arrived [");
-  //Serial.print(topic);
-  //Serial.print("] ");
-  //for (int i=0;i<length;i++) {
-    //Serial.print((char)payload[i]);
-  //}
   delay(100);
-  if(topic==(key+"_cm").c_str()){
+  if((key+"_cm").equals(String(topic))){
     ExecuteCommands(String((char *)payload));
   } else
-  if(topic==(key+"_cl").c_str()){
+  if((key+"_cl").equals(String(topic))){
     ClearData(String((char*) payload));
   } else 
-  if(topic==(key+"_cf").c_str()){
+  if((key+"_cf").equals(String(topic))){
     WriteAutonomy(String((char *)payload));
     LoadAutonomy();
   }
