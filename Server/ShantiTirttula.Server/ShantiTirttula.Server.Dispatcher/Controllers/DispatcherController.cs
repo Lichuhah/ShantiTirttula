@@ -36,6 +36,14 @@ namespace ShantiTirttula.Server.Dispatcher.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("clear")]
+        public bool ClearSessions()
+        {
+            SessionList.GetList().Sessions.Clear();
+            return true;
+        }
+
         [HttpPost]
         [Route("cf/{key}")]
         public bool NewConfig(string key, [FromBody] List<TriggerDto> config)

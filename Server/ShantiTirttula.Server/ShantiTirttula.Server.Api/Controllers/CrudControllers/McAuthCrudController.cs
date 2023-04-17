@@ -12,6 +12,7 @@ using ShantiTirttula.Domain.Dto.Models.TreeDto;
 using ShantiTirttula.Domain.Dto.Models;
 using System.Xml.Linq;
 using ShantiTirttula.Domain.Enums;
+using ShantiTirttula.Domain.Managers;
 
 namespace ShantiTirttula.Server.Api.Controllers.CrudControllers
 {
@@ -34,6 +35,34 @@ namespace ShantiTirttula.Server.Api.Controllers.CrudControllers
                 IAuth data = Manager.All().FirstOrDefault(x=>x.Key == key);
                 if(data != null)
                     return new ApiResponse<ECommandProducerAlgorithm>().SetData(data.Producer).Result();
+                else
+                    return new ApiResponse<object>().Error("wrong key").Result();
+            }
+            catch (Exception e)
+            {
+                return new ApiResponse<object>().Error(e.Message).Result();
+            }
+        }
+
+        [HttpPost]
+        [Route("changeProducer/{key}")]
+        public ActionResult ChangeProducerType(string key, [FromBody] ECommandProducerAlgorithm alg)
+        {
+            try
+            {
+                IAuth data = Manager.All().FirstOrDefault(x => x.Key == key);
+                if (data != null)
+                {
+                    data.Producer = alg;
+                    Manager.Save(data);
+
+                    HttpClient client = new HttpClient();
+                    HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, Environment.GetEnvironmentVariable("DISP_URL") + "/api/disp/" + data.Key);
+                    HttpResponseMessage response = client.Send(request);
+                    string result = response.Content.ReadAsStringAsync().Result;
+
+                    return new ApiResponse<ECommandProducerAlgorithm>().SetData(data.Producer).Result();
+                }       
                 else
                     return new ApiResponse<object>().Error("wrong key").Result();
             }
