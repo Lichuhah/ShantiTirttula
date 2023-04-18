@@ -81,6 +81,12 @@ namespace ShantiTirttula.Server.Api.Helpers.Quartz
                     }
                 }             
             }
+            foreach(var shed in sheduleManager.All())
+            {
+                HttpClient client = new HttpClient();
+                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, Environment.GetEnvironmentVariable("DISP_URL") + "/api/disp/" + shed.Auth.Key);
+                HttpResponseMessage response = client.Send(request);
+            }
         }
 
         [Obsolete]

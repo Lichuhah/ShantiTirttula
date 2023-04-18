@@ -1,4 +1,5 @@
-﻿using DevExpress.XtraPrinting.Export;
+﻿using DevExpress.ClipboardSource.SpreadsheetML;
+using DevExpress.XtraPrinting.Export;
 using Quartz;
 using Quartz.Impl;
 using ShantiTirttula.Domain.Managers.Managment.Shedules;
@@ -41,18 +42,24 @@ namespace ShantiTirttula.Server.Api.Helpers.Quartz
                 {
                     SheduleTask startTask = new SheduleTask();
                     startTask.StartDateTime = DateTime.UtcNow.Date + shedule.StartTime.TimeOfDay;
-                    //startTask.Command = shedule.StartCommand;
+                    startTask.Command = shedule.StartCommand;
+                    startTask.Auth = shedule.Auth;
                     await sheduleTaskManager.SaveAsync(startTask);
 
                     SheduleTask endTask = new SheduleTask();
                     endTask.StartDateTime = DateTime.UtcNow.Date + shedule.EndTime.TimeOfDay;
                     endTask.Command = shedule.EndCommand;
+                    startTask.Auth = shedule.Auth;
                     await sheduleTaskManager.SaveAsync(endTask);
 
                     shedule.LastExecutionTime = DateTime.UtcNow;
 
                     sheduleManager.Save(shedule);
 
+                    HttpClient client = new HttpClient();
+                    HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, Environment.GetEnvironmentVariable("DISP_URL") + "/api/disp/" + shedule.Auth.Key);
+                    HttpResponseMessage response = client.Send(request);
+                    string result = response.Content.ReadAsStringAsync().Result;
                 }
                 catch (Exception)
                 {
