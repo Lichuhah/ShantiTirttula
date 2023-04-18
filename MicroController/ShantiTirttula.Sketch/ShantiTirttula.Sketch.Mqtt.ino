@@ -14,6 +14,8 @@ bool MQTTinit(){
       //client.subscribe("answer");
       Serial.println("c");
       client.subscribe(key.c_str());
+      client.subscribe((key+"_cm").c_str());
+      client.subscribe((key+"_cl").c_str());
       client.subscribe((key+"_cf").c_str());
       Serial.println("connected");
       triesConnect = 0;
@@ -35,6 +37,8 @@ void reconnect() {
     {
       client.subscribe("answer");
       client.subscribe(key.c_str());
+      client.subscribe((key+"_cm").c_str());
+      client.subscribe((key+"_cl").c_str());
       client.subscribe((key+"_cf").c_str());
       Serial.println("connected");
     }
@@ -47,19 +51,20 @@ void reconnect() {
 }
 
 bool SendData(){
-  Serial.println("e");
   if (!client.connected()) {
-    Serial.println("work0");
-    reconnect();
+    IsMqttConnect = false;
+    return false;
+  } else {
+    client.publish("test", GetMqttMessage().c_str());
+    delay(100);
+    client.loop();
+    delay(100);
+    return true;
   }
-  client.publish("test", GetMqttMessage().c_str());
-  delay(100);
-  client.loop();
-  delay(100);
-  return true;
 }
 
 void callback(char* topic, byte* payload, unsigned int length) {
+  Serial.println(topic);
   delay(100);
   if((key+"_cm").equals(String(topic))){
     ExecuteCommands(String((char *)payload));
@@ -68,6 +73,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
     ClearData(String((char*) payload));
   } else 
   if((key+"_cf").equals(String(topic))){
+    Serial.println("afwafa");
     WriteAutonomy(String((char *)payload));
     LoadAutonomy();
   }

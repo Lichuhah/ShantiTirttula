@@ -45,14 +45,14 @@ void networkLoop(){
       SendData();
     } else {
       IsMqttConnect = MQTTinit();
-      if(triesConnect>2)  { 
+      if(triesConnect>10)  { 
         isConnected = false;
         triesConnect = 0;
       }
     }
   } else {
     IsWiFiConnect = WIFIinit();
-    if(triesConnect>2) { 
+    if(triesConnect>10) { 
       isConnected = false;
       triesConnect = 0;
     }
@@ -61,7 +61,7 @@ void networkLoop(){
 
 void autonomyLoop(){
   triesConnect++;
-  if(triesConnect > 2){
+  if(triesConnect > 10){
     triesConnect = 0;
     isConnected = true;
   } else {

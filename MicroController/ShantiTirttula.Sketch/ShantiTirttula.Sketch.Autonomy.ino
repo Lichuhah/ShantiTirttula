@@ -15,6 +15,7 @@ void LoadAutonomy(){
 }
 
 void WriteAutonomy(String newConfig){
+  Serial.println(newConfig);
   WriteToFile("/autonomy.config", newConfig);
 }
 

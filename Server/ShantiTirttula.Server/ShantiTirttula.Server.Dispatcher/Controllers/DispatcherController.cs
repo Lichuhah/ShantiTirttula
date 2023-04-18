@@ -66,7 +66,7 @@ namespace ShantiTirttula.Server.Dispatcher.Controllers
                 if (session != null)
                 {
                     ShantiMqttServer mqttServer = ShantiMqttServer.GetServer();
-                    mqttServer.SendMessage(session.Mc.Key+ "_cf", JsonConvert.SerializeObject(config));
+                    mqttServer.SendMessage(session.Mc.Key+ "_f", JsonConvert.SerializeObject(config));
                 }
                 else
                     return false;

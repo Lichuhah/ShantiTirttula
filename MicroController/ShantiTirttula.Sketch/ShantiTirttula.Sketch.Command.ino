@@ -54,6 +54,7 @@ void ExecuteCommand(String command){
       if(isPWM){
         ledcWrite(pin, value);
       } else {
+        Serial.println(value);
         if(value>0){ digitalWrite(pin, HIGH);}
         else { digitalWrite(pin, LOW); }
       }
