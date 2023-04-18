@@ -14,5 +14,10 @@ namespace ShantiTirttula.Server.Dispatcher.Producer
         {
             return;
         }
+
+        public override string GetData()
+        {
+            return "Authonomy work";
+        }
     }
 }
