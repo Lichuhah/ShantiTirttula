@@ -26,15 +26,20 @@ namespace ShantiTirttula.Server.Dispatcher.Producer
         public override void Generate(Session session)
         {
             this.Commands.Clear();
+            List<SheduleTaskDto> executedTasks = new List<SheduleTaskDto>();
             DateTime TimeNow = DateTime.UtcNow;
             foreach(SheduleTaskDto item in this.Tasks)
             {
                 if(TimeNow > item.StartDateTime)
                 {
                     this.Commands.Add(item.Command);
-                    this.Tasks.Remove(item);
+                    executedTasks.Add(item);
                 }
-            }           
+            }    
+            foreach(SheduleTaskDto item in executedTasks)
+            {
+                this.Tasks.Remove(item);
+            }
         }
 
         public override string GetData()
