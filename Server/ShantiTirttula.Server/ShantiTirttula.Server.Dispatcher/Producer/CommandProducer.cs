@@ -10,5 +10,6 @@ namespace ShantiTirttula.Server.Dispatcher.Producer
         public List<CommandDto> Commands { get; set; }
         public abstract void LoadDataForSession(string token);
         public abstract void Generate(Session session);
+        public abstract string GetData();
     }
 }

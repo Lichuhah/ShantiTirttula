@@ -14,6 +14,18 @@ namespace ShantiTirttula.Server.Dispatcher.Controllers
     public class DispatcherController : ControllerBase
     {
         [HttpGet]
+        [Route("prod-data/{key}")]
+        public string GetProdData(string key)
+        {
+            Session session = SessionList.GetList().Sessions.FirstOrDefault(ses => ses.Mc.Key == key);
+            if (session != null)
+            {
+                return session.Producer.GetData();
+            }
+            else return string.Empty;
+        }
+
+        [HttpGet]
         [Route("{key}")]
         public bool RefreshSession(string key)
         {

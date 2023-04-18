@@ -36,5 +36,10 @@ namespace ShantiTirttula.Server.Dispatcher.Producer
                 }
             }           
         }
+
+        public override string GetData()
+        {
+            return JsonConvert.SerializeObject(this.Tasks);
+        }
     }
 }

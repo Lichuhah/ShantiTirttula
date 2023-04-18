@@ -49,7 +49,7 @@ namespace ShantiTirttula.Server.Api.Helpers.Quartz
                     SheduleTask endTask = new SheduleTask();
                     endTask.StartDateTime = DateTime.UtcNow.Date + shedule.EndTime.TimeOfDay;
                     endTask.Command = shedule.EndCommand;
-                    startTask.Auth = shedule.Auth;
+                    endTask.Auth = shedule.Auth;
                     await sheduleTaskManager.SaveAsync(endTask);
 
                     shedule.LastExecutionTime = DateTime.UtcNow;
