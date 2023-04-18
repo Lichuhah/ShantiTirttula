@@ -108,13 +108,10 @@ namespace ShantiTirttula.Server.Dispatcher.Sessions
             {
                 string token = result.Data;
 
-                session = new Session()
-                {
-                    CreateTime = DateTime.UtcNow,
-                    LastSendTime = DateTime.UtcNow,
-                    Token = token,
-                    Mc = session.Mc,
-                };
+                session.CreateTime = DateTime.UtcNow;
+                session.LastSendTime = DateTime.UtcNow;
+                session.Token = token;
+                session.Mc = session.Mc;
 
                 try
                 {
