@@ -25,7 +25,7 @@ namespace ShantiTirttula.Server.Dispatcher.Sessions
         {
             this.SensorsData.Add(data);
             //CheckTriggers(data);
-            if (DateTime.UtcNow - LastSendTime > TimeSpan.FromSeconds(5))
+            if (DateTime.UtcNow - LastSendTime > TimeSpan.FromSeconds(60))
             {
                 SendSensorData();
                 //SendCommandsLog();
