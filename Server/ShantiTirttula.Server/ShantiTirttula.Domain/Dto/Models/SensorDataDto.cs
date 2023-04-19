@@ -6,5 +6,6 @@ namespace ShantiTirttula.Domain.Dto.Models
     {
         public int SensorId { get; set; }
         public double Value { get; set; }
+        public DateTime DateTime { get; set; }
     }
 }

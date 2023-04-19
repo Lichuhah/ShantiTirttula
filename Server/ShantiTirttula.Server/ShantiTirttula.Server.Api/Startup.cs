@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.CookiePolicy;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using ShantiTirttula.Server.Api.Helpers;
@@ -14,9 +15,26 @@ namespace ShantiTirttula.Server.Api
         {
             app.UseRouting();
             app.UseStaticFiles();
+
+            app.Use(async (context, next) =>
+            {
+                var token = context.Request.Cookies[".ShantiTirttula.User.Token"];
+                if (!string.IsNullOrEmpty(token))
+                    context.Request.Headers.Add("Authorization", "Bearer " + token);
+
+                await next();
+            });
+
             app.UseCors("_myAllowSpecificOrigins");
             app.UseAuthentication();
             app.UseAuthorization();
+            app.UseSession();
+            app.UseCookiePolicy(new CookiePolicyOptions
+            {
+                MinimumSameSitePolicy = SameSiteMode.None,
+                HttpOnly = HttpOnlyPolicy.Always,
+                Secure = CookieSecurePolicy.None
+            });
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
@@ -24,6 +42,8 @@ namespace ShantiTirttula.Server.Api
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapSwagger();
             });
+
+
             app.UseSwagger();
             app.UseSwaggerUI(c => { c.SwaggerEndpoint("v1/swagger.json", "ShantiTirttula 1.0 alpha API"); });
 
@@ -64,6 +84,9 @@ namespace ShantiTirttula.Server.Api
                             ValidateIssuerSigningKey = true,
                         };
                     });
+
+            services.AddDistributedMemoryCache();
+            services.AddSession();
 
             services.AddCors(options =>
             {

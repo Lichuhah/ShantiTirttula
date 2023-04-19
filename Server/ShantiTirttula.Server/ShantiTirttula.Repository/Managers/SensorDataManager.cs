@@ -20,6 +20,7 @@ namespace ShantiTirttula.Repository.Managers
             dto.AuthId = entity.Auth.Id;
             dto.SensorId = entity.Sensor.Id;
             dto.Value = entity.Value;
+            dto.DateTime = entity.DateTime;
             return dto;
         }
 
@@ -33,6 +34,7 @@ namespace ShantiTirttula.Repository.Managers
 
             SensorDataDto dto = (SensorDataDto)data;
             item.Value = dto.Value;
+            item.DateTime = dto.DateTime;
             if(dto.AuthId > 0)
             {
                 item.Auth = new AuthManager().Get(dto.AuthId);

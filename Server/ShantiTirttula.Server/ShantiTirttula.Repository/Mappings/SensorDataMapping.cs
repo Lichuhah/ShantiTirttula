@@ -23,6 +23,10 @@ namespace ShantiTirttula.Repository.Mappings
                 map.Class(typeof(Auth));
                 map.Lazy(LazyRelation.Proxy);
             });
+            Property(x => x.DateTime, map =>
+            {
+                map.Column("DATETIME");
+            });
         }
     }
 }

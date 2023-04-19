@@ -20,7 +20,7 @@ namespace ShantiTirttula.Server.Api.Controllers.Common
         protected IAuth Auth;
         public BaseApCrudController(EntityManager<EntityType> manager, IHttpContextAccessor httpContextAccessor)
         {
-            Auth = new AuthManager().Get(Convert.ToInt32(httpContextAccessor.HttpContext.User.Claims.First(x => x.Type == ClaimTypes.Sid).Value));
+            Auth = new AuthManager().Get(Convert.ToInt32(httpContextAccessor.HttpContext.Session.GetInt32("UserId")));
             Manager = manager;
         }
 

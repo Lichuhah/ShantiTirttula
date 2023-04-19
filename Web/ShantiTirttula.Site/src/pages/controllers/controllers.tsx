@@ -41,7 +41,7 @@ export default function Controllers() {
   let grid:ShantiDataGrid = new ShantiDataGrid(
     { 
       title: 'Контроллеры',
-      path: '/api/mcauth', 
+      path: '/api/auth/grid', 
       children: columns,
       rowActions: rowActions
     })

@@ -9,6 +9,7 @@ using ShantiTirttula.Domain.Dto;
 using ShantiTirttula.Server.Api.Helpers;
 using ShantiTirttula.Domain.Dto.Models;
 using ShantiTirttula.Repository.Managers;
+using static DevExpress.Data.Helpers.FindSearchRichParser;
 
 namespace ShantiTirttula.Server.Api.Controllers
 {
@@ -27,7 +28,14 @@ namespace ShantiTirttula.Server.Api.Controllers
                 IQueryable<IUser> users = manager.All().Where(x=>x.Login == loginData.Login && x.Password == loginData.Password);
                 if(users.Any())
                 {
-                    return new ApiResponse<string>().SetData(GenerateJwt(users.First())).Result();
+                    HttpContext.Session.SetInt32("UserId", users.First().Id);
+
+                    string token = GenerateJwt(users.First());
+
+                    HttpContext.Response.Cookies.Append(".ShantiTirttula.User.Token", token,
+                        new CookieOptions { MaxAge = TimeSpan.FromMinutes(300) });
+
+                    return new ApiResponse<bool>().SetData(true).Result();
                 } else
                 {
                     return new ApiResponse<object>().Error("Wrong user data").Result();
@@ -37,6 +45,14 @@ namespace ShantiTirttula.Server.Api.Controllers
             {
                 return new ApiResponse<object>().Error(e.Message).Result();
             }
+        }
+
+        [Authorize]
+        [HttpGet]
+        [Route("check")]
+        public ActionResult CheckLogin()
+        {
+            return new ApiResponse<bool>().SetData(true).Result();
         }
 
         [AllowAnonymous]

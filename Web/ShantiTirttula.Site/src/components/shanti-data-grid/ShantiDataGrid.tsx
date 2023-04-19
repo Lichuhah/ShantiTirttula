@@ -180,8 +180,9 @@ class ShantiDataGrid extends React.PureComponent<ShantiDataGridProps> {
                 headers: {
                   "Accept": "*/*",
                   "Content-Type": "application/json",
-                  "Authorization": "Bearer " + getTokenFromLocalStorage()
-                }})
+                },
+                credentials: 'include'
+                })
                 .then((response) => response.json())
                 .then((data) => ({
                   data: data.data.data,

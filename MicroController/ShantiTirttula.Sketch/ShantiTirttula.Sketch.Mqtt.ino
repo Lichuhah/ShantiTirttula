@@ -16,7 +16,7 @@ bool MQTTinit(){
       client.subscribe(key.c_str());
       client.subscribe((key+"_cm").c_str());
       client.subscribe((key+"_cl").c_str());
-      client.subscribe((key+"_cf").c_str());
+      client.subscribe((key+"_f").c_str());
       Serial.println("connected");
       triesConnect = 0;
       isConnected = true;
@@ -64,7 +64,6 @@ bool SendData(){
 }
 
 void callback(char* topic, byte* payload, unsigned int length) {
-  Serial.println(topic);
   delay(100);
   if((key+"_cm").equals(String(topic))){
     ExecuteCommands(String((char *)payload));
@@ -72,8 +71,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
   if((key+"_cl").equals(String(topic))){
     ClearData(String((char*) payload));
   } else 
-  if((key+"_cf").equals(String(topic))){
-    Serial.println("afwafa");
+  if((key+"_f").equals(String(topic))){
     WriteAutonomy(String((char *)payload));
     LoadAutonomy();
   }

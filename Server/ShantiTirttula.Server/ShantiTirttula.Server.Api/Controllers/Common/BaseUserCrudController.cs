@@ -7,6 +7,7 @@ using System.Security.Claims;
 using ShantiTirttula.Domain.Models;
 using ShantiTirttula.Domain.Dto;
 using ShantiTirttula.Repository.Managers;
+using ShantiTirttula.Repository.Models;
 
 namespace ShantiTirttula.Server.Api.Controllers.Common
 {
@@ -17,7 +18,7 @@ namespace ShantiTirttula.Server.Api.Controllers.Common
         protected IUser User;
         public BaseUserCrudController(EntityManager<EntityType> manager, IHttpContextAccessor httpContextAccessor) : base(manager)
         {
-            User = new UserManager().Get(Convert.ToInt32(httpContextAccessor.HttpContext.User.Claims.First(x => x.Type == ClaimTypes.Sid).Value));
+            User = new UserManager().Get((int)httpContextAccessor.HttpContext.Session.GetInt32("UserId"));
         }
 
         [HttpGet]

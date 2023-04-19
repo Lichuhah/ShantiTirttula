@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using ShantiTirttula.Domain.Dto.Models;
 using ShantiTirttula.Server.Dispatcher.Http;
 using ShantiTirttula.Server.Dispatcher.Models;
 using ShantiTirttula.Server.Dispatcher.Producer;
@@ -9,7 +10,7 @@ namespace ShantiTirttula.Server.Dispatcher.Sessions
     {
         public McData Mc { get; set; }
         public string Token { get; set; }
-        public List<List<McSensorData>> SensorsData { get; set; }
+        public List<List<SensorDataDto>> SensorsData { get; set; }
         public List<McDeviceValues> DeviceValues { get; set;}
         public DateTime LastSendTime { get; set; }
         public DateTime CreateTime { get; set; }
@@ -17,11 +18,11 @@ namespace ShantiTirttula.Server.Dispatcher.Sessions
         public CommandProducer Producer { get; set; }
         public Session()
         {
-            SensorsData = new List<List<McSensorData>>();
+            SensorsData = new List<List<SensorDataDto>>();
             IsBusy = false;
             DeviceValues = new List<McDeviceValues>();
         }
-        public void AddSensorsData(List<McSensorData> data)
+        public void AddSensorsData(List<SensorDataDto> data)
         {
             this.SensorsData.Add(data);
             //CheckTriggers(data);
@@ -90,16 +91,21 @@ namespace ShantiTirttula.Server.Dispatcher.Sessions
         public void SendSensorData()
         {
             List<int> ids = SensorsData.First().Select(x => x.SensorId).Distinct().ToList();
-            List<McSensorData> data = new List<McSensorData>();
+            List<SensorDataDto> data = new List<SensorDataDto>();
 
             foreach (int id in ids)
             {
                 float value = 0;
-                foreach (List<McSensorData> package in SensorsData)
+                foreach (List<SensorDataDto> package in SensorsData)
                 {
-                    value += package.Where(x => x.SensorId == id).Average(x => x.Value);
+                    value += (float)package.Where(x => x.SensorId == id).Average(x => x.Value);
                 }
-                data.Add(new McSensorData { SensorId = id, Value = value / SensorsData.Count });
+                data.Add(new SensorDataDto
+                { 
+                    SensorId = id, 
+                    DateTime = DateTime.UtcNow,
+                    Value = value / SensorsData.Count, 
+                });
             }
             SendAverageDataToServer(data);
         }
@@ -127,11 +133,11 @@ namespace ShantiTirttula.Server.Dispatcher.Sessions
         //    }
         //}
 
-        private bool SendAverageDataToServer(List<McSensorData> data)
+        private bool SendAverageDataToServer(List<SensorDataDto> data)
         {        
             try
             {
-                foreach(McSensorData sensorData in data){
+                foreach(SensorDataDto sensorData in data){
                     HttpHelper.PostData("/api/ap/sensor-data", JsonConvert.SerializeObject(sensorData), this.Token);
                 }
                 return true;

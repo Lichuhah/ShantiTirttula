@@ -1,7 +1,6 @@
 import { getTokenFromLocalStorage } from "./auth";
 
 export function ShantiApiPost(path: string, data: object, params?: any){
-    console.log(JSON.stringify(data))
     var reqPath = '';
     if(params != null)
         reqPath=`${process.env.REACT_APP_API_URL}${path}${params}`
@@ -13,8 +12,9 @@ export function ShantiApiPost(path: string, data: object, params?: any){
         headers: {
           "Accept": "*/*",
           "Content-Type": "application/json",
-          "Authorization": "Bearer " + getTokenFromLocalStorage()
+          //"Authorization": "Bearer " + getTokenFromLocalStorage()
         },
+        credentials: 'same-origin',
         body: JSON.stringify(data)})
         .then((response) => response.json())
         .then((json) => ({
@@ -33,8 +33,10 @@ export function ShantiApiGet(path: string){
       headers: {
         "Accept": "*/*",
         "Content-Type": "application/json",
-        "Authorization": "Bearer " + getTokenFromLocalStorage()
-      }})
+        //"Authorization": "Bearer " + getTokenFromLocalStorage()
+      },
+      credentials: 'same-origin',
+      })
       .then((response) => response.json())
       .then((json) => ({
         data: json.data,
@@ -48,12 +50,14 @@ export function ShantiApiDelete(path: string, id:number){
   var reqPath=`${process.env.REACT_APP_API_URL}${path}/${id}`
 
   return fetch(reqPath, {
-      method: 'DELETE',
+      method: 'DELETE',   
       headers: {
         "Accept": "*/*",
         "Content-Type": "application/json",
-        "Authorization": "Bearer " + getTokenFromLocalStorage()
-      }})
+        //"Authorization": "Bearer " + getTokenFromLocalStorage()
+      },
+      credentials: 'same-origin',
+      })
       .then((response) => response.json())
       .then((json) => ({
         data: json.data,
