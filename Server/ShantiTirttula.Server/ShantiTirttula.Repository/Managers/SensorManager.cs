@@ -19,6 +19,7 @@ namespace ShantiTirttula.Repository.Managers
             dto.Id = entity.Id;
             dto.TypeName = entity.Type.Name;
             dto.Number = entity.Number;
+            dto.AuthId = entity.Auth.Id;
             return dto;
         }
 

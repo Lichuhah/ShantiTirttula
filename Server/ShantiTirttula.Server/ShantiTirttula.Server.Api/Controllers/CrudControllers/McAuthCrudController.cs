@@ -13,6 +13,9 @@ using ShantiTirttula.Domain.Dto.Models;
 using System.Xml.Linq;
 using ShantiTirttula.Domain.Enums;
 using ShantiTirttula.Domain.Managers;
+using System.Security.Claims;
+using DevExpress.ClipboardSource.SpreadsheetML;
+using ShantiTirttula.Repository.Models;
 
 namespace ShantiTirttula.Server.Api.Controllers.CrudControllers
 {
@@ -24,6 +27,16 @@ namespace ShantiTirttula.Server.Api.Controllers.CrudControllers
         public AuthCrudController(IHttpContextAccessor httpContextAccessor) : base(new AuthManager(), httpContextAccessor)
         {
 
+        }
+
+
+        [Authorize]
+        [HttpPost]
+        [Route("setAuth")]
+        public ActionResult SetCurrentAuth([FromBody] int id)
+        {
+            HttpContextAccessor.HttpContext.Session.SetInt32("AuthId", id);
+            return new ApiResponse<bool>().SetData(true).Result();
         }
 
         [HttpGet]
@@ -78,7 +91,7 @@ namespace ShantiTirttula.Server.Api.Controllers.CrudControllers
         {
             try
             {
-                IQueryable<IAuth> data = Manager.AllAllowed(User);
+                IQueryable<IAuth> data = Manager.AllAllowed(ShantiUser);
                 List<IDevice> devices = new List<IDevice>();
                 data.ForEach(x => x.Product.Controller.Devices.ForEach(device => devices.Add(device)));
                 var a = Manager.Get(1);
@@ -107,7 +120,7 @@ namespace ShantiTirttula.Server.Api.Controllers.CrudControllers
         {
             try
             {
-                IQueryable<IAuth> data = Manager.AllAllowed(User);
+                IQueryable<IAuth> data = Manager.AllAllowed(ShantiUser);
                 List<ISensor> sensors = new List<ISensor>();
                 data.ForEach(x => x.Product.Controller.Sensors.ForEach(sensor => sensors.Add(sensor)));
                 List<CommonTreeDto> dto = data.Select(x => new CommonTreeDto()

@@ -1,6 +1,6 @@
 ﻿namespace ShantiTirttula.Domain.Models
 {
-    public interface ISensor : IEntity
+    public interface ISensor : IEntityAuth
     {
         public int Number { get; set; }
         public IList<ISensorData> SensorDatas { get; set; }

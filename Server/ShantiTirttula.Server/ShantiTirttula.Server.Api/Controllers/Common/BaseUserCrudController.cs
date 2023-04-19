@@ -15,10 +15,12 @@ namespace ShantiTirttula.Server.Api.Controllers.Common
     [ApiController]
     public class BaseUserCrudController<DtoType, EntityType> : BaseCrudController<DtoType, EntityType> where DtoType : ApiDto<EntityType> where EntityType : IEntity
     {
-        protected IUser User;
+        protected IUser ShantiUser;
+        protected IHttpContextAccessor HttpContextAccessor;
         public BaseUserCrudController(EntityManager<EntityType> manager, IHttpContextAccessor httpContextAccessor) : base(manager)
         {
-            User = new UserManager().Get((int)httpContextAccessor.HttpContext.Session.GetInt32("UserId"));
+            HttpContextAccessor = httpContextAccessor;
+            ShantiUser = new UserManager().Get(Convert.ToInt32(httpContextAccessor.HttpContext.User.Claims.First(x=>x.Type == ClaimTypes.Sid).Value));
         }
 
         [HttpGet]
@@ -27,7 +29,7 @@ namespace ShantiTirttula.Server.Api.Controllers.Common
         {
             try
             {
-                IQueryable<EntityType> data = Manager.AllAllowed(User);
+                IQueryable<EntityType> data = Manager.AllAllowed(ShantiUser);
                 List<ApiDto<EntityType>> list = data.Select(x => Manager.ConvertToDto(x)).ToList();
                 return new ApiResponse<LoadResult>().SetData(DataSourceLoader.Load(list, loadOptions)).Result();
             }

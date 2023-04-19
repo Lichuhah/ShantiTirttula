@@ -20,7 +20,7 @@ namespace ShantiTirttula.Server.Api.Controllers.Common
         protected IAuth Auth;
         public BaseApCrudController(EntityManager<EntityType> manager, IHttpContextAccessor httpContextAccessor)
         {
-            Auth = new AuthManager().Get(Convert.ToInt32(httpContextAccessor.HttpContext.Session.GetInt32("UserId")));
+            Auth = new AuthManager().Get(Convert.ToInt32(httpContextAccessor.HttpContext.Session.GetInt32("AuthId")));
             Manager = manager;
         }
 
@@ -30,8 +30,9 @@ namespace ShantiTirttula.Server.Api.Controllers.Common
         {
             try
             {
-                IQueryable<EntityType> data = Manager.All().Where(x => x.Auth.Id == this.Auth.Id);
-                List<ApiDto<EntityType>> list = data.Select(x => Manager.ConvertToDto(x)).ToList();
+                IQueryable<EntityType> data = Manager.All();
+                List<ApiDtoWithAuth<EntityType>> list = data.Select(x => (ApiDtoWithAuth<EntityType>)Manager.ConvertToDto(x)).ToList();
+                list = list.Where(x => x.AuthId == this.Auth.Id).ToList();
                 return new ApiResponse<LoadResult>().SetData(DataSourceLoader.Load(list, loadOptions)).Result();
             }
             catch (Exception e)

@@ -94,7 +94,6 @@ class ShantiDataGrid extends React.PureComponent<ShantiDataGridProps> {
           },
         ]
 
-        console.log(ds)
         return (
           <Menu 
             dataSource={ds}
@@ -175,7 +174,7 @@ class ShantiDataGrid extends React.PureComponent<ShantiDataGridProps> {
                 if (i in loadOptions && isNotEmpty(loadOptions[i])) { params += `${i}=${JSON.stringify(loadOptions[i])}&`; }
               });
               params = params.slice(0, -1);
-              return fetch(`${process.env.REACT_APP_API_URL}${props.path}${params}`,{
+              return fetch(`${process.env.REACT_APP_API_URL}${props.path}/grid${params}`,{
                 method: 'GET',
                 headers: {
                   "Accept": "*/*",

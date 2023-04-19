@@ -14,7 +14,7 @@ export function ShantiApiPost(path: string, data: object, params?: any){
           "Content-Type": "application/json",
           //"Authorization": "Bearer " + getTokenFromLocalStorage()
         },
-        credentials: 'same-origin',
+        credentials: 'include',
         body: JSON.stringify(data)})
         .then((response) => response.json())
         .then((json) => ({
@@ -35,7 +35,7 @@ export function ShantiApiGet(path: string){
         "Content-Type": "application/json",
         //"Authorization": "Bearer " + getTokenFromLocalStorage()
       },
-      credentials: 'same-origin',
+      credentials: 'include',
       })
       .then((response) => response.json())
       .then((json) => ({
@@ -56,7 +56,7 @@ export function ShantiApiDelete(path: string, id:number){
         "Content-Type": "application/json",
         //"Authorization": "Bearer " + getTokenFromLocalStorage()
       },
-      credentials: 'same-origin',
+      credentials: 'include',
       })
       .then((response) => response.json())
       .then((json) => ({

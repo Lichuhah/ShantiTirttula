@@ -1,4 +1,4 @@
-import { HomePage, ProfilePage, ControllerPage, TriggerPage, TriggerFormPage, SensorsPage, SensorDataPage, DevicePage, CommandLogPage } from './pages';
+import { HomePage, ProfilePage, ControllerPage, TriggerPage, TriggerFormPage, SensorsPage, SensorDataPage, DevicePage, CommandLogPage, SensorFormPage } from './pages';
 import { withNavigationWatcher } from './contexts/navigation';
 
 const routes = [
@@ -37,6 +37,10 @@ const routes = [
     {
         path: '/commandlog',
         element: CommandLogPage
+    },
+    {
+        path: '/sensors/form',
+        element: SensorFormPage
     }
 ];
 

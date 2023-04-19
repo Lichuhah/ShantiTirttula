@@ -28,8 +28,6 @@ namespace ShantiTirttula.Server.Api.Controllers
                 IQueryable<IUser> users = manager.All().Where(x=>x.Login == loginData.Login && x.Password == loginData.Password);
                 if(users.Any())
                 {
-                    HttpContext.Session.SetInt32("UserId", users.First().Id);
-
                     string token = GenerateJwt(users.First());
 
                     HttpContext.Response.Cookies.Append(".ShantiTirttula.User.Token", token,

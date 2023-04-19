@@ -4,6 +4,7 @@ import { Button } from 'devextreme-react';
 import { useScreenSize } from '../../utils/media-query';
 import { Link, useNavigate } from 'react-router-dom';
 import {TreeView, Item } from 'devextreme-react/tree-view';
+import { ShantiApiPost } from '../../api/shantiajax';
 
 interface ShantiNavigationMenuProps {
     children,
@@ -30,8 +31,12 @@ export class ShantiNavigationMenu extends React.PureComponent<ShantiNavigationMe
         this.state = {isMcSelected: false, mcKey: "", navigation:[]};
         this.state = {isMcSelected: false, mcKey: "", navigation:this.getNavigation()};
         //this.setState({navigation: this.getNavigation()})
-        document.addEventListener('selectedControllerChanged',  (e:any) => {
+        document.addEventListener('selectedControllerChanged',  async (e:any) => {
             let val = e.detail.value;
+            var answer = ShantiApiPost("/api/auth/setauth", val.id);
+            if((await answer).success){
+
+            }        
             sessionStorage.setItem("mcId", val.id);
             this.setState({isMcSelected: true, mcKey: val.key}, 
                 ()=>{this.setNavigation()});

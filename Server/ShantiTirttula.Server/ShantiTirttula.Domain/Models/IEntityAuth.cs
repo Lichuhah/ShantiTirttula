@@ -2,6 +2,6 @@
 {
     public interface IEntityAuth : IEntity
     {
-        public IAuth Auth { get; }
+        public abstract IAuth Auth { get; }
     }
 }
