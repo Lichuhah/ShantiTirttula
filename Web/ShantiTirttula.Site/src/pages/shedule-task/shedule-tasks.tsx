@@ -6,35 +6,31 @@ import DataGrid, {
 import ShantiDataGrid from '../../components/shanti-data-grid/ShantiDataGrid';
 import { Link, useNavigate } from 'react-router-dom';
 
-export default function Triggers() {
-  let rowActions = new Array(
-    {             
-      text:'Посмотреть данные',
-      icon:'pin',
-      onClick: (e)=>{
-          document.location.href='/sensors/form?mode=edit&id='+ grid.GetSelectedItems()[0].id
-        }
-      }            
-    );
+export default function SheduleTasks() {
+//   let rowActions = new Array(
+//     {             
+//       text:'Посмотреть данные',
+//       icon:'pin',
+//       onClick: (e)=>{
+//           document.location.href='/sensors/form?mode=edit&id='+ grid.GetSelectedItems()[0].id
+//         }
+//       }            
+//     );
 
     let columns = [
         <Column
-          dataField={'typeName'}
-          caption={'Тип датчика'}
+          dataField={'startDateTime'}
+          caption={'Время'}
         />,
-        <Column
-          dataField={'number'}
-          caption={'Порядковый номер'}
-        />
     ];
 
     let grid:ShantiDataGrid = new ShantiDataGrid(
       { 
         title: 'Датчики',
-        path: '/api/ap/sensor', 
+        path: '/api/ap/shedule-task', 
         children: columns,
-        rowActions: rowActions,
         navigate: useNavigate()
+        //rowActions: rowActions
       })
 
   return (

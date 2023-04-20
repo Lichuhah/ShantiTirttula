@@ -22,13 +22,13 @@ interface ShantiDataGridProps {
     path: string,
     title: string,
     rowActions?: any,
-    children: any
+    children: any,
+    navigate: any,
 }
 
 function isNotEmpty(value) {
     return value !== undefined && value !== null && value !== '';
 }
-
 
 class ShantiDataGrid extends React.PureComponent<ShantiDataGridProps> {
 
@@ -79,6 +79,17 @@ class ShantiDataGrid extends React.PureComponent<ShantiDataGridProps> {
           icon:'trash',
           onClick: this.removeCellClick              
         });
+
+        items.push(
+          //<Link to={'form?mode=edit&id='+ this.dataGrid.GetSelectedItems()[0].id}>
+          {
+            text:'Изменить',
+            icon:'edit',
+            onClick: ()=>{
+              this.props.navigate('form?mode=edit&id='+ this.dataGrid.instance.getSelectedRowsData()[0].id)
+            }
+          }
+        );
 
         if(this.props.rowActions != undefined){
           this.props.rowActions.forEach(element => {

@@ -7,17 +7,6 @@ import { ShantiApiGet } from "../../api/shantiajax";
 import { ShantiItemForm } from "../../components";
 import ShantiDropDownTreeView from "../../components/shanti-drop-down-treeview/ShantiDropDownTreeView";
 import ShantiSelectBox from "../../components/shanti-select-box/ShantiSelectBox";
-
-let chartRef;
-
-async function getData(){
-    return (await ShantiApiGet("/api/test/data-proc/" + new URLSearchParams(window.location.search).get("id"))).data;
-}
-
-function getRef(ref){
-    chartRef = ref;
-}
-
 export default function SensorsForm() {
 
     let chartDataSource = new DataSource({

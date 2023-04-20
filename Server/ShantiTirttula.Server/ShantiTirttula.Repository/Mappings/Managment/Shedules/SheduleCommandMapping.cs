@@ -23,6 +23,12 @@ namespace ShantiTirttula.Repository.Mappings.Managment.Shedules
                 map.Class(typeof(Device));
                 map.Lazy(LazyRelation.Proxy);
             });
+            ManyToOne(x => x.Auth, map =>
+            {
+                map.Column("AUTH_ID");
+                map.Class(typeof(Auth));
+                map.Lazy(LazyRelation.Proxy);
+            });
         }
     }
 }

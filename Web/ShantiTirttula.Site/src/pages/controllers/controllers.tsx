@@ -4,6 +4,7 @@ import DataGrid, {
   Column
 } from 'devextreme-react/data-grid';
 import ShantiDataGrid from '../../components/shanti-data-grid/ShantiDataGrid';
+import { useNavigate } from 'react-router-dom';
 
 export default function Controllers() {
 
@@ -43,7 +44,8 @@ export default function Controllers() {
       title: 'Контроллеры',
       path: '/api/auth', 
       children: columns,
-      rowActions: rowActions
+      rowActions: rowActions,
+      navigate: useNavigate()
     })
 
   return (

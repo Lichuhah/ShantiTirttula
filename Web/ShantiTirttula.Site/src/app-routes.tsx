@@ -1,4 +1,5 @@
-import { HomePage, ProfilePage, ControllerPage, TriggerPage, TriggerFormPage, SensorsPage, SensorDataPage, DevicePage, CommandLogPage, SensorFormPage } from './pages';
+import { HomePage, ProfilePage, ControllerPage, TriggerPage, TriggerFormPage, SensorsPage, SensorDataPage, DevicePage, CommandLogPage, SensorFormPage, 
+ShedulesPage, SheduleTasksPage, CommandsPage } from './pages';
 import { withNavigationWatcher } from './contexts/navigation';
 
 const routes = [
@@ -41,6 +42,18 @@ const routes = [
     {
         path: '/sensors/form',
         element: SensorFormPage
+    },
+    {
+        path: '/commands',
+        element: CommandsPage
+    },
+    {
+        path: '/shedules',
+        element: ShedulesPage
+    },
+    {
+        path: 'shedule-tasks',
+        element: SheduleTasksPage
     }
 ];
 

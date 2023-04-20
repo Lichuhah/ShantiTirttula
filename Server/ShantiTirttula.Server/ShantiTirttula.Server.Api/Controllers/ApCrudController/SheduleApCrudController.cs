@@ -11,12 +11,13 @@ using ShantiTirttula.Server.Api.Controllers.Common;
 
 namespace ShantiTirttula.Server.Api.Controllers.ApCrudController
 {
+
     [Authorize]
-    [Route("api/ap/shedule-tasks")]
+    [Route("api/ap/shedules")]
     [ApiController]
-    public class SheduleTaskApController : BaseApCrudController<SheduleTaskDto, ISheduleTask>
+    public class SheduleApCrudController : BaseApCrudController<SheduleDto, IShedule>
     {
-        public SheduleTaskApController(IHttpContextAccessor httpContextAccessor) : base(new SheduleTaskManager(), httpContextAccessor)
+        public SheduleApCrudController(IHttpContextAccessor httpContextAccessor) : base(new SheduleManager(), httpContextAccessor)
         {
 
         }

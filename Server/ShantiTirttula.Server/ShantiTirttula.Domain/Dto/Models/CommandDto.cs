@@ -2,7 +2,7 @@
 
 namespace ShantiTirttula.Domain.Dto.Models
 {
-    public class CommandDto : ApiDto<ISheduleCommand>
+    public class CommandDto : ApiDtoWithAuth<ISheduleCommand>
     {
         public int Pin { get; set; }
         public bool IsPwm { get; set; }

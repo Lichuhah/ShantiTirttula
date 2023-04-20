@@ -4,6 +4,7 @@ import DataGrid, {
   Column
 } from 'devextreme-react/data-grid';
 import ShantiDataGrid from '../../components/shanti-data-grid/ShantiDataGrid';
+import { useNavigate } from 'react-router-dom';
 
 export default function Devices() {
 
@@ -24,6 +25,7 @@ export default function Devices() {
 
   let grid:ShantiDataGrid = new ShantiDataGrid(
     { 
+      navigate: useNavigate(),
       title: 'Устройства',
       path: '/api/devices', 
       children: columns,

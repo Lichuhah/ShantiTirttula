@@ -4,6 +4,7 @@ import DataGrid, {
   Column
 } from 'devextreme-react/data-grid';
 import ShantiDataGrid from '../../components/shanti-data-grid/ShantiDataGrid';
+import { useNavigate } from 'react-router-dom';
 
 export default function CommandLog() {
 
@@ -36,6 +37,7 @@ export default function CommandLog() {
       title: 'Команды',
       path: '/api/commandlog', 
       children: columns,
+      navigate: useNavigate()
     })
 
   return (

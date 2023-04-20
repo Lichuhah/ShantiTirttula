@@ -4,6 +4,7 @@ import DataGrid, {
   Column
 } from 'devextreme-react/data-grid';
 import ShantiDataGrid from '../../components/shanti-data-grid/ShantiDataGrid';
+import { useNavigate } from 'react-router-dom';
 
 export default function Triggers() {
   return (
@@ -11,6 +12,7 @@ export default function Triggers() {
       <ShantiDataGrid
         title={'Триггеры'}
         path={'/api/triggers'}
+        navigate ={useNavigate()}
       >
         <Column
           dataField={'deviceValue'}

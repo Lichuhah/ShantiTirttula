@@ -2,13 +2,12 @@
 
 namespace ShantiTirttula.Domain.Dto.Models
 {
-    public class SheduleDto : ApiDto<IShedule>
+    public class SheduleDto : ApiDtoWithAuth<IShedule>
     {
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
         public int StartCommandId { get; set; }
         public int EndCommandId { get; set; }
         public int Period { get; set; }
-        public int AuthId { get; set; }
     }
 }
