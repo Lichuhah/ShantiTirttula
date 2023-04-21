@@ -109,17 +109,22 @@ export class ShantiNavigationMenu extends React.PureComponent<ShantiNavigationMe
                 }
                 ,
                 {
-                    text: 'Расписание',
-                    key: 'shedules',
-                    path: '/shedules',
-                    disabled: !this.state.isMcSelected
-                }
-                ,
-                {
-                    text: 'План',
-                    key: 'shedule-tasks',
-                    path: '/shedule-tasks',
-                    disabled: !this.state.isMcSelected
+                    text: 'Раписание',
+                    key: 'shedule-folder',
+                    disabled: !this.state.isMcSelected,
+                    items: [
+                        {
+                            text: 'Расписание',
+                            key: 'shedules',
+                            path: '/shedules',
+                        }
+                        ,
+                        {
+                            text: 'План',
+                            key: 'shedule-tasks',
+                            path: '/shedule-tasks',
+                        }
+                    ]
                 }
                 ,
                  {

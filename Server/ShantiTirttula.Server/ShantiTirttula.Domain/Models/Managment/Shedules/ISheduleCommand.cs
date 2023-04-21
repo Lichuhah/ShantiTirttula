@@ -5,5 +5,6 @@
         public new IAuth Auth { get; set; }
         public IDevice Device { get; set; }
         public int Value { get; set; }
+        public string Name { get; set; }
     }
 }

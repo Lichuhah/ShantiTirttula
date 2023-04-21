@@ -1,11 +1,6 @@
 ﻿using NHibernate.Mapping.ByCode;
 using ShantiTirttula.Repository.Models;
 using ShantiTirttula.Repository.Models.Managment.Shedules;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ShantiTirttula.Repository.Mappings.Managment.Shedules
 {
@@ -16,6 +11,10 @@ namespace ShantiTirttula.Repository.Mappings.Managment.Shedules
             Property(x => x.Value, map =>
             {
                 map.Column("VALUE");
+            });
+            Property(x => x.Name, map =>
+            {
+                map.Column("NAME");
             });
             ManyToOne(x => x.Device, map =>
             {

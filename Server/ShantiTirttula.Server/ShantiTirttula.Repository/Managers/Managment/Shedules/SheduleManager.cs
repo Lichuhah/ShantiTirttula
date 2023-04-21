@@ -18,8 +18,8 @@ namespace ShantiTirttula.Repository.Managers.Managment.Shedules
             SheduleDto dto = new SheduleDto();
             dto.Id = entity.Id;
             dto.Period = entity.Period;
-            dto.StartTime = entity.StartTime;
-            dto.EndTime = entity.EndTime;
+            dto.StartTime = DateTime.SpecifyKind(entity.StartTime, DateTimeKind.Utc);
+            dto.EndTime = DateTime.SpecifyKind(entity.StartTime, DateTimeKind.Utc);
             dto.StartCommandId = entity.StartCommand.Id;
             dto.EndCommandId = entity.EndCommand.Id;
             dto.AuthId = entity.Auth.Id;

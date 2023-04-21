@@ -25,7 +25,7 @@ export default function Commands() {
         <Column
           dataField={'isPwm'}
           caption={'ШИМ'}
-        />
+        />,
     ];
 
     let grid:ShantiDataGrid = new ShantiDataGrid(

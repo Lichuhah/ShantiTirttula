@@ -20,6 +20,7 @@ export default function SheduleTasks() {
     let columns = [
         <Column
           dataField={'startDateTime'}
+          dataType={'datetime'}
           caption={'Время'}
         />,
     ];
@@ -27,7 +28,7 @@ export default function SheduleTasks() {
     let grid:ShantiDataGrid = new ShantiDataGrid(
       { 
         title: 'Датчики',
-        path: '/api/ap/shedule-task', 
+        path: '/api/ap/shedule-tasks', 
         children: columns,
         navigate: useNavigate()
         //rowActions: rowActions

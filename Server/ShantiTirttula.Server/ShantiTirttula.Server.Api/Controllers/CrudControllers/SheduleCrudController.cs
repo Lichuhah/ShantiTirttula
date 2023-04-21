@@ -11,7 +11,7 @@ using ShantiTirttula.Server.Api.Helpers.Quartz;
 
 namespace ShantiTirttula.Server.Api.Controllers.CrudControllers
 {
-    [Route("api/[controller]")]
+    [Route("api/shedules")]
     [ApiController]
     public class SheduleCrudController : BaseCrudController<SheduleDto, IShedule>
     {

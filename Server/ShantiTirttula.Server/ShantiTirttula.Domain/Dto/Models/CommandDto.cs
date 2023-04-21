@@ -7,5 +7,7 @@ namespace ShantiTirttula.Domain.Dto.Models
         public int Pin { get; set; }
         public bool IsPwm { get; set; }
         public double Value { get; set; }
+        public int DeviceId { get; set; }
+        public string Name { get; set; }
     }
 }

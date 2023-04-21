@@ -10,6 +10,7 @@ interface ShantiSelectBoxProps {
     path: string,
     byKeyPath: string,
     dataField: string,
+    displayExpr?: string
 }
 
 interface ShantiSelectBoxState{
@@ -40,40 +41,16 @@ class ShantiSelectBox extends React.PureComponent<ShantiSelectBoxProps, ShantiSe
         return new DataSource({
             key: 'id',
             load(loadOptions) {
-              let params = '?';
-              [
-                'filter',
-                'group',
-                'groupSummary',
-                'parentIds',
-                'requireGroupCount',
-                'requireTotalCount',
-                'searchExpr',
-                'searchOperation',
-                'searchValue',
-                'select',
-                'sort',
-                'skip',
-                'take',
-                'totalSummary',
-                'userData'
-              ].forEach((i) => {
-                if (i in loadOptions && isNotEmpty(loadOptions[i])) { params += `${i}=${JSON.stringify(loadOptions[i])}&`; }
-              });
-              params = params.slice(0, -1);
-              return fetch(`${process.env.REACT_APP_API_URL}${props.path}${params}`,{
+              return fetch(`${process.env.REACT_APP_API_URL}${props.path}`,{
                 method: 'GET',
+                credentials: 'include',
                 headers: {
                   "Accept": "*/*",
                   "Content-Type": "application/json",
-                  "Authorization": "Bearer " + getTokenFromLocalStorage()
                 }})
                 .then((response) => response.json())
                 .then((data) => ({
-                  data: data.data.data,
-                  totalCount: data.totalCount,
-                  summary: data.summary,
-                  groupCount: data.groupCount,
+                  data: data.data,
                 }))
                 .catch(() => { throw new Error('Data Loading Error'); });
             },
@@ -87,7 +64,6 @@ class ShantiSelectBox extends React.PureComponent<ShantiSelectBoxProps, ShantiSe
         }
 
     onValueChanged(e) {
-        console.log(e)
         this.setState({
           selectedId: e.selectedItem.id,
         });
@@ -106,7 +82,7 @@ class ShantiSelectBox extends React.PureComponent<ShantiSelectBoxProps, ShantiSe
                 value={this.state.selectedId}
                 valueExpr="id"
                 dataSource={this.dataSource}
-                displayExpr="name"
+                displayExpr={this.props.displayExpr != undefined ? this.props.displayExpr : 'name'}
                 placeholder="Select a value..."
                 showClearButton={true}
                 onSelectionChanged={this.onValueChanged}

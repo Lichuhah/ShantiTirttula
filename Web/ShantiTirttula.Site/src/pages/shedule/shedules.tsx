@@ -20,10 +20,16 @@ export default function Shedules() {
     let columns = [
         <Column
           dataField={'startTime'}
+          dataType={'datetime'}
           caption={'Время запуска'}
         />,
         <Column
           dataField={'endTime'}
+          dataType={'datetime'}
+        //   editorOptions={{
+        //         dateSerializationFormat:'HH:mm:ss'
+        //     }
+        //   }
           caption={'Время окончания'}
         />
     ];

@@ -21,6 +21,8 @@ namespace ShantiTirttula.Repository.Managers.Managment.Shedules
             dto.IsPwm = entity.Device.IsAnalog;
             dto.Pin = entity.Device.Pin;
             dto.AuthId = entity.Auth.Id;
+            dto.DeviceId = entity.Device.Id;
+            dto.Name = entity.Name;
             return dto;
         }
 
@@ -37,11 +39,13 @@ namespace ShantiTirttula.Repository.Managers.Managment.Shedules
             if (dto.AuthId > 0)
             {
                 item.Auth = new AuthManager().Get(dto.AuthId);
-                item.Device = item.Auth.Product.Controller.Devices.First(x => x.Pin == dto.Pin);
+                //item.Device = item.Auth.Product.Controller.Devices.First(x => x.Pin == dto.Pin);
             }
+            if(dto.DeviceId > 0)
+                item.Device = new DeviceManager().Get(dto.DeviceId);
 
             item.Value = (int)dto.Value;
-
+            item.Name = dto.Name;
             return item;
         }
     }

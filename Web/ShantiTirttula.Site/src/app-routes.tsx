@@ -1,5 +1,5 @@
 import { HomePage, ProfilePage, ControllerPage, TriggerPage, TriggerFormPage, SensorsPage, SensorDataPage, DevicePage, CommandLogPage, SensorFormPage, 
-ShedulesPage, SheduleTasksPage, CommandsPage } from './pages';
+ShedulesPage, SheduleTasksPage, CommandsPage, ShedulesFormPage, CommandsFormPage, SheduleTasksFormPage } from './pages';
 import { withNavigationWatcher } from './contexts/navigation';
 
 const routes = [
@@ -48,12 +48,24 @@ const routes = [
         element: CommandsPage
     },
     {
+        path: '/commands/form',
+        element: CommandsFormPage
+    },
+    {
         path: '/shedules',
         element: ShedulesPage
     },
     {
-        path: 'shedule-tasks',
+        path: '/shedules/form',
+        element: ShedulesFormPage
+    },
+    {
+        path: '/shedule-tasks',
         element: SheduleTasksPage
+    },
+    {
+        path: '/shedule-tasks/form',
+        element: SheduleTasksFormPage
     }
 ];
 
