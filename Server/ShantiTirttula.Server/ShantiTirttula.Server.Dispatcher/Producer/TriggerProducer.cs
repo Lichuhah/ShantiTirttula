@@ -27,7 +27,7 @@ namespace ShantiTirttula.Server.Dispatcher.Producer
         public override void Generate(Session session)
         {
             this.Commands.Clear();
-            foreach (Dispatcher.Models.McSensorData sensor in session.SensorsData.Last())
+            foreach (SensorDataDto sensor in session.SensorsData.Last())
             {
                 List<TriggerDto> triggers = Triggers.Where(x => x.SensorNumber == sensor.SensorId).ToList();
                 foreach (TriggerDto trigger in triggers)
@@ -37,7 +37,7 @@ namespace ShantiTirttula.Server.Dispatcher.Producer
             }
         }
 
-        private void CreateCommand(Session session, Models.McSensorData sensor, TriggerDto trigger)
+        private void CreateCommand(Session session, SensorDataDto sensor, TriggerDto trigger)
         {
             bool isTrigger = false;
             switch (trigger.Type)
