@@ -1,17 +1,17 @@
 ﻿using NHibernate;
-using System.Data;
-using ISession = NHibernate.ISession;
+using NHibernate.Context;
+using ShantiTirttula.Domain.Models;
 using ShantiTirttula.Domain.Repositories;
 using ShantiTirttula.Repository.Helpers;
 using ShantiTirttula.Repository.Models;
-using ShantiTirttula.Domain.Models;
-using NHibernate.Context;
+using System.Data;
+using ISession = NHibernate.ISession;
 
 namespace ShantiTirttula.Repository.Repositories
 {
     public class EntityRepository<T> : IEntityRepository<T> where T : IEntity
     {
-        NHibernateHelper helper;
+        private NHibernateHelper helper;
         public ISession Session { get; set; }
         public EntityRepository()
         {

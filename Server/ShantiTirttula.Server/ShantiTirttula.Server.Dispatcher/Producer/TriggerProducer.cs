@@ -9,7 +9,7 @@ namespace ShantiTirttula.Server.Dispatcher.Producer
 {
     public class TriggerProducer : CommandProducer
     {
-        List<TriggerDto> Triggers;
+        private List<TriggerDto> Triggers;
 
         public TriggerProducer() : base()
         {
@@ -21,12 +21,12 @@ namespace ShantiTirttula.Server.Dispatcher.Producer
             ApiResponse<List<TriggerDto>> result = JsonConvert.DeserializeObject<ApiResponse<List<TriggerDto>>>(HttpHelper.GetData("/api/ap/triggers", token));
             if (result.Success)
             {
-                this.Triggers = result.Data;
+                Triggers = result.Data;
             }
         }
         public override void Generate(Session session)
         {
-            this.Commands.Clear();
+            Commands.Clear();
             foreach (SensorDataDto sensor in session.SensorsData.Last())
             {
                 List<TriggerDto> triggers = Triggers.Where(x => x.SensorNumber == sensor.SensorId).ToList();
@@ -56,7 +56,7 @@ namespace ShantiTirttula.Server.Dispatcher.Producer
 
         public override string GetData()
         {
-            return JsonConvert.SerializeObject(this.Triggers);
+            return JsonConvert.SerializeObject(Triggers);
         }
     }
 }

@@ -1,11 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using DevExtreme.AspNet.Data;
-using DevExtreme.AspNet.Mvc;
+﻿using DevExtreme.AspNet.Data;
 using DevExtreme.AspNet.Data.ResponseModel;
+using DevExtreme.AspNet.Mvc;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ShantiTirttula.Domain.Dto;
 using ShantiTirttula.Domain.Models;
 using ShantiTirttula.Repository.Managers;
-using Microsoft.AspNetCore.Authorization;
 
 namespace ShantiTirttula.Server.Api.Controllers.Common
 {
@@ -13,7 +13,7 @@ namespace ShantiTirttula.Server.Api.Controllers.Common
     [AllowAnonymous]
 #endif
     [ApiController]
-    public class BaseCrudController<DtoType, EntityType> : ControllerBase where DtoType : ApiDto<EntityType> where EntityType : IEntity 
+    public class BaseCrudController<DtoType, EntityType> : ControllerBase where DtoType : ApiDto<EntityType> where EntityType : IEntity
     {
         protected EntityManager<EntityType> Manager;
         public BaseCrudController(EntityManager<EntityType> manager) : base()

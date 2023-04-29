@@ -1,12 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using DevExtreme.AspNet.Data;
-using DevExtreme.AspNet.Mvc;
+﻿using DevExtreme.AspNet.Data;
 using DevExtreme.AspNet.Data.ResponseModel;
-using System.Security.Claims;
-using ShantiTirttula.Repository.Managers;
+using DevExtreme.AspNet.Mvc;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ShantiTirttula.Domain.Dto;
 using ShantiTirttula.Domain.Models;
-using Microsoft.AspNetCore.Authorization;
+using ShantiTirttula.Repository.Managers;
 
 namespace ShantiTirttula.Server.Api.Controllers.Common
 {
@@ -32,7 +31,7 @@ namespace ShantiTirttula.Server.Api.Controllers.Common
             {
                 IQueryable<EntityType> data = Manager.All();
                 List<ApiDtoWithAuth<EntityType>> list = data.Select(x => (ApiDtoWithAuth<EntityType>)Manager.ConvertToDto(x)).ToList();
-                list = list.Where(x => x.AuthId == this.Auth.Id).ToList();
+                list = list.Where(x => x.AuthId == Auth.Id).ToList();
                 return new ApiResponse<LoadResult>().SetData(DataSourceLoader.Load(list, loadOptions)).Result();
             }
             catch (Exception e)
@@ -47,7 +46,7 @@ namespace ShantiTirttula.Server.Api.Controllers.Common
         {
             try
             {
-                IQueryable<EntityType> data = Manager.All().Where(x => x.Auth.Id == this.Auth.Id);
+                IQueryable<EntityType> data = Manager.All().Where(x => x.Auth.Id == Auth.Id);
                 List<ApiDto<EntityType>> list = data.Select(x => Manager.ConvertToDto(x)).ToList();
                 return new ApiResponse<List<ApiDto<EntityType>>>().SetData(list).Result();
             }
@@ -79,7 +78,7 @@ namespace ShantiTirttula.Server.Api.Controllers.Common
         {
             try
             {
-                dto.AuthId = this.Auth.Id;
+                dto.AuthId = Auth.Id;
                 EntityType data = Manager.ConvertFromDto(dto);
                 dto.Id = Manager.Save(data).Id;
                 RefreshDispatcher();
@@ -129,7 +128,7 @@ namespace ShantiTirttula.Server.Api.Controllers.Common
         private bool RefreshDispatcher()
         {
             HttpClient client = new HttpClient();
-            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, Environment.GetEnvironmentVariable("DISP_URL") + "/api/disp/" + this.Auth.Key);
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, Environment.GetEnvironmentVariable("DISP_URL") + "/api/disp/" + Auth.Key);
             HttpResponseMessage response = client.Send(request);
             string result = response.Content.ReadAsStringAsync().Result;
             return true;

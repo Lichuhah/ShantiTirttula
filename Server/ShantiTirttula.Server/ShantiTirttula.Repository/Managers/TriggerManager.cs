@@ -1,9 +1,9 @@
 ﻿using ShantiTirttula.Domain.Dto;
-using ShantiTirttula.Domain.Models;
-using ShantiTirttula.Domain.Managers;
 using ShantiTirttula.Domain.Dto.Models;
-using ShantiTirttula.Repository.Models;
+using ShantiTirttula.Domain.Managers;
+using ShantiTirttula.Domain.Models;
 using ShantiTirttula.Repository.Managers.Managment.Shedules;
+using ShantiTirttula.Repository.Models;
 
 namespace ShantiTirttula.Repository.Managers
 {

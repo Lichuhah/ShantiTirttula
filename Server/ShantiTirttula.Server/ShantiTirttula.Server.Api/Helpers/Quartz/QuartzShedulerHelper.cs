@@ -1,6 +1,4 @@
-﻿using DevExpress.ClipboardSource.SpreadsheetML;
-using DevExpress.XtraPrinting.Export;
-using Quartz;
+﻿using Quartz;
 using Quartz.Impl;
 using ShantiTirttula.Domain.Managers.Managment.Shedules;
 using ShantiTirttula.Domain.Models.Managment.Shedules;
@@ -22,7 +20,7 @@ namespace ShantiTirttula.Server.Api.Helpers.Quartz
 
             ITrigger trigger = TriggerBuilder.Create()  // создаем триггер
                 .WithIdentity("sheduleTrigger", "mainGroup")     // идентифицируем триггер с именем и группой
-              //.StartAt(startTime) // запуск сразу после начала выполнения
+                                                                 //.StartAt(startTime) // запуск сразу после начала выполнения
                 .StartNow()
                 .WithSimpleSchedule(x => x            // настраиваем выполнение действия
                     .WithIntervalInHours(24)          // через 1 минуту
@@ -40,16 +38,20 @@ namespace ShantiTirttula.Server.Api.Helpers.Quartz
             {
                 try
                 {
-                    SheduleTask startTask = new SheduleTask();
-                    startTask.StartDateTime = DateTime.UtcNow.Date + shedule.StartTime.TimeOfDay;
-                    startTask.Command = shedule.StartCommand;
-                    startTask.Auth = shedule.Auth;
+                    SheduleTask startTask = new SheduleTask
+                    {
+                        StartDateTime = DateTime.UtcNow.Date + shedule.StartTime.TimeOfDay,
+                        Command = shedule.StartCommand,
+                        Auth = shedule.Auth
+                    };
                     await sheduleTaskManager.SaveAsync(startTask);
 
-                    SheduleTask endTask = new SheduleTask();
-                    endTask.StartDateTime = DateTime.UtcNow.Date + shedule.EndTime.TimeOfDay;
-                    endTask.Command = shedule.EndCommand;
-                    endTask.Auth = shedule.Auth;
+                    SheduleTask endTask = new SheduleTask
+                    {
+                        StartDateTime = DateTime.UtcNow.Date + shedule.EndTime.TimeOfDay,
+                        Command = shedule.EndCommand,
+                        Auth = shedule.Auth
+                    };
                     await sheduleTaskManager.SaveAsync(endTask);
 
                     shedule.LastExecutionTime = DateTime.UtcNow;

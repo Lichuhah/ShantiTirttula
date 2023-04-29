@@ -1,5 +1,5 @@
-﻿using ShantiTirttula.Domain.Dto.Models;
-using ShantiTirttula.Domain.Dto;
+﻿using ShantiTirttula.Domain.Dto;
+using ShantiTirttula.Domain.Dto.Models;
 using ShantiTirttula.Domain.Managers.Managment.Shedules;
 using ShantiTirttula.Domain.Models.Managment.Shedules;
 using ShantiTirttula.Repository.Models.Managment.Shedules;
@@ -15,11 +15,13 @@ namespace ShantiTirttula.Repository.Managers.Managment.Shedules
 
         public override SheduleTaskDto ConvertToDto(ISheduleTask entity)
         {
-            SheduleTaskDto dto = new SheduleTaskDto();
-            dto.Id = entity.Id;
-            dto.StartDateTime = DateTime.SpecifyKind(entity.StartDateTime, DateTimeKind.Utc);
-            dto.Command = new SheduleCommandManager().ConvertToDto(entity.Command);
-            dto.AuthId = entity.Auth.Id;
+            SheduleTaskDto dto = new SheduleTaskDto
+            {
+                Id = entity.Id,
+                StartDateTime = DateTime.SpecifyKind(entity.StartDateTime, DateTimeKind.Utc),
+                Command = new SheduleCommandManager().ConvertToDto(entity.Command),
+                AuthId = entity.Auth.Id
+            };
             dto.CommandId = dto.Command.Id;
             return dto;
         }
@@ -33,7 +35,7 @@ namespace ShantiTirttula.Repository.Managers.Managment.Shedules
                 item = new SheduleTask();
 
             SheduleTaskDto dto = (SheduleTaskDto)data;
-            if (dto.AuthId > 0)           
+            if (dto.AuthId > 0)
                 item.Auth = new AuthManager().Get(dto.AuthId);
 
             if (dto.Command != null)

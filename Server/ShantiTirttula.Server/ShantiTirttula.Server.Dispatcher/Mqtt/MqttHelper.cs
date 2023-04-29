@@ -1,11 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using MQTTnet;
-using MQTTnet.Server;
+﻿using MQTTnet;
 using Newtonsoft.Json;
 using ShantiTirttula.Server.Dispatcher.Models;
 using ShantiTirttula.Server.Dispatcher.Mqtt.Models;
 using ShantiTirttula.Server.Dispatcher.Sessions;
-using System.Security.Cryptography;
 using System.Text;
 
 namespace ShantiTirttula.Server.Dispatcher.Mqtt
@@ -31,7 +28,8 @@ namespace ShantiTirttula.Server.Dispatcher.Mqtt
                         //session.SaveCommandsLog();
                     }
                 }
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 mqttServer.SendMessage("answer", ex.Message);
             }
@@ -40,7 +38,7 @@ namespace ShantiTirttula.Server.Dispatcher.Mqtt
         private static void SendCommand(Session session)
         {
             ShantiMqttServer mqttServer = ShantiMqttServer.GetServer();
-            mqttServer.SendMessage(session.Mc.Key+"_cm", JsonConvert.SerializeObject(session.Producer.Commands));
+            mqttServer.SendMessage(session.Mc.Key + "_cm", JsonConvert.SerializeObject(session.Producer.Commands));
             session.Producer.Commands.Clear();
         }
 

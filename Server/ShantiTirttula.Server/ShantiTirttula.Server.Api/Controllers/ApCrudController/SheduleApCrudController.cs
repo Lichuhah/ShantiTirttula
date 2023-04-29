@@ -1,11 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using ShantiTirttula.Domain.Dto;
 using ShantiTirttula.Domain.Dto.Models;
-using ShantiTirttula.Domain.Models;
 using ShantiTirttula.Domain.Models.Managment.Shedules;
-using ShantiTirttula.Repository.Managers;
 using ShantiTirttula.Repository.Managers.Managment.Shedules;
 using ShantiTirttula.Server.Api.Controllers.Common;
 

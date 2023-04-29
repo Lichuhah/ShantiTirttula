@@ -1,7 +1,7 @@
-﻿using ShantiTirttula.Domain.Managers;
-using ShantiTirttula.Domain.Models;
-using ShantiTirttula.Domain.Dto;
+﻿using ShantiTirttula.Domain.Dto;
 using ShantiTirttula.Domain.Dto.Models;
+using ShantiTirttula.Domain.Managers;
+using ShantiTirttula.Domain.Models;
 using ShantiTirttula.Repository.Models;
 
 namespace ShantiTirttula.Repository.Managers
@@ -15,11 +15,13 @@ namespace ShantiTirttula.Repository.Managers
 
         public override McAuthDto ConvertToDto(IAuth entity)
         {
-            McAuthDto dto = new McAuthDto();
-            dto.Id = entity.Id;
-            dto.Key = entity.Key;
-            dto.ProductId = entity.Product.Id;
-            dto.Mac = entity.Product.Mac;
+            McAuthDto dto = new McAuthDto
+            {
+                Id = entity.Id,
+                Key = entity.Key,
+                ProductId = entity.Product.Id,
+                Mac = entity.Product.Mac
+            };
             //dto.TypeName = entity.Controller.Type.Name;
             return dto;
         }

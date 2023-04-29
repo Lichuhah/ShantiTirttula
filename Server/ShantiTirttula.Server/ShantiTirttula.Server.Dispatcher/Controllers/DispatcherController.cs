@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using ShantiTirttula.Domain.Dto.Models;
-using ShantiTirttula.Domain.Dto.Output;
 using ShantiTirttula.Server.Dispatcher.Mqtt;
 using ShantiTirttula.Server.Dispatcher.Sessions;
 
@@ -66,7 +65,7 @@ namespace ShantiTirttula.Server.Dispatcher.Controllers
                 if (session != null)
                 {
                     ShantiMqttServer mqttServer = ShantiMqttServer.GetServer();
-                    mqttServer.SendMessage(session.Mc.Key+ "_f", JsonConvert.SerializeObject(config));
+                    mqttServer.SendMessage(session.Mc.Key + "_f", JsonConvert.SerializeObject(config));
                 }
                 else
                     return false;

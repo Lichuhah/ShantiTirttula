@@ -1,13 +1,13 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using ShantiTirttula.Domain.Dto;
 using ShantiTirttula.Domain.Dto.Input;
 using ShantiTirttula.Domain.Models;
+using ShantiTirttula.Repository.Managers;
 using ShantiTirttula.Server.Api.Helpers;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using ShantiTirttula.Repository.Managers;
-using ShantiTirttula.Domain.Dto;
 
 namespace ShantiTirttula.Server.Api.Controllers
 {

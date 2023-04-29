@@ -17,8 +17,10 @@ namespace ShantiTirttula.Server.Dispatcher.Controllers
         public string post(TestEntity ent)
         {
             HttpClient client = new HttpClient();
-            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, ApiUrl+"/post");
-            request.Content = new StringContent(JsonConvert.SerializeObject(ent), Encoding.UTF8, "application/json");
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, ApiUrl + "/post")
+            {
+                Content = new StringContent(JsonConvert.SerializeObject(ent), Encoding.UTF8, "application/json")
+            };
             try
             {
                 HttpResponseMessage response = client.Send(request);

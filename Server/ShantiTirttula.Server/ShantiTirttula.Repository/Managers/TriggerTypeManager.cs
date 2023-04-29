@@ -1,7 +1,7 @@
 ﻿using ShantiTirttula.Domain.Dto;
-using ShantiTirttula.Domain.Models;
-using ShantiTirttula.Domain.Managers;
 using ShantiTirttula.Domain.Dto.Models;
+using ShantiTirttula.Domain.Managers;
+using ShantiTirttula.Domain.Models;
 using ShantiTirttula.Repository.Models;
 
 namespace ShantiTirttula.Repository.Managers
@@ -15,9 +15,11 @@ namespace ShantiTirttula.Repository.Managers
 
         public override TriggerTypeDto ConvertToDto(ITriggerType entity)
         {
-            TriggerTypeDto dto = new TriggerTypeDto();
-            dto.Id = entity.Id;
-            dto.Name = entity.Name;
+            TriggerTypeDto dto = new TriggerTypeDto
+            {
+                Id = entity.Id,
+                Name = entity.Name
+            };
             return dto;
         }
 

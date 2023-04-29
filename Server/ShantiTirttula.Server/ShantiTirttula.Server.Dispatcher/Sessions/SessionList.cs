@@ -47,8 +47,10 @@ namespace ShantiTirttula.Server.Dispatcher.Sessions
         public Session CreateSession(McData data)
         {
             HttpClient client = new HttpClient();
-            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, ApiUrl+ "/api/disp/signin");
-            request.Content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, ApiUrl + "/api/disp/signin")
+            {
+                Content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json")
+            };
             HttpResponseMessage response = client.Send(request);
             string content = response.Content.ReadAsStringAsync().Result;
             ApiResponse<string> result = JsonConvert.DeserializeObject<ApiResponse<string>>(content);
@@ -66,7 +68,7 @@ namespace ShantiTirttula.Server.Dispatcher.Sessions
 
                 try
                 {
-                    ApiResponse<ECommandProducerAlgorithm> prodResult = JsonConvert.DeserializeObject<ApiResponse<ECommandProducerAlgorithm>>(HttpHelper.GetData("/api/auth/bykey/"+data.Key, token));
+                    ApiResponse<ECommandProducerAlgorithm> prodResult = JsonConvert.DeserializeObject<ApiResponse<ECommandProducerAlgorithm>>(HttpHelper.GetData("/api/auth/bykey/" + data.Key, token));
                     if (result.Success)
                     {
                         switch (prodResult.Data)
@@ -79,7 +81,8 @@ namespace ShantiTirttula.Server.Dispatcher.Sessions
 
                         session.Producer.LoadDataForSession(token);
                     }
-                } catch (Exception ex) { }
+                }
+                catch (Exception ex) { }
 
 
                 //try
@@ -98,8 +101,10 @@ namespace ShantiTirttula.Server.Dispatcher.Sessions
         public static Session RefreshSession(Session session)
         {
             HttpClient client = new HttpClient();
-            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, Environment.GetEnvironmentVariable("API_URL") + "/api/disp/signin");
-            request.Content = new StringContent(JsonConvert.SerializeObject(session.Mc), Encoding.UTF8, "application/json");
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, Environment.GetEnvironmentVariable("API_URL") + "/api/disp/signin")
+            {
+                Content = new StringContent(JsonConvert.SerializeObject(session.Mc), Encoding.UTF8, "application/json")
+            };
             HttpResponseMessage response = client.Send(request);
             string content = response.Content.ReadAsStringAsync().Result;
             ApiResponse<string> result = JsonConvert.DeserializeObject<ApiResponse<string>>(content);

@@ -1,7 +1,6 @@
 ﻿using NHibernate;
 using ShantiTirttula.Domain.Dto;
 using ShantiTirttula.Domain.Models;
-using ShantiTirttula.Domain.Repositories;
 
 namespace ShantiTirttula.Domain.Managers
 {

@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using ShantiTirttula.Domain.Dto;
 using ShantiTirttula.Domain.Dto.Models;
 using ShantiTirttula.Domain.Models;

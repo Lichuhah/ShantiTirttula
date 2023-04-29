@@ -1,7 +1,7 @@
 ﻿using ShantiTirttula.Domain.Dto;
-using ShantiTirttula.Domain.Models;
-using ShantiTirttula.Domain.Managers;
 using ShantiTirttula.Domain.Dto.Models;
+using ShantiTirttula.Domain.Managers;
+using ShantiTirttula.Domain.Models;
 using ShantiTirttula.Repository.Models;
 
 namespace ShantiTirttula.Repository.Managers
@@ -20,10 +20,12 @@ namespace ShantiTirttula.Repository.Managers
 
         public override UserDto ConvertToDto(IUser entity)
         {
-            UserDto dto = new UserDto();
-            dto.Id = entity.Id;
-            dto.Login = entity.Login;
-            dto.Password = entity.Password;
+            UserDto dto = new UserDto
+            {
+                Id = entity.Id,
+                Login = entity.Login,
+                Password = entity.Password
+            };
             return dto;
         }
 

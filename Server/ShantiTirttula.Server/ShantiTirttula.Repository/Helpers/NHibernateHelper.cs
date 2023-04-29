@@ -43,10 +43,10 @@ namespace ShantiTirttula.Repository.Helpers
             {
                 return GetSessionFactory().GetCurrentSession();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return GetSessionFactory().OpenSession();
-            }            
+            }
         }
 
         private static ISessionFactory CreateSessionFactory()

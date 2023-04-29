@@ -1,5 +1,4 @@
-﻿using ShantiTirttula.Server.Dispatcher.Models;
-using ShantiTirttula.Server.Dispatcher.Sessions;
+﻿using ShantiTirttula.Server.Dispatcher.Sessions;
 
 namespace ShantiTirttula.Server.Dispatcher.Producer
 {

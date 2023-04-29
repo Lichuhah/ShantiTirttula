@@ -1,7 +1,7 @@
 ﻿using ShantiTirttula.Domain.Dto;
-using ShantiTirttula.Domain.Models;
-using ShantiTirttula.Domain.Managers;
 using ShantiTirttula.Domain.Dto.Models;
+using ShantiTirttula.Domain.Managers;
+using ShantiTirttula.Domain.Models;
 using ShantiTirttula.Repository.Models;
 
 namespace ShantiTirttula.Repository.Managers
@@ -15,11 +15,13 @@ namespace ShantiTirttula.Repository.Managers
 
         public override SensorDto ConvertToDto(ISensor entity)
         {
-            SensorDto dto = new SensorDto();
-            dto.Id = entity.Id;
-            dto.TypeName = entity.Type.Name;
-            dto.Number = entity.Number;
-            dto.AuthId = entity.Auth.Id;
+            SensorDto dto = new SensorDto
+            {
+                Id = entity.Id,
+                TypeName = entity.Type.Name,
+                Number = entity.Number,
+                AuthId = entity.Auth.Id
+            };
             return dto;
         }
 

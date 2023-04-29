@@ -1,15 +1,7 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.OpenApi.Models;
+﻿using Microsoft.OpenApi.Models;
+using ShantiTirttula.Server.Dispatcher.Mqtt;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Reflection;
-using MQTTnet;
-using MQTTnet.Server;
-using System.Text;
-using ShantiTirttula.Server.Dispatcher.Mqtt;
-using ShantiTirttula.Server.Dispatcher.Sessions;
-using System.Net.Security;
-using System.Security.Cryptography.X509Certificates;
-using System;
 
 namespace ShantiTirttula.Server.Dispatcher
 {

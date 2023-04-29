@@ -1,5 +1,5 @@
-﻿using ShantiTirttula.Domain.Dto.Models;
-using ShantiTirttula.Domain.Dto;
+﻿using ShantiTirttula.Domain.Dto;
+using ShantiTirttula.Domain.Dto.Models;
 using ShantiTirttula.Domain.Managers.Managment.Shedules;
 using ShantiTirttula.Domain.Models.Managment.Shedules;
 using ShantiTirttula.Repository.Models.Managment.Shedules;
@@ -15,14 +15,16 @@ namespace ShantiTirttula.Repository.Managers.Managment.Shedules
 
         public override SheduleDto ConvertToDto(IShedule entity)
         {
-            SheduleDto dto = new SheduleDto();
-            dto.Id = entity.Id;
-            dto.Period = entity.Period;
-            dto.StartTime = DateTime.SpecifyKind(entity.StartTime, DateTimeKind.Utc);
-            dto.EndTime = DateTime.SpecifyKind(entity.StartTime, DateTimeKind.Utc);
-            dto.StartCommandId = entity.StartCommand.Id;
-            dto.EndCommandId = entity.EndCommand.Id;
-            dto.AuthId = entity.Auth.Id;
+            SheduleDto dto = new SheduleDto
+            {
+                Id = entity.Id,
+                Period = entity.Period,
+                StartTime = DateTime.SpecifyKind(entity.StartTime, DateTimeKind.Utc),
+                EndTime = DateTime.SpecifyKind(entity.StartTime, DateTimeKind.Utc),
+                StartCommandId = entity.StartCommand.Id,
+                EndCommandId = entity.EndCommand.Id,
+                AuthId = entity.Auth.Id
+            };
             return dto;
         }
 

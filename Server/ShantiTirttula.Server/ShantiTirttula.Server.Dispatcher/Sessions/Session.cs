@@ -11,7 +11,7 @@ namespace ShantiTirttula.Server.Dispatcher.Sessions
         public McData Mc { get; set; }
         public string Token { get; set; }
         public List<List<SensorDataDto>> SensorsData { get; set; }
-        public List<McDeviceValues> DeviceValues { get; set;}
+        public List<McDeviceValues> DeviceValues { get; set; }
         public DateTime LastSendTime { get; set; }
         public DateTime CreateTime { get; set; }
         public bool IsBusy { get; set; }
@@ -24,22 +24,22 @@ namespace ShantiTirttula.Server.Dispatcher.Sessions
         }
         public void AddSensorsData(List<SensorDataDto> data)
         {
-            this.SensorsData.Add(data);
+            SensorsData.Add(data);
             //CheckTriggers(data);
             if (DateTime.UtcNow - LastSendTime > TimeSpan.FromSeconds(60))
             {
                 SendSensorData();
                 //SendCommandsLog();
-                this.LastSendTime = DateTime.UtcNow;
-                this.SensorsData.Clear();
+                LastSendTime = DateTime.UtcNow;
+                SensorsData.Clear();
                 //this.CommandLog.Clear();
             }
         }
 
         public void SetDeviceValues(List<McDeviceValues> data)
         {
-            this.DeviceValues.Clear();
-            this.DeviceValues.AddRange(data);
+            DeviceValues.Clear();
+            DeviceValues.AddRange(data);
         }
 
         //private void CheckTriggers(List<McSensorData> data)
@@ -101,10 +101,10 @@ namespace ShantiTirttula.Server.Dispatcher.Sessions
                     value += (float)package.Where(x => x.SensorId == id).Average(x => x.Value);
                 }
                 data.Add(new SensorDataDto
-                { 
-                    SensorId = id, 
+                {
+                    SensorId = id,
                     DateTime = DateTime.UtcNow,
-                    Value = value / SensorsData.Count, 
+                    Value = value / SensorsData.Count,
                 });
             }
             SendAverageDataToServer(data);
@@ -134,11 +134,12 @@ namespace ShantiTirttula.Server.Dispatcher.Sessions
         //}
 
         private bool SendAverageDataToServer(List<SensorDataDto> data)
-        {        
+        {
             try
             {
-                foreach(SensorDataDto sensorData in data){
-                    HttpHelper.PostData("/api/ap/sensor-data", JsonConvert.SerializeObject(sensorData), this.Token);
+                foreach (SensorDataDto sensorData in data)
+                {
+                    HttpHelper.PostData("/api/ap/sensor-data", JsonConvert.SerializeObject(sensorData), Token);
                 }
                 return true;
             }

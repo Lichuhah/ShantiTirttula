@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ShantiTirttula.Domain.Dto;
 using ShantiTirttula.Domain.Dto.Input;
 using ShantiTirttula.Domain.Models;
 using ShantiTirttula.Repository.Managers;
-using ShantiTirttula.Domain.Dto;
 using ShantiTirttula.Repository.Models;
 
 namespace ShantiTirttula.Server.Api.Controllers
@@ -40,7 +40,7 @@ namespace ShantiTirttula.Server.Api.Controllers
             ProductManager productManager = new ProductManager();
             string newkey = GenerateNewKey(manager);
 
-            data.Mac = data.Mac.Replace(":","");
+            data.Mac = data.Mac.Replace(":", "");
             IAuth auth = new Auth
             {
                 Key = newkey,

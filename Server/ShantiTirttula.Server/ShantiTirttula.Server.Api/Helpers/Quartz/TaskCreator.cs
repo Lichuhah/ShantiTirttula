@@ -1,10 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
-using NHibernate.Util;
+﻿using NHibernate.Util;
 using Quartz;
 using ShantiTirttula.Domain.Dto.Models;
-using ShantiTirttula.Domain.Managers;
 using ShantiTirttula.Domain.Managers.Managment.Shedules;
-using ShantiTirttula.Domain.Models;
 using ShantiTirttula.Domain.Models.Managment.Shedules;
 using ShantiTirttula.Repository.Helpers;
 using ShantiTirttula.Repository.Managers.Managment.Shedules;
@@ -28,10 +25,12 @@ namespace ShantiTirttula.Server.Api.Helpers.Quartz
                     {
                         try
                         {
-                            ISheduleTask newTask = new SheduleTask();
-                            newTask.Command = session.Get<SheduleCommand>(shedule.StartCommandId);
-                            newTask.Auth = session.Get<Auth>(shedule.AuthId);
-                            newTask.StartDateTime = DateTime.UtcNow.Date + shedule.StartTime.TimeOfDay;
+                            ISheduleTask newTask = new SheduleTask
+                            {
+                                Command = session.Get<SheduleCommand>(shedule.StartCommandId),
+                                Auth = session.Get<Auth>(shedule.AuthId),
+                                StartDateTime = DateTime.UtcNow.Date + shedule.StartTime.TimeOfDay
+                            };
                             session.Save(newTask);
                         }
                         catch (Exception ex)
@@ -47,10 +46,12 @@ namespace ShantiTirttula.Server.Api.Helpers.Quartz
                     {
                         try
                         {
-                            ISheduleTask newTask = new SheduleTask();
-                            newTask.Command = session.Get<SheduleCommand>(shedule.EndCommandId);
-                            newTask.Auth = session.Get<Auth>(shedule.AuthId);
-                            newTask.StartDateTime = DateTime.UtcNow.Date + shedule.EndTime.TimeOfDay;
+                            ISheduleTask newTask = new SheduleTask
+                            {
+                                Command = session.Get<SheduleCommand>(shedule.EndCommandId),
+                                Auth = session.Get<Auth>(shedule.AuthId),
+                                StartDateTime = DateTime.UtcNow.Date + shedule.EndTime.TimeOfDay
+                            };
                             session.Save(newTask);
                         }
                         catch (Exception ex)
@@ -79,9 +80,9 @@ namespace ShantiTirttula.Server.Api.Helpers.Quartz
                             tx.Commit();
                         }
                     }
-                }             
+                }
             }
-            foreach(var shed in sheduleManager.All())
+            foreach (var shed in sheduleManager.All())
             {
                 HttpClient client = new HttpClient();
                 HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, Environment.GetEnvironmentVariable("DISP_URL") + "/api/disp/" + shed.Auth.Key);

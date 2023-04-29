@@ -1,13 +1,12 @@
-﻿using DevExtreme.AspNet.Data.ResponseModel;
-using DevExtreme.AspNet.Data;
+﻿using DevExtreme.AspNet.Data;
+using DevExtreme.AspNet.Data.ResponseModel;
 using DevExtreme.AspNet.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
-using ShantiTirttula.Domain.Models;
 using ShantiTirttula.Domain.Dto;
+using ShantiTirttula.Domain.Models;
 using ShantiTirttula.Repository.Managers;
-using ShantiTirttula.Repository.Models;
+using System.Security.Claims;
 
 namespace ShantiTirttula.Server.Api.Controllers.Common
 {
@@ -20,7 +19,7 @@ namespace ShantiTirttula.Server.Api.Controllers.Common
         public BaseUserCrudController(EntityManager<EntityType> manager, IHttpContextAccessor httpContextAccessor) : base(manager)
         {
             HttpContextAccessor = httpContextAccessor;
-            ShantiUser = new UserManager().Get(Convert.ToInt32(httpContextAccessor.HttpContext.User.Claims.First(x=>x.Type == ClaimTypes.Sid).Value));
+            ShantiUser = new UserManager().Get(Convert.ToInt32(httpContextAccessor.HttpContext.User.Claims.First(x => x.Type == ClaimTypes.Sid).Value));
         }
 
         [HttpGet]

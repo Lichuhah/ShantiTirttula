@@ -1,5 +1,5 @@
-﻿using ShantiTirttula.Domain.Dto.Models;
-using ShantiTirttula.Domain.Dto;
+﻿using ShantiTirttula.Domain.Dto;
+using ShantiTirttula.Domain.Dto.Models;
 using ShantiTirttula.Domain.Managers.Managment.Shedules;
 using ShantiTirttula.Domain.Models.Managment.Shedules;
 using ShantiTirttula.Repository.Models.Managment.Shedules;
@@ -15,14 +15,16 @@ namespace ShantiTirttula.Repository.Managers.Managment.Shedules
 
         public override CommandDto ConvertToDto(ISheduleCommand entity)
         {
-            CommandDto dto = new CommandDto();
-            dto.Id = entity.Id;
-            dto.Value = entity.Value;
-            dto.IsPwm = entity.Device.IsAnalog;
-            dto.Pin = entity.Device.Pin;
-            dto.AuthId = entity.Auth.Id;
-            dto.DeviceId = entity.Device.Id;
-            dto.Name = entity.Name;
+            CommandDto dto = new CommandDto
+            {
+                Id = entity.Id,
+                Value = entity.Value,
+                IsPwm = entity.Device.IsAnalog,
+                Pin = entity.Device.Pin,
+                AuthId = entity.Auth.Id,
+                DeviceId = entity.Device.Id,
+                Name = entity.Name
+            };
             return dto;
         }
 
@@ -41,7 +43,7 @@ namespace ShantiTirttula.Repository.Managers.Managment.Shedules
                 item.Auth = new AuthManager().Get(dto.AuthId);
                 //item.Device = item.Auth.Product.Controller.Devices.First(x => x.Pin == dto.Pin);
             }
-            if(dto.DeviceId > 0)
+            if (dto.DeviceId > 0)
                 item.Device = new DeviceManager().Get(dto.DeviceId);
 
             item.Value = (int)dto.Value;

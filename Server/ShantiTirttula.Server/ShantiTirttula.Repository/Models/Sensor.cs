@@ -1,7 +1,5 @@
-﻿using NHibernate.Linq;
-using ShantiTirttula.Domain.Models;
+﻿using ShantiTirttula.Domain.Models;
 using ShantiTirttula.Repository.Managers;
-using System.Web.Mvc;
 
 namespace ShantiTirttula.Repository.Models
 {

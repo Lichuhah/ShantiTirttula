@@ -17,11 +17,11 @@ namespace ShantiTirttula.Repository.Managers
         }
         public ISession GetSession()
         {
-            return this.Repository.Session;
+            return Repository.Session;
         }
         public void SetSession(ISession session)
         {
-            this.Repository.Session = session;
+            Repository.Session = session;
         }
 
         public virtual IQueryable<T> All()

@@ -1,14 +1,9 @@
-﻿using Microsoft.Extensions.Options;
-using MQTTnet;
+﻿using MQTTnet;
 using MQTTnet.Client;
 using MQTTnet.Extensions.ManagedClient;
 using MQTTnet.Formatter;
 using MQTTnet.Packets;
-using MQTTnet.Protocol;
 using MQTTnet.Server;
-using Newtonsoft.Json;
-using ShantiTirttula.Server.Dispatcher.Sessions;
-using System.Text;
 
 namespace ShantiTirttula.Server.Dispatcher.Mqtt
 {
@@ -43,7 +38,7 @@ namespace ShantiTirttula.Server.Dispatcher.Mqtt
 
         private void CreateServer()
         {
-            if (this.mqttServer != null)
+            if (mqttServer != null)
             {
                 return;
             }
@@ -55,16 +50,16 @@ namespace ShantiTirttula.Server.Dispatcher.Mqtt
                                     .WithDefaultEndpointPort(port)
                                     .Build();
             //options.EnablePersistentSessions = true;
-            this.mqttServer = new MqttFactory().CreateMqttServer(options);
+            mqttServer = new MqttFactory().CreateMqttServer(options);
 
             try
             {
-                this.mqttServer.StartAsync().GetAwaiter().GetResult();
+                mqttServer.StartAsync().GetAwaiter().GetResult();
             }
             catch (Exception ex)
             {
-                this.mqttServer.StopAsync();
-                this.mqttServer = null;
+                mqttServer.StopAsync();
+                mqttServer = null;
             }
         }
 
@@ -73,15 +68,15 @@ namespace ShantiTirttula.Server.Dispatcher.Mqtt
             var options = new ManagedMqttClientOptionsBuilder().WithAutoReconnectDelay(TimeSpan.FromSeconds(5))
            .WithClientOptions(new MqttClientOptionsBuilder().WithClientId("DispatcherSubscriber").WithTcpServer("localhost", port).Build()).Build();
 
-            this.managedMqttClientSubscriber = new MqttFactory().CreateManagedMqttClient();
-            this.managedMqttClientSubscriber.ApplicationMessageReceivedAsync += this.HandleReceivedApplicationMessage;
+            managedMqttClientSubscriber = new MqttFactory().CreateManagedMqttClient();
+            managedMqttClientSubscriber.ApplicationMessageReceivedAsync += HandleReceivedApplicationMessage;
             var mqttFilter = new MqttTopicFilterBuilder().WithTopic("test").Build();
-            this.managedMqttClientSubscriber.SubscribeAsync(new List<MqttTopicFilter> { mqttFilter });
-            this.managedMqttClientSubscriber.StartAsync(options);
+            managedMqttClientSubscriber.SubscribeAsync(new List<MqttTopicFilter> { mqttFilter });
+            managedMqttClientSubscriber.StartAsync(options);
         }
 
         private static Task OnPublisherConnected(MqttClientConnectedEventArgs con)
-        {      
+        {
             return Task.CompletedTask;
         }
 
@@ -127,12 +122,12 @@ namespace ShantiTirttula.Server.Dispatcher.Mqtt
             options.CleanSession = true;
             options.KeepAlivePeriod = TimeSpan.FromSeconds(5);
 
-            this.managedMqttClientPublisher = mqttFactory.CreateManagedMqttClient();
-            this.managedMqttClientPublisher.ApplicationMessageReceivedAsync += this.HandleReceivedApplicationMessage;
-            this.managedMqttClientPublisher.ConnectedAsync += OnPublisherConnected;
-            this.managedMqttClientPublisher.DisconnectedAsync += OnPublisherDisconnected;
+            managedMqttClientPublisher = mqttFactory.CreateManagedMqttClient();
+            managedMqttClientPublisher.ApplicationMessageReceivedAsync += HandleReceivedApplicationMessage;
+            managedMqttClientPublisher.ConnectedAsync += OnPublisherConnected;
+            managedMqttClientPublisher.DisconnectedAsync += OnPublisherDisconnected;
 
-            this.managedMqttClientPublisher.StartAsync(
+            managedMqttClientPublisher.StartAsync(
                 new ManagedMqttClientOptions
                 {
                     ClientOptions = options
@@ -146,9 +141,9 @@ namespace ShantiTirttula.Server.Dispatcher.Mqtt
                 var message = new MqttApplicationMessageBuilder()
                     .WithTopic(topic).WithPayload(payload).Build();
 
-                if (this.managedMqttClientPublisher != null)
+                if (managedMqttClientPublisher != null)
                 {
-                    this.managedMqttClientPublisher.EnqueueAsync(message);
+                    managedMqttClientPublisher.EnqueueAsync(message);
                 }
             }
             catch (Exception ex)

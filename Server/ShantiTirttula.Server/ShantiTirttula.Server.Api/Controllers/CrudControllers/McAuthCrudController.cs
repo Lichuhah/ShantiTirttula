@@ -1,21 +1,16 @@
-﻿using ShantiTirttula.Domain.Models;
-using ShantiTirttula.Repository.Managers;
-using ShantiTirttula.Domain.Dto;
-using DevExtreme.AspNet.Data;
+﻿using DevExtreme.AspNet.Data;
 using DevExtreme.AspNet.Data.ResponseModel;
 using DevExtreme.AspNet.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NHibernate.Util;
-using ShantiTirttula.Server.Api.Controllers.Common;
-using ShantiTirttula.Domain.Dto.Models.TreeDto;
+using ShantiTirttula.Domain.Dto;
 using ShantiTirttula.Domain.Dto.Models;
-using System.Xml.Linq;
+using ShantiTirttula.Domain.Dto.Models.TreeDto;
 using ShantiTirttula.Domain.Enums;
-using ShantiTirttula.Domain.Managers;
-using System.Security.Claims;
-using DevExpress.ClipboardSource.SpreadsheetML;
-using ShantiTirttula.Repository.Models;
+using ShantiTirttula.Domain.Models;
+using ShantiTirttula.Repository.Managers;
+using ShantiTirttula.Server.Api.Controllers.Common;
 
 namespace ShantiTirttula.Server.Api.Controllers.CrudControllers
 {
@@ -45,8 +40,8 @@ namespace ShantiTirttula.Server.Api.Controllers.CrudControllers
         {
             try
             {
-                IAuth data = Manager.All().FirstOrDefault(x=>x.Key == key);
-                if(data != null)
+                IAuth data = Manager.All().FirstOrDefault(x => x.Key == key);
+                if (data != null)
                     return new ApiResponse<ECommandProducerAlgorithm>().SetData(data.Producer).Result();
                 else
                     return new ApiResponse<object>().Error("wrong key").Result();
@@ -75,7 +70,7 @@ namespace ShantiTirttula.Server.Api.Controllers.CrudControllers
                     string result = response.Content.ReadAsStringAsync().Result;
 
                     return new ApiResponse<ECommandProducerAlgorithm>().SetData(data.Producer).Result();
-                }       
+                }
                 else
                     return new ApiResponse<object>().Error("wrong key").Result();
             }
@@ -97,14 +92,14 @@ namespace ShantiTirttula.Server.Api.Controllers.CrudControllers
                 var a = Manager.Get(1);
                 List<CommonTreeDto> dto = data.Select(x => new CommonTreeDto()
                 {
-                    Id = -1*x.Product.Id,
+                    Id = -1 * x.Product.Id,
                     Name = x.Key
                 }).ToList();
                 dto = dto.Concat(devices.Select(x => new CommonTreeDto()
                 {
                     Id = x.Id,
                     Name = x.Type.Name,
-                    ParentId = -1*x.Controller.Id
+                    ParentId = -1 * x.Controller.Id
                 })).ToList();
                 return new ApiResponse<LoadResult>().SetData(DataSourceLoader.Load(dto, loadOptions)).Result();
             }

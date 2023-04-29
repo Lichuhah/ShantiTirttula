@@ -1,15 +1,14 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Data;
-using System.Security.Claims;
-using System.IdentityModel.Tokens.Jwt;
 using Microsoft.IdentityModel.Tokens;
-using ShantiTirttula.Domain.Models;
 using ShantiTirttula.Domain.Dto;
-using ShantiTirttula.Server.Api.Helpers;
 using ShantiTirttula.Domain.Dto.Models;
+using ShantiTirttula.Domain.Models;
 using ShantiTirttula.Repository.Managers;
-using static DevExpress.Data.Helpers.FindSearchRichParser;
+using ShantiTirttula.Server.Api.Helpers;
+using System.Data;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 
 namespace ShantiTirttula.Server.Api.Controllers
 {
@@ -25,8 +24,8 @@ namespace ShantiTirttula.Server.Api.Controllers
             try
             {
                 UserManager manager = new UserManager();
-                IQueryable<IUser> users = manager.All().Where(x=>x.Login == loginData.Login && x.Password == loginData.Password);
-                if(users.Any())
+                IQueryable<IUser> users = manager.All().Where(x => x.Login == loginData.Login && x.Password == loginData.Password);
+                if (users.Any())
                 {
                     string token = GenerateJwt(users.First());
 
@@ -34,10 +33,11 @@ namespace ShantiTirttula.Server.Api.Controllers
                         new CookieOptions { MaxAge = TimeSpan.FromMinutes(300) });
 
                     return new ApiResponse<bool>().SetData(true).Result();
-                } else
+                }
+                else
                 {
                     return new ApiResponse<object>().Error("Wrong user data").Result();
-                }                
+                }
             }
             catch (Exception e)
             {
@@ -87,7 +87,7 @@ namespace ShantiTirttula.Server.Api.Controllers
                     new Claim(ClaimTypes.Sid, user.Id.ToString()),
                     new Claim(ClaimTypes.Name, user.Login)
                 };
-            
+
             JwtSecurityToken jwt = new JwtSecurityToken(
                     issuer: JwtHelper.ISSUER,
                     audience: JwtHelper.AUDIENCE,

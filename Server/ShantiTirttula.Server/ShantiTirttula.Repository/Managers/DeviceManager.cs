@@ -1,7 +1,7 @@
-﻿using ShantiTirttula.Domain.Managers;
-using ShantiTirttula.Domain.Models;
-using ShantiTirttula.Domain.Dto;
+﻿using ShantiTirttula.Domain.Dto;
 using ShantiTirttula.Domain.Dto.Models;
+using ShantiTirttula.Domain.Managers;
+using ShantiTirttula.Domain.Models;
 using ShantiTirttula.Repository.Models;
 
 namespace ShantiTirttula.Repository.Managers
@@ -15,11 +15,13 @@ namespace ShantiTirttula.Repository.Managers
 
         public override DeviceDto ConvertToDto(IDevice entity)
         {
-            DeviceDto dto = new DeviceDto();
-            dto.Id = entity.Id;
-            dto.TypeName = entity.Type.Name;
-            dto.IsPwm = entity.IsAnalog;
-            dto.Pin = entity.Pin;
+            DeviceDto dto = new DeviceDto
+            {
+                Id = entity.Id,
+                TypeName = entity.Type.Name,
+                IsPwm = entity.IsAnalog,
+                Pin = entity.Pin
+            };
             return dto;
         }
 
