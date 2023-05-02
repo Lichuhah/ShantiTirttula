@@ -5,11 +5,22 @@ import UserPanel from '../user-panel/UserPanel';
 import './Header.scss';
 import { Template } from 'devextreme-react/core/template';
 import type { HeaderProps } from '../../types';
+import { Form } from 'devextreme-react';
+
+let toolbarsyle = {
+  style: "background-image: url('/resource/pictures/SumeruBack1.webp');" +
+  "background-repeat: no-repeat;" + 
+  "background-position: 0px 0px;" + 
+  "background-size: contain;", 
+}
 
 export default function Header({ menuToggleEnabled, title, toggleMenu }: HeaderProps) {
   return (
     <header className={'header-component'}>
-      <Toolbar className={'header-toolbar'}>
+      <Toolbar className={'header-toolbar'}
+        height = {document.body.offsetHeight * 0.04}
+        elementAttr = {toolbarsyle}
+      >
         <Item
           visible={menuToggleEnabled}
           location={'before'}
@@ -17,13 +28,19 @@ export default function Header({ menuToggleEnabled, title, toggleMenu }: HeaderP
           cssClass={'menu-button'}
         >
           <Button icon="menu" stylingMode="text" onClick={toggleMenu} />
-        </Item>
+        </Item> 
         <Item
           location={'before'}
           cssClass={'header-title'}
           text={title}
           visible={!!title}
         />
+        <Item
+          location={'center'}
+          locateInMenu={'auto'}
+        >
+          <img src="/resource/icons/SumeruIcon.png" width={'100%'} height={document.body.offsetHeight * 0.04}></img>
+        </Item>
         <Item
           location={'after'}
           locateInMenu={'auto'}
@@ -40,7 +57,7 @@ export default function Header({ menuToggleEnabled, title, toggleMenu }: HeaderP
         </Item>
         <Template name={'userPanelTemplate'}>
           <UserPanel menuMode={'list'} />
-        </Template>
+        </Template>        
       </Toolbar>
     </header>
 )}

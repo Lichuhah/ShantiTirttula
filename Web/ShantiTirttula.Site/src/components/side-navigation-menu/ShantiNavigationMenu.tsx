@@ -61,7 +61,14 @@ export class ShantiNavigationMenu extends React.PureComponent<ShantiNavigationMe
                 path: '/home'
             },
             {
-               text: 'Контроллер: '+this.state.mcKey,
+                text: 'Контроллеры',
+                key: 'controllers',
+                icon: 'rowfield',
+                path: '/controllers',
+            },
+            {
+               text: this.state.mcKey == '' ? 'Выберите контроллер' : this.state.mcKey,
+               disabled: !this.state.isMcSelected,
                icon: 'folder',
                items: [
                 //  {
@@ -70,46 +77,53 @@ export class ShantiNavigationMenu extends React.PureComponent<ShantiNavigationMe
                 //    path: '/profile',
                 //    disabled: !this.state.isMcSelected,
                 //  },
-                 {
-                   text: 'Контроллеры',
-                   key: 'controllers',
-                   path: '/controllers',
-                 },
-                 {
-                   text: 'Триггеры',
-                   key: 'triggers',
-                   path: '/triggers',
-                   disabled: !this.state.isMcSelected,
-                 },
-                 {
-                    text: 'Датчики',
-                    key: 'sensors',
-                    path: '/sensors',
+                {
+                    text: 'Данные',
                     disabled: !this.state.isMcSelected,
-                 },
-                 {
-                    text: 'Значения датчиков',
-                    key: 'sensordata',
-                    path: '/sensordata',
+                    items: [
+                        {
+                            text: 'Датчики',
+                            key: 'sensors',
+                            path: '/sensors',
+                            disabled: !this.state.isMcSelected,
+                         },
+                         {
+                            text: 'Значения датчиков',
+                            key: 'sensordata',
+                            path: '/sensordata',
+                            disabled: !this.state.isMcSelected,
+                         }
+                         ,
+                         {
+                            text: 'Устройства',
+                            key: 'devices',
+                            path: '/devices',
+                            disabled: !this.state.isMcSelected,
+                         }
+                         ,
+                         {
+                            text: 'Команды',
+                            key: 'commands',
+                            path: '/commands',
+                            disabled: !this.state.isMcSelected
+                        }
+                    ]
+                },
+                {
+                    text: 'Управление через правила',
                     disabled: !this.state.isMcSelected,
-                 }
-                 ,
-                 {
-                    text: 'Устройства',
-                    key: 'devices',
-                    path: '/devices',
-                    disabled: !this.state.isMcSelected,
-                 }
-                 ,
-                 {
-                    text: 'Команды',
-                    key: 'commands',
-                    path: '/commands',
-                    disabled: !this.state.isMcSelected
+                    items: [
+                        {
+                            text: 'Триггеры',
+                            key: 'triggers',
+                            path: '/triggers',
+                            disabled: !this.state.isMcSelected,
+                        }
+                    ]
                 }
                 ,
                 {
-                    text: 'Раписание',
+                    text: 'Ручное управление',
                     key: 'shedule-folder',
                     disabled: !this.state.isMcSelected,
                     items: [
@@ -126,13 +140,6 @@ export class ShantiNavigationMenu extends React.PureComponent<ShantiNavigationMe
                         }
                     ]
                 }
-                ,
-                 {
-                    text: 'Лог команд',
-                    key: 'commandlog',
-                    path: '/commandlog',
-                    disabled: !this.state.isMcSelected,
-                 }
                ]
          }
         ];

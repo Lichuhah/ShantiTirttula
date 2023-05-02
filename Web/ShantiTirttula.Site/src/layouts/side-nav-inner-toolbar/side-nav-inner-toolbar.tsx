@@ -71,7 +71,7 @@ export default function SideNavInnerToolbar({ title, children }: React.PropsWith
         closeOnOutsideClick={onOutsideClick}
         openedStateMode={isLarge ? 'shrink' : 'overlap'}
         revealMode={isXSmall ? 'slide' : 'expand'}
-        minSize={isXSmall ? 0 : 60}
+        minSize={isXSmall ? 0 : 160}
         maxSize={250}
         shading={isLarge ? false : true}
         opened={menuStatus === MenuStatus.Closed ? false : true}
@@ -109,7 +109,7 @@ export default function SideNavInnerToolbar({ title, children }: React.PropsWith
                   location={'before'}
                   cssClass={'menu-button'}
                 >
-                  <Button icon="menu" stylingMode="text" onClick={toggleMenu} />
+                  <Button icon="sumeruicon" stylingMode="text" onClick={toggleMenu} />
                 </Item>
               }
               <Item location={'before'} cssClass={'header-title'} text={title} />
