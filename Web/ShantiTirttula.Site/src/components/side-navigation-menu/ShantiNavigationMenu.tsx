@@ -138,6 +138,12 @@ export class ShantiNavigationMenu extends React.PureComponent<ShantiNavigationMe
                             key: 'shedule-tasks',
                             path: '/shedule-tasks',
                         }
+                        ,
+                        {
+                            text: 'График',
+                            key: 'shedule-task-graph',
+                            path: '/shedule-task-graph',
+                        }
                     ]
                 }
                ]

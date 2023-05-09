@@ -20,7 +20,7 @@ namespace ShantiTirttula.Repository.Managers.Managment.Shedules
                 Id = entity.Id,
                 Period = entity.Period,
                 StartTime = DateTime.SpecifyKind(entity.StartTime, DateTimeKind.Utc),
-                EndTime = DateTime.SpecifyKind(entity.StartTime, DateTimeKind.Utc),
+                EndTime = DateTime.SpecifyKind(entity.EndTime, DateTimeKind.Utc),
                 StartCommandId = entity.StartCommand.Id,
                 EndCommandId = entity.EndCommand.Id,
                 AuthId = entity.Auth.Id

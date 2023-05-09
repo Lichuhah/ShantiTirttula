@@ -19,6 +19,7 @@ namespace ShantiTirttula.Repository.Managers.Managment.Shedules
             {
                 Id = entity.Id,
                 StartDateTime = DateTime.SpecifyKind(entity.StartDateTime, DateTimeKind.Utc),
+                EndDateTime = DateTime.SpecifyKind(entity.StartDateTime+TimeSpan.FromMinutes(10), DateTimeKind.Utc),
                 Command = new SheduleCommandManager().ConvertToDto(entity.Command),
                 AuthId = entity.Auth.Id
             };

@@ -15,13 +15,19 @@ export default function SensorsForm() {
             url: `${process.env.REACT_APP_API_URL}/api/test/data-proc/` + new URLSearchParams(window.location.search).get("id"),
         },
         paginate: false,
-    });
+    })
+
+    let argAxis = {
+        label: {
+            format: "yyyy-MM-dd HH:mm:ss"
+        }
+    };
 
     return (
         <React.Fragment>
           <ShantiItemForm title="Датчик: " colCount={2} path="/api/sensors" >
             <Item
-                dataField={'name'}
+                dataField={'typeName'}
                 editorType={'dxTextBox'}
                 itemType={'simple'}
             />
@@ -36,12 +42,17 @@ export default function SensorsForm() {
                 colSpan={2}
                 render={()=>{ return (
                     <Chart
-                        title="Temperature in Seattle , 2017"
-                        dataSource={chartDataSource}>
+                        title="Данные:"
+                        dataSource = {chartDataSource}
+                        argumentAxis = {argAxis}
+                        palette={"Dark Moon"}
+                    >
                         <Series
+                            name="Temp."
                             argumentField="dateTime"
                             valueField="value"
-                            type="spline"
+                            type="line"
+                            showInLegend={false}
                         />
                     </Chart>
                 )}}

@@ -33,6 +33,7 @@ export default class ShantiItemForm extends React.PureComponent<ShantiItemFormPr
     title: string;
     items: any;
     form: any;
+    children: any;
     editors = {};  
 
     constructor(props){
@@ -43,6 +44,10 @@ export default class ShantiItemForm extends React.PureComponent<ShantiItemFormPr
         // else {
         //      this.items = this.props.children;
         // }
+        if(!Array.isArray(this.props.children))
+            this.children  = [this.props.children];
+        else
+            this.children = this.props.children;
 
         this.state = {pageMode: this.getMode(), itemId: this.getId(), formData: {}}
         this.loadData();
@@ -205,7 +210,7 @@ export default class ShantiItemForm extends React.PureComponent<ShantiItemFormPr
                     onFieldDataChanged = {this.fieldChanged}
                     formData = {this.state.formData}
                     >
-                    {this.props.children.map((col,i) => { 
+                    {this.children.map((col,i) => {
                         return col;
                     })} 
                 </Form>

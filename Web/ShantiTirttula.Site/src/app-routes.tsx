@@ -1,5 +1,22 @@
-import { HomePage, ProfilePage, ControllerPage, TriggerPage, TriggerFormPage, SensorsPage, SensorDataPage, DevicePage, CommandLogPage, SensorFormPage, 
-ShedulesPage, SheduleTasksPage, CommandsPage, ShedulesFormPage, CommandsFormPage, SheduleTasksFormPage } from './pages';
+import {
+    HomePage,
+    ProfilePage,
+    ControllerPage,
+    TriggerPage,
+    TriggerFormPage,
+    SensorsPage,
+    SensorDataPage,
+    DevicePage,
+    CommandLogPage,
+    SensorFormPage,
+    ShedulesPage,
+    SheduleTasksPage,
+    CommandsPage,
+    ShedulesFormPage,
+    CommandsFormPage,
+    SheduleTasksFormPage,
+    SheduleTaskGraphPage
+} from './pages';
 import { withNavigationWatcher } from './contexts/navigation';
 
 const routes = [
@@ -66,6 +83,10 @@ const routes = [
     {
         path: '/shedule-tasks/form',
         element: SheduleTasksFormPage
+    },
+    {
+        path: '/shedule-task-graph',
+        element: SheduleTaskGraphPage
     }
 ];
 

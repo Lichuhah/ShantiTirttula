@@ -14,11 +14,18 @@ let toolbarsyle = {
   "background-size: contain;", 
 }
 
+let userpanelstyle = {
+  style: "background-image: url('/resource/pictures/UserPanelBack1.webp');" +
+      "background-repeat: no-repeat;" +
+      "background-position: 0px 0px;" +
+      "background-size: contain;",
+}
+
 export default function Header({ menuToggleEnabled, title, toggleMenu }: HeaderProps) {
   return (
     <header className={'header-component'}>
       <Toolbar className={'header-toolbar'}
-        height = {document.body.offsetHeight * 0.04}
+        height = {document.body.offsetHeight * 0.08}
         elementAttr = {toolbarsyle}
       >
         <Item
@@ -39,7 +46,7 @@ export default function Header({ menuToggleEnabled, title, toggleMenu }: HeaderP
           location={'center'}
           locateInMenu={'auto'}
         >
-          <img src="/resource/icons/SumeruIcon.png" width={'100%'} height={document.body.offsetHeight * 0.04}></img>
+          <img src="/resource/icons/SumeruIcon.png" width={'100%'} height={document.body.offsetHeight * 0.08}></img>
         </Item>
         <Item
           location={'after'}
@@ -55,7 +62,7 @@ export default function Header({ menuToggleEnabled, title, toggleMenu }: HeaderP
             <UserPanel menuMode={'context'} />
           </Button>
         </Item>
-        <Template name={'userPanelTemplate'}>
+        <Template name={'userPanelTemplate'} >
           <UserPanel menuMode={'list'} />
         </Template>        
       </Toolbar>

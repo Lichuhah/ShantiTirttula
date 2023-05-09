@@ -30,10 +30,10 @@ export default function UserPanel({ menuMode }: UserPanelProps) {
       <div className={'user-info'}>
         <div className={'image-container'}>
           <div
-            //style={{
-            //  background: `url(${user!.avatarUrl}) no-repeat #fff`,
-            //  backgroundSize: 'cover'
-            //}}
+            style={{
+              background: `url(https://avatars.githubusercontent.com/u/63907966?s=400&u=f2d1bb78665fc760f815c1f704894d92bb1c89af&v=4) no-repeat #fff`,
+              backgroundSize: 'cover'
+            }}
             className={'user-image'} />
         </div>
         <div className={'user-name'}>{user!.email}</div>

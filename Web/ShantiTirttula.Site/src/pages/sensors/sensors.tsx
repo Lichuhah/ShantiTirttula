@@ -7,12 +7,14 @@ import ShantiDataGrid from '../../components/shanti-data-grid/ShantiDataGrid';
 import { Link, useNavigate } from 'react-router-dom';
 
 export default function Triggers() {
+  let navigate = useNavigate();
+
   let rowActions = new Array(
     {             
       text:'Посмотреть данные',
       icon:'pin',
       onClick: (e)=>{
-          document.location.href='/sensors/form?mode=edit&id='+ grid.GetSelectedItems()[0].id
+          navigate('/sensors/form?mode=edit&id='+ grid.GetSelectedItems()[0].id)
         }
       }            
     );
@@ -34,7 +36,7 @@ export default function Triggers() {
         path: '/api/ap/sensor', 
         children: columns,
         rowActions: rowActions,
-        navigate: useNavigate()
+        navigate: navigate
       })
 
   return (

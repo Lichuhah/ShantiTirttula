@@ -52,3 +52,8 @@ yarn-error.log*
 /Server/ShantiTirttula.Server/ShantiTirttula.Domain/obj
 /Server/ShantiTirttula.Server/ShantiTirttula.Repository/bin/Debug/net7.0
 /Server/ShantiTirttula.Server/ShantiTirttula.Repository/obj
+/Desktop/Desktop/.idea
+/Desktop/Desktop/cmake-build-debug
+/Desktop/build-Desktop-MINGW-Debug
+/Server/ShantiTirttula.Server/.idea
+/Web/ShantiTirttula.Site/.idea

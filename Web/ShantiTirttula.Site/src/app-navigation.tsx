@@ -42,7 +42,7 @@ export const navigation = [
         key: 'shedule-tasks',
         path: '/shedule-tasks',
         disabled: true
-      },
+      }
     ]
   }
   ];
