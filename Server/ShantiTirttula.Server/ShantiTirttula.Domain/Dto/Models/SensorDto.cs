@@ -8,5 +8,6 @@ namespace ShantiTirttula.Domain.Dto.Models
         public int TypeId { get; set; }
         public string TypeName { get; set; }
         public int Number { get; set; }
+        public string Unit { get; set; }
     }
 }

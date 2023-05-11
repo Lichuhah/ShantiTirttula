@@ -6,6 +6,7 @@ namespace ShantiTirttula.Repository.Models
     public class SensorType : Entity, ISensorType
     {
         public virtual string Name { get; set; }
+        public virtual string Unit { get; set; }
         public virtual IList<ISensor> Sensors { get; set; }
         public virtual double MaxValue { get; set; }
         public virtual double MinValue { get; set; }

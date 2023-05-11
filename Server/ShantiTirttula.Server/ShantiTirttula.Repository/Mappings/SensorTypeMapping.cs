@@ -11,6 +11,10 @@ namespace ShantiTirttula.Repository.Mappings
             {
                 map.Column("NAME");
             });
+            Property(x => x.Unit, map =>
+            {
+                map.Column("UNIT");
+            });
             Property(x => x.Power, map =>
             {
                 map.Column("POWER");

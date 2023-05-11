@@ -20,7 +20,8 @@ namespace ShantiTirttula.Repository.Managers
                 Id = entity.Id,
                 TypeName = entity.Type.Name,
                 Number = entity.Number,
-                AuthId = entity.Auth.Id
+                AuthId = entity.Auth.Id,
+                Unit = entity.Type.Unit,
             };
             return dto;
         }
