@@ -56,18 +56,18 @@ export class ShantiNavigationMenu extends React.PureComponent<ShantiNavigationMe
         
         return [
             {
-                text: 'Home',
+                text: 'Главная',
                 icon: 'home',
                 path: '/home'
             },
             {
-                text: 'Контроллеры',
+                text: 'Теплицы',
                 key: 'controllers',
                 icon: 'rowfield',
                 path: '/controllers',
             },
             {
-               text: this.state.mcKey == '' ? 'Выберите контроллер' : this.state.mcKey,
+               text: this.state.mcKey == '' ? 'Выберите теплицу' : this.state.mcKey,
                disabled: !this.state.isMcSelected,
                icon: 'folder',
                items: [

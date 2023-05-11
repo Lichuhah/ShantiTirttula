@@ -21,7 +21,7 @@ export default function Content() {
         />
       </Routes>
       <Footer>
-        Copyright © 2011-{new Date().getFullYear()} {appInfo.title} Inc.
+        Copyright © 2022-{new Date().getFullYear()} ShantiTirttula Lichuha
         <br />
         All trademarks or registered trademarks are property of their
         respective owners.

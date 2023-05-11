@@ -10,7 +10,7 @@ export default function Controllers() {
 
   let rowActions = new Array(
   {             
-    text:'Установить основным',
+    text:'Установить основной',
     icon:'pin',
     onClick: ()=>{
       document.dispatchEvent(new CustomEvent("selectedControllerChanged", { 
@@ -28,20 +28,27 @@ export default function Controllers() {
       hidingPriority={8}
     />,
     <Column
-      dataField={'mac'}
-      caption={'Мас адрес'}
-      hidingPriority={8}
+      dataField={'typeName'}
+      caption={'Продукт'}
+      hidingPriority={6}
     />,
     <Column
-      dataField={'typeName'}
-      caption={'Тип контроллера'}
-      hidingPriority={6}
+        dataField={'lastDateTime'}
+        caption={'Последнее обновление'}
+        hidingPriority={6}
+        dataType={'datetime'}
+        format={"yyyy-MM-dd HH:mm:ss"}
+    />,
+    <Column
+        dataField={'isConnected'}
+        caption={'Состояние'}
+        hidingPriority={6}
     />
   ];
 
   let grid:ShantiDataGrid = new ShantiDataGrid(
     { 
-      title: 'Контроллеры',
+      title: 'Теплицы',
       path: '/api/auth', 
       children: columns,
       rowActions: rowActions,

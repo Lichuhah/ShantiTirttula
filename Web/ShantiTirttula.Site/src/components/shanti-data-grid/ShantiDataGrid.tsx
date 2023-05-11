@@ -2,15 +2,15 @@ import React from 'react';
 import 'devextreme/data/odata/store';
 import DataSource from 'devextreme/data/custom_store';
 import DataGrid, {
-  Column,
-  SearchPanel,
-  Pager,
-  Paging,
-  FilterRow,
-  Lookup,
-  Item,
-  Toolbar,
-  Selection
+    Column,
+    SearchPanel,
+    Pager,
+    Paging,
+    FilterRow,
+    Lookup,
+    Item,
+    Toolbar,
+    Selection, ColumnChooser, Export
 } from 'devextreme-react/data-grid';
 import { getTokenFromLocalStorage } from '../../api/auth';
 import Button from 'devextreme-react/button';
@@ -148,6 +148,10 @@ class ShantiDataGrid extends React.PureComponent<ShantiDataGridProps> {
               
               /></Link>
           </Item>
+
+            <Item location="before" name="searchPanel"/>
+            <Item name="columnChooserButton"/>
+            <Item name="exportButton" />
         </Toolbar>
       );
     }
@@ -219,12 +223,16 @@ class ShantiDataGrid extends React.PureComponent<ShantiDataGridProps> {
                 defaultFocusedRowIndex={0}
                 columnAutoWidth={true}
                 columnHidingEnabled={true}
+                allowColumnReordering={true}
+                allowColumnResizing={true}
                 >
                     <Paging defaultPageSize={10} />
                     <Pager showPageSizeSelector={true} showInfo={true} />
                     <FilterRow visible={true} />
                     <SearchPanel visible={true} highlightCaseSensitive={true} />
                     <Selection mode={'single'} />
+                    <ColumnChooser enabled={true} />
+                    <Export enabled={true} />
                     {this.getToolbar()}
                     <Column
                       width={'5%'}

@@ -10,5 +10,6 @@ namespace ShantiTirttula.Repository.Models
         public virtual IList<ITrigger> Triggers { get; set; }
         public virtual IProduct Product { get; set; }
         public virtual ECommandProducerAlgorithm Producer { get; set; }
+        public virtual DateTime LastDateTime { get; set; }
     }
 }

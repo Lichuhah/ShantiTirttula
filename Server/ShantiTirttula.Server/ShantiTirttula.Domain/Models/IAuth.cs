@@ -9,5 +9,6 @@ namespace ShantiTirttula.Domain.Models
         public IList<ITrigger> Triggers { get; set; }
         public IProduct Product { get; set; }
         public ECommandProducerAlgorithm Producer { get; set; }
+        public DateTime LastDateTime { get; set; }
     }
 }

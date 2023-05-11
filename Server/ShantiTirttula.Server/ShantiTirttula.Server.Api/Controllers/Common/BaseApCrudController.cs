@@ -131,6 +131,9 @@ namespace ShantiTirttula.Server.Api.Controllers.Common
             HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, Environment.GetEnvironmentVariable("DISP_URL") + "/api/disp/" + Auth.Key);
             HttpResponseMessage response = client.Send(request);
             string result = response.Content.ReadAsStringAsync().Result;
+            AuthManager manager = new AuthManager();
+            this.Auth.LastDateTime = DateTime.UtcNow;
+            manager.Save(this.Auth);
             return true;
         }
     }

@@ -11,6 +11,10 @@ namespace ShantiTirttula.Repository.Mappings
             {
                 map.Column("MAC");
             });
+            Property(x => x.Name, map =>
+            {
+                map.Column("NAME");
+            });
             ManyToOne(x => x.Controller, map =>
             {
                 map.Column("CONTROLLER_ID");

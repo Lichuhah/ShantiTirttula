@@ -15,6 +15,10 @@ namespace ShantiTirttula.Repository.Mappings
             {
                 map.Column("PRODUCER");
             });
+            Property(x => x.LastDateTime, map =>
+            {
+                map.Column("LASTDATETIME");
+            });
             ManyToOne(x => x.User, map =>
             {
                 map.Column("USER_ID");

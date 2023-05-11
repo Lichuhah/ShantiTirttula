@@ -46,7 +46,7 @@ export default function Header({ menuToggleEnabled, title, toggleMenu }: HeaderP
           location={'center'}
           locateInMenu={'auto'}
         >
-          <img src="/resource/icons/SumeruIcon.png" width={'100%'} height={document.body.offsetHeight * 0.08}></img>
+          <img src="/resource/icons/SumeruIcon.png" width={'100%'} height={document.body.offsetHeight * 0.07}></img>
         </Item>
         <Item
           location={'after'}

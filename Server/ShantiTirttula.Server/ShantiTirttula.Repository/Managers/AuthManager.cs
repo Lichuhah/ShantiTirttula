@@ -22,7 +22,9 @@ namespace ShantiTirttula.Repository.Managers
                 ProductId = entity.Product.Id,
                 Mac = entity.Product.Mac
             };
-            //dto.TypeName = entity.Controller.Type.Name;
+            dto.TypeName = entity.Product.Name;
+            dto.LastDateTime = entity.LastDateTime;
+            dto.IsConnected = dto.LastDateTime > dto.LastDateTime - TimeSpan.FromHours(1) ? true : false;
             return dto;
         }
 
