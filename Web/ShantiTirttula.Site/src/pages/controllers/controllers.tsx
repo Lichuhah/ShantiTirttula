@@ -10,7 +10,7 @@ export default function Controllers() {
 
   let rowActions = new Array(
   {             
-    text:'Установить основной',
+    text:'Выбрать',
     icon:'pin',
     onClick: ()=>{
       document.dispatchEvent(new CustomEvent("selectedControllerChanged", { 
@@ -25,24 +25,24 @@ export default function Controllers() {
     <Column
       dataField={'key'}
       caption={'Ключ'}
-      hidingPriority={8}
     />,
     <Column
       dataField={'typeName'}
       caption={'Продукт'}
-      hidingPriority={6}
+    />,
+    <Column
+      dataField={'producerType'}
+      caption={'Режим управления'}
     />,
     <Column
         dataField={'lastDateTime'}
         caption={'Последнее обновление'}
-        hidingPriority={6}
         dataType={'datetime'}
         format={"yyyy-MM-dd HH:mm:ss"}
     />,
     <Column
         dataField={'isConnected'}
         caption={'Состояние'}
-        hidingPriority={6}
     />
   ];
 
@@ -52,7 +52,9 @@ export default function Controllers() {
       path: '/api/auth', 
       children: columns,
       rowActions: rowActions,
-      navigate: useNavigate()
+      navigate: useNavigate(),
+      allowDelete: false,
+      allowEdit: false,
     })
 
   return (

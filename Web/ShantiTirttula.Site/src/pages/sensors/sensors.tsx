@@ -12,7 +12,7 @@ export default function Triggers() {
   let rowActions = new Array(
     {             
       text:'Посмотреть данные',
-      icon:'pin',
+      icon:'chart',
       onClick: (e)=>{
           navigate('/sensors/form?mode=edit&id='+ grid.GetSelectedItems()[0].id)
         }
@@ -27,13 +27,21 @@ export default function Triggers() {
         <Column
           dataField={'number'}
           caption={'Порядковый номер'}
+          alignment={'left'}
+        />,
+        <Column
+            dataField={'unit'}
+            caption={'Единица измерения'}
+            alignment={'left'}
         />
     ];
 
     let grid:ShantiDataGrid = new ShantiDataGrid(
       { 
         title: 'Датчики',
-        path: '/api/ap/sensor', 
+        path: '/api/ap/sensor',
+          allowDelete: false,
+          allowEdit: false,
         children: columns,
         rowActions: rowActions,
         navigate: navigate

@@ -14,13 +14,13 @@ public class TestDataController : Controller
     {
         SensorDataManager man = new SensorDataManager();
         Random rnd = new Random(DateTime.UtcNow.Millisecond);
-        IAuth auth = new AuthManager().Get(2);
-        ISensor sensor = new SensorManager().Get(2);
+        IAuth auth = new AuthManager().Get(1);
+        ISensor sensor = new SensorManager().Get(1);
         DateTime startData = DateTime.UtcNow - TimeSpan.FromHours(22);
         DateTime endData = DateTime.UtcNow;
         SensorData data;
         int value = 1800;
-        for (DateTime i = startData; i < DateTime.Parse("May 9. 2023"); i += TimeSpan.FromMinutes(1))
+        for (DateTime i = startData; i < DateTime.Parse("May 12. 2023"); i += TimeSpan.FromMinutes(1))
         {
              data = new SensorData();
              data.DateTime = i;
@@ -32,7 +32,7 @@ public class TestDataController : Controller
         }
 
         value = Convert.ToInt32(man.All().Where(x => x.Sensor == sensor).OrderByDescending((x => x.Id)).First().Value);
-        for (DateTime i = DateTime.Parse("May 9. 2023"); value > 1850; i += TimeSpan.FromMinutes(1))
+        for (DateTime i = DateTime.Parse("May 12. 2023"); value > 1850; i += TimeSpan.FromMinutes(1))
         {
             value -= 10;
             data = new SensorData();

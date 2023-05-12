@@ -30,7 +30,9 @@ export default function SheduleTasks() {
         title: 'Датчики',
         path: '/api/ap/shedule-tasks', 
         children: columns,
-        navigate: useNavigate()
+        navigate: useNavigate(),
+          allowDelete: false,
+          allowEdit: false,
         //rowActions: rowActions
       })
 

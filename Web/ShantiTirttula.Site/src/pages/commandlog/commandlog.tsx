@@ -37,7 +37,9 @@ export default function CommandLog() {
       title: 'Команды',
       path: '/api/commandlog', 
       children: columns,
-      navigate: useNavigate()
+      navigate: useNavigate(),
+      allowDelete: false,
+      allowEdit: false,
     })
 
   return (

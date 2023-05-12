@@ -21,9 +21,11 @@ import { ShantiApiDelete } from '../../api/shantiajax';
 interface ShantiDataGridProps {
     path: string,
     title: string,
-    rowActions?: any,
+    rowActions?: any[],
     children: any,
     navigate: any,
+    allowEdit: boolean,
+    allowDelete: boolean
 }
 
 function isNotEmpty(value) {
@@ -37,6 +39,7 @@ class ShantiDataGrid extends React.PureComponent<ShantiDataGridProps> {
     dataSource: DataSource;
     dataGrid : any;
     columns: any[];
+    actions: any[];
 
     constructor(props:ShantiDataGridProps){
         super(props);
@@ -74,22 +77,36 @@ class ShantiDataGrid extends React.PureComponent<ShantiDataGridProps> {
 
     renderCommandCell(){
         let items = [];
-        items.push({             
-          text:'Удалить',
-          icon:'trash',
-          onClick: this.removeCellClick              
-        });
 
         items.push(
-          //<Link to={'form?mode=edit&id='+ this.dataGrid.GetSelectedItems()[0].id}>
-          {
-            text:'Изменить',
-            icon:'edit',
-            onClick: ()=>{
-              this.props.navigate('form?mode=edit&id='+ this.dataGrid.instance.getSelectedRowsData()[0].id)
+            {
+                text: 'Просмотр',
+                icon: 'info',
+                onClick: () => {
+                    this.props.navigate('form?mode=view&id=' + this.dataGrid.instance.getSelectedRowsData()[0].id)
+                }
             }
-          }
         );
+
+        if(this.props.allowDelete) {
+            items.push({
+                text: 'Удалить',
+                icon: 'trash',
+                onClick: this.removeCellClick
+            });
+        }
+
+        if(this.props.allowEdit) {
+            items.push(
+                {
+                    text: 'Изменить',
+                    icon: 'edit',
+                    onClick: () => {
+                        this.props.navigate('form?mode=edit&id=' + this.dataGrid.instance.getSelectedRowsData()[0].id)
+                    }
+                }
+            );
+        }
 
         if(this.props.rowActions != undefined){
           this.props.rowActions.forEach(element => {
@@ -111,6 +128,7 @@ class ShantiDataGrid extends React.PureComponent<ShantiDataGridProps> {
             itemRender={(el)=>{
               return (<Button 
                 icon={el.icon}
+                //text={el.text}
                 onClick= {(id)=>{
                   el.onClick();
                 }}
@@ -235,7 +253,7 @@ class ShantiDataGrid extends React.PureComponent<ShantiDataGridProps> {
                     <Export enabled={true} />
                     {this.getToolbar()}
                     <Column
-                      width={'5%'}
+                      width={'80'}
                       cellRender={this.renderCommandCell}
                     />
                     {this.columns.map((col, i) => {       

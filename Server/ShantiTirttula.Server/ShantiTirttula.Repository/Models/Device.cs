@@ -8,5 +8,6 @@ namespace ShantiTirttula.Repository.Models
         public virtual IDeviceType Type { get; set; }
         public virtual int Pin { get; set; }
         public virtual bool IsAnalog { get; set; }
+        public virtual bool IsAvailable { get; set; }
     }
 }

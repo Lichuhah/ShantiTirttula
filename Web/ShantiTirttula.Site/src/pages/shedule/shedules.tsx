@@ -40,7 +40,9 @@ export default function Shedules() {
         path: '/api/ap/shedules', 
         children: columns,
         //rowActions: rowActions
-        navigate: useNavigate()
+        navigate: useNavigate(),
+          allowDelete: false,
+          allowEdit: false,
       })
 
   return (

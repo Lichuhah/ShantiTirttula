@@ -18,9 +18,22 @@ namespace ShantiTirttula.Server.Api.Controllers
         {
             SensorManager sensorManager = new SensorManager();
             ISensor sensor = sensorManager.Get(id);
-            var algorithm = sensor.Type.Algorithm;
-            var result = sensor.SensorDatas.Select(x => SensorAlgorithmHelper.GetValue(x)).ToList();
             var dto = sensor.SensorDatas.Select(x => new SensorDataDto()
+            {
+                Id = x.Id,
+                DateTime = x.DateTime,
+                Value = SensorAlgorithmHelper.GetValue(x)
+            }).ToList();
+            return new ApiResponse<List<SensorDataDto>>().SetData(dto).Result();
+        }
+        
+        [HttpGet("{id:int}/bytime/{start:datetime}/{end:datetime}")]
+        public ActionResult GetByTime(int id, DateTime start, DateTime end)
+        {
+            SensorManager sensorManager = new SensorManager();
+            ISensor sensor = sensorManager.Get(id);
+            var data = sensor.SensorDatas.Where(x => x.DateTime > start && x.DateTime < end);
+            var dto = data.Select(x => new SensorDataDto()
             {
                 Id = x.Id,
                 DateTime = x.DateTime,

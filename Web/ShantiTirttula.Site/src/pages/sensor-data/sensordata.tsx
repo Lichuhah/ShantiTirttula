@@ -10,6 +10,8 @@ export default function Triggers() {
   return (
     <React.Fragment>
       <ShantiDataGrid
+        allowDelete={false}
+        allowEdit= {false}
         navigate = {useNavigate()}
         title={'Значения датчиков'}
         path={'/api/sensordata'}

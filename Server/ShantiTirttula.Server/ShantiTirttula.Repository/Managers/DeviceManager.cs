@@ -20,7 +20,8 @@ namespace ShantiTirttula.Repository.Managers
                 Id = entity.Id,
                 TypeName = entity.Type.Name,
                 IsPwm = entity.IsAnalog,
-                Pin = entity.Pin
+                Pin = entity.Pin,
+                IsAvailable = entity.IsAvailable
             };
             return dto;
         }
@@ -36,6 +37,7 @@ namespace ShantiTirttula.Repository.Managers
             DeviceDto dto = (DeviceDto)data;
             item.Pin = dto.Pin;
             item.IsAnalog = dto.IsPwm;
+            item.IsAvailable = dto.IsAvailable;
             if (dto.ControllerId > 0)
             {
                 item.Controller = new MicroControllerManager().Get(dto.ControllerId);

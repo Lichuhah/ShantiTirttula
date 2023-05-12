@@ -11,6 +11,10 @@ namespace ShantiTirttula.Repository.Mappings
             {
                 map.Column("PIN");
             });
+            Property(x => x.IsAvailable, map =>
+            {
+                map.Column("IS_AVAILABLE");
+            });
             Property(x => x.IsAnalog, map =>
             {
                 map.Column("ANALOG");

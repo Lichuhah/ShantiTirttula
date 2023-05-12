@@ -7,5 +7,6 @@
         //public IList<IDeviceLog> Logs { get; set; }
         public int Pin { get; set; }
         public bool IsAnalog { get; set; }
+        public bool IsAvailable { get; set; }
     }
 }

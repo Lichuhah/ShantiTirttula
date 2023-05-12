@@ -14,8 +14,8 @@ export default function Devices() {
       caption={'Тип'}
     />,
     <Column
-      dataField={'pin'}
-      caption={'Номер пина'}
+      dataField={'isAvailable'}
+      caption={'Доступность'}
     />,
     <Column
       dataField={'isPwm'}
@@ -26,6 +26,8 @@ export default function Devices() {
   let grid:ShantiDataGrid = new ShantiDataGrid(
     { 
       navigate: useNavigate(),
+        allowDelete: false,
+        allowEdit: false,
       title: 'Устройства',
       path: '/api/devices', 
       children: columns,

@@ -19,12 +19,12 @@
   }
 }
 
-.dx-icon {  
-  font-size: 4em;  
-  width: 100px;  
-  height: auto;  
-  line-height: normal;  
-}  
+.dx-icon {
+  font-size: 4em;
+  width: 100px;
+  height: auto;
+  line-height: normal;
+}
 
 .dx-toolbar .dx-toolbar-item.dx-toolbar-button.menu-button {
   width: $side-panel-min-width;
@@ -45,4 +45,9 @@
   .user-button>.dx-button-content {
     padding: 3px;
   }
+}
+
+.sumeru-icon {
+  padding-bottom: 4px !important;
+  padding-top: 4px !important;
 }

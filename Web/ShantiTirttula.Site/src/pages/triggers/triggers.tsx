@@ -10,6 +10,8 @@ export default function Triggers() {
   return (
     <React.Fragment>
       <ShantiDataGrid
+          allowDelete = {false}
+        allowEdit = {false}
         title={'Триггеры'}
         path={'/api/triggers'}
         navigate ={useNavigate()}

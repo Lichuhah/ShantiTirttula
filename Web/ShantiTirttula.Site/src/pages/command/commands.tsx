@@ -33,7 +33,9 @@ export default function Commands() {
         title: 'Команды',
         path: '/api/ap/commands', 
         children: columns,
-        navigate: useNavigate()
+        navigate: useNavigate(),
+          allowDelete: false,
+          allowEdit: false,
         //rowActions: rowActions
       })
 

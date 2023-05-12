@@ -9,5 +9,6 @@ namespace ShantiTirttula.Domain.Dto.Models
         public string TypeName { get; set; }
         public int Pin { get; set; }
         public bool IsPwm { get; set; }
+        public bool IsAvailable { get; set; }
     }
 }

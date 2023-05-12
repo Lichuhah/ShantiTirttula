@@ -1,5 +1,6 @@
 ﻿using ShantiTirttula.Domain.Dto;
 using ShantiTirttula.Domain.Dto.Models;
+using ShantiTirttula.Domain.Enums;
 using ShantiTirttula.Domain.Managers;
 using ShantiTirttula.Domain.Models;
 using ShantiTirttula.Repository.Models;
@@ -25,6 +26,17 @@ namespace ShantiTirttula.Repository.Managers
             dto.TypeName = entity.Product.Name;
             dto.LastDateTime = entity.LastDateTime;
             dto.IsConnected = dto.LastDateTime > dto.LastDateTime - TimeSpan.FromHours(1) ? true : false;
+
+            switch (entity.Producer)
+            {
+                case ECommandProducerAlgorithm.NoneProducer:
+                    dto.ProducerType = "Отсутствует"; break;
+                case ECommandProducerAlgorithm.TaskProducer:
+                    dto.ProducerType = "Ручное"; break;
+                case ECommandProducerAlgorithm.TriggerProducer:
+                    dto.ProducerType = "По правилам"; break;
+                default: dto.ProducerType = ""; break;
+            }
             return dto;
         }
 
