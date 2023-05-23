@@ -1,6 +1,6 @@
 import { Chart } from "devextreme-react";
 import { CommonSeriesSettings, Series } from "devextreme-react/chart";
-import { Item, SimpleItem, IItemProps } from "devextreme-react/form";
+import {Item, SimpleItem, IItemProps, Label} from "devextreme-react/form";
 import DataSource from "devextreme/data/data_source";
 import React from "react";
 import { ShantiApiGet } from "../../api/shantiajax";

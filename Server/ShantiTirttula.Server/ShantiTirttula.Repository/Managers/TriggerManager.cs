@@ -2,6 +2,7 @@
 using ShantiTirttula.Domain.Dto.Models;
 using ShantiTirttula.Domain.Managers;
 using ShantiTirttula.Domain.Models;
+using ShantiTirttula.Repository.Helpers;
 using ShantiTirttula.Repository.Managers.Managment.Shedules;
 using ShantiTirttula.Repository.Models;
 
@@ -27,11 +28,14 @@ namespace ShantiTirttula.Repository.Managers
             {
                 Id = entity.Id,
                 SensorNumber = entity.Sensor.Number,
-                TriggerValue = entity.TriggerValue,
+                TriggerValue = (float)Math.Round(SensorAlgorithmHelper.GetValue(entity.TriggerValue, entity.Sensor),1),
                 Type = (Domain.Enums.ETriggerType)entity.Type.Id,
                 TypeName = entity.Type.Name,
                 SensorId = entity.Sensor.Id,
-                Command = new SheduleCommandManager().ConvertToDto(entity.Command)
+                SensorUnit = entity.Sensor.Type.Unit,
+                Command = new SheduleCommandManager().ConvertToDto(entity.Command),
+                SensorName = entity.Sensor.Type.Name,
+                IsAutonomy = entity.IsAutonomy
             };
             return dto;
         }

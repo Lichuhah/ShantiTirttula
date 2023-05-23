@@ -13,6 +13,15 @@ namespace ShantiTirttula.Repository.Helpers
                 default: return data.Value;
             }
         }
+        
+        public static double GetValue(float value, ISensor sensor)
+        {
+            switch (sensor.Type.Algorithm)
+            {
+                case ESensorDataAlgorithm.ClassicAlgorithm: return ClassicAlgorithm(value, sensor);
+                default: return value;
+            }
+        }
 
         private static double ClassicAlgorithm(ISensorData data)
         {
@@ -22,6 +31,16 @@ namespace ShantiTirttula.Repository.Helpers
                 return data.Sensor.Type.MaxValue - value;
             else
                 return data.Sensor.Type.MinValue + value;
+        }
+        
+        private static double ClassicAlgorithm(float oldvalue, ISensor sensor)
+        {
+            double voltage = oldvalue * (sensor.Controller.Voltage / sensor.Controller.AdcMax);
+            double value = voltage * ((sensor.Type.MaxValue - sensor.Type.MinValue) / sensor.Type.Power);
+            if (sensor.Type.IsReverse)
+                return sensor.Type.MaxValue - value;
+            else
+                return sensor.Type.MinValue + value;
         }
     }
 }

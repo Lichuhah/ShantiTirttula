@@ -10,27 +10,31 @@ export default function Triggers() {
   return (
     <React.Fragment>
       <ShantiDataGrid
-          allowDelete = {false}
-        allowEdit = {false}
+          allowDelete = {true}
+        allowEdit = {true}
         title={'Триггеры'}
         path={'/api/triggers'}
         navigate ={useNavigate()}
       >
         <Column
-          dataField={'deviceValue'}
-          caption={'Ключ'}
-          hidingPriority={8}
-        />
-        <Column
+          dataField={'sensorName'}
+          caption={'Датчик'}
+        /><Column
           dataField={'typeName'}
-          caption={'Мас адрес'}
-          hidingPriority={8}
-        />
-        <Column
+          caption={'Условие'}
+      /><Column
           dataField={'triggerValue'}
-          caption={'Тип контроллера'}
-          hidingPriority={6}
-        />
+          caption={'Значение'}
+      /><Column
+          dataField={'sensorUnit'}
+          caption={'Единица'}
+      /><Column
+          dataField={'command.name'}
+          caption={'Команда'}
+      /><Column
+          dataField={'isAutonomy'}
+          caption={'Автономный'}
+      />
       </ShantiDataGrid>     
     </React.Fragment>
 )}

@@ -11,22 +11,26 @@ export default function ShedulesForm() {
             <Item
                 dataField={'startTime'}
                 editorType={'dxDateBox'}
-                editorOptions={{type: 'datetime', min: new Date()}}
+                editorOptions={{type: 'time'}}
                 itemType={'simple'}
+                label={{text:"Время начала"}}
             />
             <Item
                 dataField={'endTime'}
                 editorType={'dxDateBox'}
-                editorOptions={{type: 'datetime'}}
+                editorOptions={{type: 'time'}}
                 itemType={'simple'}
+                label={{text:"Время окончания"}}
             />
             <Item
                 dataField={'period'}
                 //editorType={'dxTextBox'}
                 itemType={'simple'}
+                label={{text:"Периодичность"}}
             />
             <SimpleItem
                 dataField={'startCommandId'}
+                label={{text:"Начальная команда"}}
                 render={()=>{ return (
                     <ShantiSelectBox
                         path="/api/ap/commands"
@@ -38,6 +42,7 @@ export default function ShedulesForm() {
             <SimpleItem
                 dataField={'endCommandId'}
                 editorType={'dxTextBox'}
+                label={{text:"Конечная команда"}}
                 render={()=>{ return (
                     <ShantiSelectBox
                         path="/api/ap/commands"
@@ -46,6 +51,41 @@ export default function ShedulesForm() {
                     />
                 )}}
             />
+              <Item
+                  label={{text:"Дни недели"}}
+                  itemType={"group"}
+                  colCount={2}
+                  items={[
+                      {
+                          editorType: 'dxCheckBox',
+                          editorOptions: {text:"Понедельник"}
+                      },
+                      {
+                          editorType: 'dxCheckBox',
+                          editorOptions: {text:"Вторник"}
+                      },
+                      {
+                          editorType: 'dxCheckBox',
+                          editorOptions: {text:"Среда"}
+                      },
+                      {
+                          editorType: 'dxCheckBox',
+                          editorOptions: {text:"Четверг"}
+                      },
+                      {
+                          editorType: 'dxCheckBox',
+                          editorOptions: {text:"Пятница"}
+                      },
+                      {
+                          editorType: 'dxCheckBox',
+                          editorOptions: {text:"Суббота"}
+                      },
+                      {
+                          editorType: 'dxCheckBox',
+                          editorOptions: {text:"Воскресенье"}
+                      },
+                  ]}
+              />
             </ShantiItemForm>    
         </React.Fragment>
     );

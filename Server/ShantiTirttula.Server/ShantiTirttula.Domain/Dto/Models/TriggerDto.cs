@@ -9,7 +9,10 @@ namespace ShantiTirttula.Domain.Dto.Models
         public ETriggerType Type { get; set; }
         public string? TypeName { get; set; }
         public int? SensorNumber { get; set; }
+        public string SensorUnit { get; set; }
+        public string SensorName { get; set; }
         public float TriggerValue { get; set; }
         public CommandDto Command { get; set; }
+        public bool IsAutonomy { get; set; }
     }
 }

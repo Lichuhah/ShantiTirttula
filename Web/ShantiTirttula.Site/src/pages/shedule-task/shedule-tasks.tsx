@@ -19,6 +19,10 @@ export default function SheduleTasks() {
 
     let columns = [
         <Column
+            dataField={'command.name'}
+            caption={'Команда'}
+        />,
+        <Column
           dataField={'startDateTime'}
           dataType={'datetime'}
           caption={'Время'}
@@ -27,7 +31,7 @@ export default function SheduleTasks() {
 
     let grid:ShantiDataGrid = new ShantiDataGrid(
       { 
-        title: 'Датчики',
+        title: 'Запланированные задачи',
         path: '/api/ap/shedule-tasks', 
         children: columns,
         navigate: useNavigate(),
