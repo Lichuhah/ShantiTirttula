@@ -2,6 +2,7 @@ StaticJsonDocument<200> serialDoc;
 
 void ReadSerial(){
   if (Serial.available() > 0) {
+    Serial.println("GET MESS");
     String message = Serial.readString();
     DeserializationError error = deserializeJson(serialDoc, message);
    
@@ -10,6 +11,7 @@ void ReadSerial(){
       Serial.println(error.f_str());
       return;
     } else {
+      Serial.println(serialDoc["command"].as<String>());
       String command = serialDoc["command"].as<String>();
       ExecuteSerialCommand(command);
     }

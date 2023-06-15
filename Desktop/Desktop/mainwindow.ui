@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Конфигуратор</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -26,8 +26,11 @@
       </item>
       <item>
        <widget class="QLabel" name="LblPortStatus">
+        <property name="styleSheet">
+         <string notr="true">color: green;</string>
+        </property>
         <property name="text">
-         <string>Состояние порта</string>
+         <string>Обнаружен.</string>
         </property>
        </widget>
       </item>
@@ -54,6 +57,9 @@
         <property name="enabled">
          <bool>false</bool>
         </property>
+        <property name="text">
+         <string>TP-Link_2A24</string>
+        </property>
        </widget>
       </item>
       <item>
@@ -67,6 +73,12 @@
        <widget class="QLineEdit" name="TxtWifiPassword">
         <property name="enabled">
          <bool>false</bool>
+        </property>
+        <property name="text">
+         <string>393-63-461</string>
+        </property>
+        <property name="echoMode">
+         <enum>QLineEdit::Password</enum>
         </property>
        </widget>
       </item>
@@ -82,12 +94,18 @@
         <property name="enabled">
          <bool>false</bool>
         </property>
+        <property name="text">
+         <string>94:3C:C6:38:72:40</string>
+        </property>
        </widget>
       </item>
       <item>
        <widget class="QLabel" name="LblWifiStatus">
+        <property name="styleSheet">
+         <string notr="true">color: green;</string>
+        </property>
         <property name="text">
-         <string>Состояние подключения</string>
+         <string>Подключено.</string>
         </property>
        </widget>
       </item>
@@ -120,7 +138,14 @@
        </widget>
       </item>
       <item>
-       <widget class="QLineEdit" name="TxtUserLogin"/>
+       <widget class="QLineEdit" name="TxtUserLogin">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="text">
+         <string>admin</string>
+        </property>
+       </widget>
       </item>
       <item>
        <widget class="QLabel" name="LblUserPassword">
@@ -131,6 +156,12 @@
       </item>
       <item>
        <widget class="QLineEdit" name="TxtUserPassword">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="text">
+         <string>admin</string>
+        </property>
         <property name="echoMode">
          <enum>QLineEdit::Password</enum>
         </property>
@@ -138,13 +169,19 @@
       </item>
       <item>
        <widget class="QLabel" name="lblUserStatus">
+        <property name="styleSheet">
+         <string notr="true">color: green;</string>
+        </property>
         <property name="text">
-         <string>Состояние пользователя</string>
+         <string>Авторизован.</string>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QPushButton" name="BtnLogin">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="text">
          <string>Логин</string>
         </property>
@@ -152,6 +189,9 @@
       </item>
       <item>
        <widget class="QPushButton" name="BtnChangeUser">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
         <property name="text">
          <string>Сменить пользователя</string>
         </property>
@@ -173,15 +213,18 @@
         <property name="enabled">
          <bool>false</bool>
         </property>
+        <property name="text">
+         <string>GOIH8TT93UGRV7MV</string>
+        </property>
        </widget>
       </item>
       <item>
        <widget class="QPushButton" name="BtnGetMcKey">
         <property name="enabled">
-         <bool>false</bool>
+         <bool>true</bool>
         </property>
         <property name="text">
-         <string>Получить ключ</string>
+         <string>Перерегистрация</string>
         </property>
        </widget>
       </item>
@@ -198,7 +241,7 @@
      <x>0</x>
      <y>0</y>
      <width>793</width>
-     <height>22</height>
+     <height>17</height>
     </rect>
    </property>
   </widget>

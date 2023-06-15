@@ -75,6 +75,7 @@ void loop() {
    //Serial.println(IsWiFiConnect);
    //Serial.println(IsMqttConnect);
    ReadSerial();
+   Serial.println("SERIAL");
    if(isConnected){
       networkLoop();
    } else {

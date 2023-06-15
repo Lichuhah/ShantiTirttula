@@ -1,7 +1,7 @@
 bool WIFIinit() {
   // Попытка подключения к точке доступа
   WiFi.mode(WIFI_STA);
-  byte tries = 11;
+  byte tries = 3;
   WiFi.begin(wifi_ssid.c_str(), wifi_password.c_str());
   // Делаем проверку подключения до тех пор пока счетчик tries
   // не станет равен нулю или не получим подключение

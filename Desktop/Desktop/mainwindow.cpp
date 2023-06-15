@@ -23,6 +23,7 @@ MainWindow::~MainWindow()
 }
 
 void MainWindow::InitSerial(){
+    printf("aaaa");
   foreach(QSerialPortInfo port, QSerialPortInfo::availablePorts()){
       this->ui->CmbPorts->addItem(port.portName());
       if(port.description()=="USB-SERIAL CH340"){
@@ -39,6 +40,7 @@ void MainWindow::InitWiFi(){
     //this->ui->TxtMcConfig->setPlainText(QJsonDocument(textObject).toJson(QJsonDocument::Indented));
     serial->waitForBytesWritten(10000);
     serial->waitForReadyRead(10000);
+    printf("aaaa");
     if(serial->bytesAvailable()){
         QString received = serial->readAll();
         QJsonDocument jsonResponse = QJsonDocument::fromJson(received.toUtf8());
@@ -55,6 +57,8 @@ void MainWindow::InitWiFi(){
         } else {
             this->ui->LblWifiStatus->setText("Wifi is not connect.");
         }
+    } else {
+        this->ui->LblWifiStatus->setText("error");
     }
 }
 
